@@ -15,8 +15,6 @@ import java.util.Date;
 
 @SpringBootApplication
 @Component
-@EnableJpaRepositories(basePackages = "edu.uy.um.wtf.WtfApplication.repository")
-@EntityScan(basePackages = "edu.uy.um.wtf.WtfApplication.entities")
 
 public class WtfApplication {
 
