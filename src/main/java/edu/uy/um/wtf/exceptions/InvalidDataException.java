@@ -1,4 +1,6 @@
 package edu.uy.um.wtf.exceptions;
 
-public class InvalidDataException {
+public class InvalidDataException extends Exception{
+    public InvalidDataException(String a) {
+    }
 }
