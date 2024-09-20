@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario</title>
+    <style>
+        /* Estilos básicos para el cuerpo de la página */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #d0dbf2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Estilos para el contenedor del formulario */
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+        }
+
+        /* Estilo para el título del formulario */
+        .form-container h1 {
+            margin-bottom: 20px;
+        }
+
+        /* Estilo para las etiquetas del formulario */
+        .form-container label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Estilo para los campos de entrada */
+        .form-container input[type="text"],
+        .form-container input[type="number"],
+        .form-container input[type="date"],
+        .form-container input[type="email"] {
+            width: calc(100% - 12px); /* Reduce el ancho para dejar espacio para el padding */
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* Estilo para el botón de enviar */
+        .form-container input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* Estilo para el botón de enviar cuando se pasa el cursor sobre él */
+        .form-container input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        /* Estilo para los mensajes de éxito y error */
+        .form-container .message,
+        .form-container .error {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h1>Nuevo Usuario</h1>
+    <hr>
+    <form action="/api/v1/user/register" method="POST">
+        <label for="id">Cédula:</label>
+        <input type="text" name="id" id="id" required oninput="formatCedula(this)"><br>
+
+        <label for="firstName">Nombre:</label>
+        <input type="text" name="firstName" id="firstName" required><br>
+
+        <label for="lastName">Apellido:</label>
+        <input type="text" name="lastName" id="lastName" required><br>
+
+        <label for="birthDate">Fecha de nacimiento (yyyy-MM-dd):</label>
+        <input type="date" name="birthDate" id="birthDate" required><br>
+
+        <label for="age">Edad:</label>
+        <input type="number" name="age" id="age" required><br>
+
+        <label for="mail">Correo electrónico:</label>
+        <input type="email" name="mail" id="mail" required><br>
+
+        <input type="submit" value="Registrar">
+    </form>
+</div>
+
+<script>
+    function formatCedula(input) {
+        let value = input.value.replace(/\D/g, ''); // Elimina cualquier carácter no numérico
+        if (value.length > 7) {
+            value = value.slice(0, 7) + '-' + value.slice(7, 12); // Agrega el guion después del séptimo dígito
+        }
+        input.value = value;
+    }
+</script>
+</body>
+</html>
