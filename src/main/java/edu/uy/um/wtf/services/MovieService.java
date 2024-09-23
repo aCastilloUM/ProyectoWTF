@@ -5,6 +5,7 @@ import edu.uy.um.wtf.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Optional;
 
 public class MovieService {
 
@@ -13,16 +14,16 @@ public class MovieService {
 
     public Movie addMovie(String title, List<String> genre, String director, int duration) {
         if (title == null || title.isEmpty() || genre == null || genre.isEmpty() || director == null || director.isEmpty()) {
-            return null; //Lanzar excepcion
+            return null;
         }
         if (duration < 0) {
-            return null; //Lanzar excepcion
+            return null;
         }
         if (movieRepository.findByTitle(title).isPresent()) {
-            return null; //Lanzar excepcion
+            return null;
         }
         if (title.trim().equals("") || director.trim().equals("")) {
-            return null; //Lanzar excepcion
+            return null;
         }
 
         Movie movie = Movie.builder()
@@ -34,4 +35,46 @@ public class MovieService {
 
         return movieRepository.save(movie);
     }
+
+    public List<Movie> getAll() {
+        return movieRepository.findAll();
+    }
+
+    public Optional<Movie> findByTitle(String title) {
+        if (title == null || title.isEmpty()) {
+            return null;
+        }
+        return movieRepository.findByTitle(title);
+    }
+
+    public Optional<Movie> findById(Long id) {
+        if (id == null) {
+            return null;
+        }
+        return movieRepository.findById(id);
+    }
+
+    public List<Movie> findByDirector(String director) {
+        if (director == null || director.isEmpty()) {
+            return null;
+        }
+        return movieRepository.findByDirector(director);
+    }
+
+    public List<Movie> findByGenre(String genre) {
+        if (genre == null || genre.isEmpty()) {
+            return null;
+        }
+        return movieRepository.findByGenre(genre);
+    }
+
+    public Movie updateMovie(Movie movie) {
+        if (movieRepository.existsById(movie.getId())) {
+            return movieRepository.save(movie);
+        }
+        return null;
+    }
+
+
+
 }
