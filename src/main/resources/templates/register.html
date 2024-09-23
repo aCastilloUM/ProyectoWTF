@@ -66,6 +66,21 @@
             box-sizing: border-box;
         }
 
+        /* Estilo para el enlace de método de pago */
+        .payment-link {
+            display: block;
+            margin-bottom: 10px; /* Añade espacio debajo del enlace */
+            text-align: center;
+            font-size: 12px; /* Achica el tamaño de la fuente */
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        /* Estilo para el enlace de método de pago cuando se pasa el cursor sobre él */
+        .payment-link:hover {
+            text-decoration: underline;
+        }
+
         /* Estilo para el botón de enviar */
         .form-container input[type="submit"] {
             width: 100%;
@@ -111,6 +126,9 @@
 
         <label for="mail">Correo electrónico:</label>
         <input type="email" name="mail" id="mail" required><br>
+
+        <!-- Enlace de método de pago arriba del botón de registro -->
+        <a href="/metodoPago" class="payment-link">¿Quieres ingresar un método de pago? Hazlo aquí</a>
 
         <input type="submit" value="Registrar">
     </form>
