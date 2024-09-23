@@ -24,11 +24,7 @@ public class UserRestController {
 
     @PostMapping("/register")
     public ResponseEntity<User> registerUser(@RequestParam long id, @RequestParam String firstName, @RequestParam String lastName, @RequestParam Date birthDate, @RequestParam String mail) throws InvalidDataException {
-        // Crear un nuevo objeto User
-        User newUser = new User(id, firstName, lastName, birthDate, mail);
-
-        // Guardar el usuario en la base de datos
-        userService.saveUser(newUser);
-        return ResponseEntity.ok(newUser);
+        userService.addUser(id,firstName,lastName,birthDate,mail);
+        return ResponseEntity.ok(userService.findByEmail(mail));
     }
 }

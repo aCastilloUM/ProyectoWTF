@@ -27,8 +27,8 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User addUser(Long id, String firstName, String lastName, Date birthDate, int age, String mail) throws InvalidDataException {
-        if (firstName == null || lastName == null || birthDate == null || age <= 0 || mail == null){
+    public User addUser(Long id, String firstName, String lastName, Date birthDate, String mail) throws InvalidDataException {
+        if (firstName == null || lastName == null || birthDate == null || mail == null){
             throw new InvalidDataException("Los datos no son correctos");
         }
 
