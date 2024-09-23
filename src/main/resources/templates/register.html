@@ -23,11 +23,28 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 350px;
+            position: relative;
+        }
+
+        /* Estilo para el enlace de flecha de regreso */
+        .back-link {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            text-decoration: none;
+            font-size: 20px;
+            color: gray; /* Cambia la flecha a color gris */
+        }
+
+        /* Estilo cuando se pasa el cursor sobre la flecha */
+        .back-link:hover {
+            color: #505050; /* Un gris un poco más oscuro cuando se pasa el ratón */
         }
 
         /* Estilo para el título del formulario */
         .form-container h1 {
             margin-bottom: 20px;
+            text-align: center;
         }
 
         /* Estilo para las etiquetas del formulario */
@@ -66,17 +83,14 @@
             background-color: #0056b3;
         }
 
-        /* Estilo para los mensajes de éxito y error */
-        .form-container .message,
-        .form-container .error {
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: 4px;
-        }
     </style>
 </head>
 <body>
+
 <div class="form-container">
+    <!-- Flecha gris dentro del cuadro blanco del formulario -->
+    <a href="/user/logIn" class="back-link">&#8592;</a>
+
     <h1>Nuevo Usuario</h1>
     <hr>
     <form action="/api/v1/user/register" method="POST">
