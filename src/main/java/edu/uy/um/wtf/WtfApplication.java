@@ -16,7 +16,7 @@ import java.util.Date;
 @SpringBootApplication
 @Component
 
-public class WtfApplication {
+public class  WtfApplication {
 
 	@Autowired
 	private UserService userService;

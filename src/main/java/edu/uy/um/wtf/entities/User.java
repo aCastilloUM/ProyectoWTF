@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "User")
+@Table(name = "Clients")
 @Getter
 @Setter
 @Builder
