@@ -1,14 +1,9 @@
 package edu.uy.um.wtf.entities;
 
 import jakarta.persistence.*;
-        import lombok.*;
+import lombok.*;
 
-        import java.io.Serializable;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-
-import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "Admin")
@@ -20,6 +15,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 public class Admin {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private Long id;
 
@@ -37,8 +33,7 @@ public class Admin {
     private int age;
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return (new StringBuilder())
                 .append("\tAdmin{Id: ")
                 .append(id)
@@ -47,9 +42,9 @@ public class Admin {
                 .append("\t, Last name: ")
                 .append(lastName)
                 .append("\t, Birthdate: ")
-                .append( birthDate )
+                .append(birthDate)
                 .append("\t, Age: ")
-                .append( age )
+                .append(age)
                 .append("}")
                 .toString();
     }
