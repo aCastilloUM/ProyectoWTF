@@ -1,10 +1,10 @@
 package edu.uy.um.wtf.services;
 
 
-import edu.uy.um.wtf.entities.Function;
+import edu.uy.um.wtf.entities.FilmShow;
 import edu.uy.um.wtf.entities.Movie;
 import edu.uy.um.wtf.entities.Room;
-import edu.uy.um.wtf.repository.FunctionRepository;
+import edu.uy.um.wtf.repository.FilmShowRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +13,12 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class FunctionService {
+public class FilmShowService {
 
     @Autowired
-    private FunctionRepository functionRepository;
+    private FilmShowRepository filmShowRepository;
 
-    public Function addFunction(Date Date, LocalTime time, Movie movie, Room room, String Special_Effects, String Language) {
+    public FilmShow addFunction(Date Date, LocalTime time, Movie movie, Room room, String Special_Effects, String Language) {
         if (Date == null || time == null || movie == null || room == null || Special_Effects == null || Language == null) {
             return null;
         }
@@ -26,7 +26,7 @@ public class FunctionService {
             return null;
         }
 
-        Function function = Function.builder()
+        FilmShow filmShow = FilmShow.builder()
                 .date(Date)
                 .time(time)
                 .movie(movie)
@@ -36,57 +36,57 @@ public class FunctionService {
                 .duration(movie.getDuration())
                 .build();
 
-        return functionRepository.save(function);
+        return filmShowRepository.save(filmShow);
     }
-    public List<Function> getAll() {
-        return functionRepository.findAll();
+    public List<FilmShow> getAll() {
+        return filmShowRepository.findAll();
     }
 
-    public List<Function> findByDate(Date date) {
+    public List<FilmShow> findByDate(Date date) {
         if (date == null) {
             return null;
         }
-        return functionRepository.findByDate(date);
+        return filmShowRepository.findByDate(date);
     }
 
-    public List<Function> findByMovie(Movie movie) {
+    public List<FilmShow> findByMovie(Movie movie) {
         if (movie == null) {
             return null;
         }
-        return functionRepository.findByMovie(movie);
+        return filmShowRepository.findByMovie(movie);
     }
 
-    public List<Function> findByRoom(Room room) {
+    public List<FilmShow> findByRoom(Room room) {
         if (room == null) {
             return null;
         }
-        return functionRepository.findByRoom(room);
+        return filmShowRepository.findByRoom(room);
     }
 
-    public List<Function> findBySpecialEffects(String specialEffects) {
+    public List<FilmShow> findBySpecialEffects(String specialEffects) {
         if (specialEffects == null || specialEffects.isEmpty()) {
             return null;
         }
-        return functionRepository.findBySpecialEffects(specialEffects);
+        return filmShowRepository.findBySpecialEffects(specialEffects);
     }
 
-    public List<Function> findByLanguage(String language) {
+    public List<FilmShow> findByLanguage(String language) {
         if (language == null || language.isEmpty()) {
             return null;
         }
-        return functionRepository.findByLanguage(language);
+        return filmShowRepository.findByLanguage(language);
     }
 
-    public Function updateFunction(Function function) {
-        if (functionRepository.existsById(function.getId())) {
-            return functionRepository.save(function);
+    public FilmShow updateFunction(FilmShow filmShow) {
+        if (filmShowRepository.existsById(filmShow.getId())) {
+            return filmShowRepository.save(filmShow);
         }
         return null;
     }
 
     public void deleteFunction(Long id) {
         if (id != null) {
-            functionRepository.deleteById(id);
+            filmShowRepository.deleteById(id);
         }
     }
 

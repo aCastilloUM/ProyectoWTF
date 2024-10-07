@@ -10,14 +10,14 @@ import java.util.Date;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
-@Table(name = "Function")
+@Table(name = "FilmShow")
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Function {
+public class FilmShow {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)

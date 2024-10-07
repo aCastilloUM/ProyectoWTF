@@ -135,7 +135,7 @@
 </div>
 
 <script>
-    function formatCedula(input) {
+    filmShow formatCedula(input) {
         let value = input.value.replace(/\D/g, ''); // Elimina cualquier carácter no numérico
         if (value.length > 7) {
             value = value.slice(0, 7) + '-' + value.slice(7, 12); // Agrega el guion después del séptimo dígito
