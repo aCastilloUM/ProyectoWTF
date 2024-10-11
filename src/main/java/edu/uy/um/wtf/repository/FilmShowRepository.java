@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface FilmShowRepository extends JpaRepository<FilmShow, Long> {
@@ -20,4 +21,6 @@ public interface FilmShowRepository extends JpaRepository<FilmShow, Long> {
     List<FilmShow> findByRoom(Room room);
 
     List<FilmShow> findByMovie(Movie movie);
+
+    Optional<FilmShow> findById(Long id);
 }

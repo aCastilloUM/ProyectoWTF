@@ -61,4 +61,7 @@ public class SnackService {
         }
         return null;
     }
+
+    public void deleteSnack(Snack snack) {
+    }
 }

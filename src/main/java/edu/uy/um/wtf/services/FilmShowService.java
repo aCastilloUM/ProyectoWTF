@@ -4,6 +4,7 @@ package edu.uy.um.wtf.services;
 import edu.uy.um.wtf.entities.FilmShow;
 import edu.uy.um.wtf.entities.Movie;
 import edu.uy.um.wtf.entities.Room;
+import edu.uy.um.wtf.exceptions.EntityNotFoundException;
 import edu.uy.um.wtf.repository.FilmShowRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FilmShowService {
@@ -38,14 +40,23 @@ public class FilmShowService {
 
         return filmShowRepository.save(filmShow);
     }
+
+    public Optional<FilmShow> findById(Long id) {
+        if (id == null) {
+            return null;
+        }
+        return filmShowRepository.findById(id);
+    }
+
     public List<FilmShow> getAll() {
         return filmShowRepository.findAll();
     }
 
     public List<FilmShow> findByDate(Date date) {
         if (date == null) {
-            return null;
+            throw new EntityNotFoundException();
         }
+
         return filmShowRepository.findByDate(date);
     }
 

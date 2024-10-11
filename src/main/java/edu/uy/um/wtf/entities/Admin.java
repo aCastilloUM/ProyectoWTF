@@ -29,9 +29,6 @@ public class Admin {
     @Column(name = "Birthdate")
     private Date birthDate;
 
-    @Column(name = "Age")
-    private int age;
-
     @Override
     public String toString() {
         return (new StringBuilder())
@@ -43,8 +40,6 @@ public class Admin {
                 .append(lastName)
                 .append("\t, Birthdate: ")
                 .append(birthDate)
-                .append("\t, Age: ")
-                .append(age)
                 .append("}")
                 .toString();
     }

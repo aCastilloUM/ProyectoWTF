@@ -34,7 +34,7 @@ public class BillService {
         return billRepository.save(bill);
     }
 
-    public Bill addSnack(Bill bill, Snack snack){
+    public Bill addSnack(Bill bill, Snack snack, int cuantity){
         if (bill == null || snack == null) {
             return null;
         }

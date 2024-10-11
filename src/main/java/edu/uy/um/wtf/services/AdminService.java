@@ -28,7 +28,7 @@ public class AdminService {
     }
 
     public Admin addAdmin(Long id, String firstName, String lastName, Date birthdate, int age) throws InvalidDataException {
-        if (firstName == null || lastName == null || birthdate == null || age < 0 || age > 100){
+        if (firstName == null || lastName == null || birthdate == null){
             throw new InvalidDataException("Los datos no son correctos");
         }
 
@@ -37,7 +37,6 @@ public class AdminService {
                 .firstName(firstName)
                 .lastName(lastName)
                 .birthDate(birthdate)
-                .age(age)
                 .build();
         return adminRepository.save(newAdmin);
     }
@@ -55,10 +54,6 @@ public class AdminService {
         }
         adminRepository.deleteById(unAdmin.getId());
         return true;
-    }
-
-    public List<Admin> todosLosAdmins() {
-        return adminRepository.findAll();
     }
 
     public Optional<Admin> getById(Long id) {

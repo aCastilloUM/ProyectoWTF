@@ -1,4 +1,4 @@
-/*
+
 package edu.uy.um.wtf.controllers;
 
 import edu.uy.um.wtf.entities.Movie;
@@ -87,4 +87,3 @@ public class MovieWebController {
     }
 }
 
- */
