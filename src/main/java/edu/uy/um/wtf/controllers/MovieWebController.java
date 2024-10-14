@@ -26,7 +26,7 @@ public class MovieWebController {
         return "movies/list";
     }
 
-    @GetMapping("/byTitle")
+    @GetMapping("/byTitle{Title}")
     public String findByTitle(@PathVariable("Titulo") String title, Model model) {
         try {
             Movie laPelicula = movieService.findByTitle(title).get();
@@ -38,7 +38,7 @@ public class MovieWebController {
         }
     }
 
-    @GetMapping("/byDirector")
+    @GetMapping("/byDirector{Director}")
     public String findByDirector(@PathVariable("Director") String director, Model model) {
         try {
             List<Movie> peliculas = movieService.findByDirector(director);
@@ -50,7 +50,7 @@ public class MovieWebController {
         }
     }
 
-    @GetMapping("/byGenre")
+    @GetMapping("/byGenre{Genre}")
     public String findByGenre(@PathVariable("Genero") String genre, Model model) {
         try {
             List<Movie> peliculas = movieService.findByGenre(genre);
@@ -62,7 +62,7 @@ public class MovieWebController {
         }
     }
 
-    @GetMapping("/byId")
+    @GetMapping("/byId{Id}")
     public String findById(@PathVariable("Id") Long id, Model model) {
         try {
             Movie laPelicula = movieService.findById(id).get();
@@ -85,5 +85,22 @@ public class MovieWebController {
             return "error";
         }
     }
+
+    @PostMapping("/add")
+    public String addMovie(@RequestParam String title, @RequestParam List<String> director,
+                           @RequestParam String genre, @RequestParam int duration, Model model) {
+        try {
+            Movie movie = movieService.addMovie(title, director, genre, duration);
+            if (movie == null) {
+                throw new InvalidDataException("Invalid Data");
+            }
+            model.addAttribute("pelicula", movie);
+            return "movies/detail";
+        } catch (InvalidDataException e) {
+            model.addAttribute("error", "Invalid data");
+            return "error";
+        }
+    }
+
 }
 

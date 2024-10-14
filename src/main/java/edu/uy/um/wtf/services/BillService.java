@@ -1,7 +1,5 @@
 package edu.uy.um.wtf.services;
 
-
-import ch.qos.logback.core.net.server.Client;
 import edu.uy.um.wtf.entities.Bill;
 import edu.uy.um.wtf.entities.Snack;
 import edu.uy.um.wtf.entities.Ticket;
@@ -34,6 +32,9 @@ public class BillService {
         return billRepository.save(bill);
     }
 
+    public List<Bill> getAll(){
+        return billRepository.findAll();
+    }
     public Bill addSnack(Bill bill, Snack snack, int cuantity){
         if (bill == null || snack == null) {
             return null;
@@ -72,6 +73,10 @@ public class BillService {
         bill.setTotal(bill.getTotal() - snack.getPrice());
 
         return billRepository.save(bill);
+    }
+
+    public List<Bill> findByTotal(int total){
+        return billRepository.findByTotal(total);
     }
 
     public Bill findById(Long id){

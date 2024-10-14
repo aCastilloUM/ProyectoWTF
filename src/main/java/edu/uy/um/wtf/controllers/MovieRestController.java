@@ -26,7 +26,7 @@ public class MovieRestController {
         return ResponseEntity.ok(peliculas);
     }
 
-    @GetMapping("/byTitle")
+    @GetMapping("/byTitle{Title}")
     public ResponseEntity<?> findByTitle(@PathVariable("Titulo") String title) {
         try {
             Movie laPelicula = movieService.findByTitle(title).get();
@@ -36,7 +36,7 @@ public class MovieRestController {
         }
     }
 
-    @GetMapping("/byDirector")
+    @GetMapping("/byDirector{Director}")
     public ResponseEntity<?> findByDirector(@PathVariable("Director") String director) {
         try {
             List<Movie> peliculas = movieService.findByDirector(director);
@@ -46,7 +46,7 @@ public class MovieRestController {
         }
     }
 
-    @GetMapping("/byGenre")
+    @GetMapping("/byGenre{Id}")
     public ResponseEntity<?> findByGenre(@PathVariable("Genero") String genre) {
         try {
             List<Movie> peliculas = movieService.findByGenre(genre);
@@ -56,7 +56,7 @@ public class MovieRestController {
         }
     }
 
-    @GetMapping("/byId")
+    @GetMapping("/byId{Id}")
     public ResponseEntity<?> findById(@PathVariable("Id") Long id) {
         try {
             Movie laPelicula = movieService.findById(id).get();

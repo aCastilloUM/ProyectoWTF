@@ -2,13 +2,16 @@ package edu.uy.um.wtf.services;
 
 
 import edu.uy.um.wtf.entities.FilmShow;
+import edu.uy.um.wtf.entities.Room;
 import edu.uy.um.wtf.entities.Ticket;
 import edu.uy.um.wtf.entities.User;
 import edu.uy.um.wtf.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TicketService {
@@ -77,4 +80,31 @@ public class TicketService {
         return ticketRepository.findByRowandColumn(row, column);
     }
 
+    public Optional<Ticket> findById(Long id) {
+        if (id == null) {
+            return null;
+        }
+        return ticketRepository.findById(id);
+    }
+
+    public List<Ticket> findByUser(User user) {
+        if (user == null) {
+            return null;
+        }
+        return ticketRepository.findByUser(user);
+    }
+
+    public List<Ticket> findByDate(Date date) {
+        if (date == null) {
+            return null;
+        }
+        return ticketRepository.findByDate(date);
+    }
+
+    public List<Ticket> findByRoom(Room room) {
+        if (room == null) {
+            return null;
+        }
+        return ticketRepository.findByRoom(room);
+    }
 }

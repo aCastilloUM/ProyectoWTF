@@ -5,9 +5,7 @@ import edu.uy.um.wtf.entities.Snack;
 import edu.uy.um.wtf.exceptions.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import edu.uy.um.wtf.services.SnackService;
 import org.springframework.ui.Model;
 
@@ -52,8 +50,8 @@ public class SnackWebController {
         }
     }
 
-    @GetMapping("/add{Name}{Price}{Stock}")
-    public String addSnack(@PathVariable("Name") String name, @PathVariable("Price") double price, @PathVariable("Stock") int stock, Model model) {
+    @PostMapping("/add")
+    public String addSnack(@RequestParam String name, @RequestParam double price, @RequestParam int stock, Model model) {
         try {
             Snack snack = snackService.addSnack(name, price, stock);
             model.addAttribute("snack", snack);

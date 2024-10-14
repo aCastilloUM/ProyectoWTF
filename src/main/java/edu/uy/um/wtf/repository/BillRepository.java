@@ -12,4 +12,6 @@ import java.util.List;
 public interface BillRepository extends JpaRepository<Bill, Long> {
 
     List<Bill> findByClient(User client);
+
+    List<Bill> findByTotal(int total);
 }
