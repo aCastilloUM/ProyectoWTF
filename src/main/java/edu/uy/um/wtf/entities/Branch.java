@@ -1,10 +1,7 @@
 package edu.uy.um.wtf.entities;
 
-
 import jakarta.persistence.*;
 import lombok.*;
-
-import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "Branch")
@@ -13,10 +10,10 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class Branch {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private Long id;
 
@@ -28,5 +25,4 @@ public class Branch {
 
     @Column(name = "Rooms")
     private int rooms;
-
 }
