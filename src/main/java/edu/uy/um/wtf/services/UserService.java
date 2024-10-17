@@ -24,13 +24,17 @@ public class UserService {
         return userRepository.findByMail(email);
     }
 
+    public Optional<User> findById(Long id){
+        return userRepository.findById(id);
+    }
+
     public List<User> getAll(){
         return userRepository.findAll();
     }
 
-    public User addUser(Long id, String firstName, String lastName, Date birthDate, String mail) throws InvalidDataException {
+    public User addUser(Long id, String firstName, String lastName, Date birthDate, String mail){
         if (firstName == null || lastName == null || birthDate == null || mail == null){
-            throw new InvalidDataException("Los datos no son correctos");
+            return null;
         }
 
         User newUser = User.builder()

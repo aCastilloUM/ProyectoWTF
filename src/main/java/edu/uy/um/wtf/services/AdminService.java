@@ -27,7 +27,7 @@ public class AdminService {
         return adminRepository.findAll();
     }
 
-    public Admin addAdmin(Long id, String firstName, String lastName, Date birthdate, int age) throws InvalidDataException {
+    public Admin addAdmin(Long id, String firstName, String lastName, Date birthdate) throws InvalidDataException {
         if (firstName == null || lastName == null || birthdate == null){
             throw new InvalidDataException("Los datos no son correctos");
         }
@@ -41,22 +41,26 @@ public class AdminService {
         return adminRepository.save(newAdmin);
     }
 
-    public Admin updateAdmin(Admin unAdmin) {
-        if (adminRepository.existsById(unAdmin.getId())) {
-            return adminRepository.save(unAdmin);
+    public Admin updateAdmin(Admin admin) {
+        if (adminRepository.existsById(admin.getId())) {
+            return adminRepository.save(admin);
         }
         return null;
     }
 
-    public boolean delete(Admin unAdmin) {
-        if (unAdmin == null){
+    public boolean delete(Admin admin) {
+        if (admin == null){
             return false;
         }
-        adminRepository.deleteById(unAdmin.getId());
+        adminRepository.deleteById(admin.getId());
         return true;
     }
 
     public Optional<Admin> getById(Long id) {
         return adminRepository.findById(id);
+    }
+
+    public List<Object> findByFirstNameAndLastName(String firstName, String lastName) {
+        return adminRepository.findByFirstNameAndLastName(firstName, lastName);
     }
 }
