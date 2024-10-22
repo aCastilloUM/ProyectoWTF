@@ -30,16 +30,19 @@ public class FilmShow {
     @Column(name = "Time")
     private LocalTime time;
 
-    @Column(name = "Cinema Branch")
+    @ManyToOne
+    @JoinColumn(name = "Cinema_Branch")
     private Branch branch;
 
-    @Column(name = "Movie")
+    @ManyToOne
+    @JoinColumn(name = "Movie")
     private Movie movie;
 
-    @Column(name = "Room")
+    @ManyToOne
+    @JoinColumn(name = "Room")
     private Room room;
 
-    @Column(name = "Special Effects")
+    @Column(name = "Special_Effects")
     private String specialEffects;
 
     @Column(name = "Language")
