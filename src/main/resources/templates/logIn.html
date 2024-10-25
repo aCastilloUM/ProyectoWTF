@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +10,7 @@
         font-family: Arial, sans-serif;
         background-color: #d0dbf2;
         display: flex;
-        justify-content: center;
+        justify-content: flex-end; /* Mueve el contenido a la derecha */
         align-items: center;
         height: 100vh;
         margin: 0;
@@ -23,6 +23,7 @@
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         width: 300px;
+        margin-right: 20px; /* Añade un margen a la derecha */
     }
 
     /* Estilo para el título del formulario */
@@ -83,7 +84,7 @@
 <body>
 <div class="formulario">
   <h1>Iniciar Sesión</h1>
-  <form method="POST" action="/login">
+  <form th:action="@{/login}" method="POST">
     <div class="username">
       <label for="userName">Nombre de Usuario:</label>
       <input type="text" id="userName" name="userName" required>
@@ -92,7 +93,7 @@
       <input type="submit" value="Iniciar Sesión">
     </div>
   </form>
-  <a href="/register">¿No tienes una cuenta? Regístrate aquí</a>
+  <a th:href="@{/register}">¿No tienes una cuenta? Regístrate aquí</a>
 </div>
 </body>
 </html>
