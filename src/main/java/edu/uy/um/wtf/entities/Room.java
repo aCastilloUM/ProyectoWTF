@@ -4,6 +4,8 @@ package edu.uy.um.wtf.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
+
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
@@ -15,7 +17,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @NoArgsConstructor
 
 
-public class Room {
+public class Room implements Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -33,4 +35,8 @@ public class Room {
 
     @Column(name = "Columns")
     private int columns;
+
+    @ManyToOne
+    @JoinColumn(name = "Branch_Id", nullable = false)
+    private Branch branch;
 }

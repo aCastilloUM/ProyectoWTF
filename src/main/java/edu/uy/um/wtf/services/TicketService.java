@@ -19,16 +19,16 @@ public class TicketService {
     @Autowired
     private TicketRepository ticketRepository;
 
-    public Ticket newTicket (User client, FilmShow filmshow, int row, int column) {
-        if (client == null || filmshow == null || row < 0 || column < 0) {
+    public Ticket newTicket (User client, FilmShow filmshow, int row, int seatColumn) {
+        if (client == null || filmshow == null || row < 0 || seatColumn < 0) {
             return null;
         }
-        if (ticketRepository.findByRowandColumn(row, column) == null) {
+        if (ticketRepository.findByRowAndSeatColumn(row, seatColumn) == null) {
             Ticket ticket = Ticket.builder()
                     .client(client)
                     .filmShow(filmshow)
                     .row(row)
-                    .column(column)
+                    .seatColumn(seatColumn)
                     .build();
 
             return ticketRepository.save(ticket);
@@ -63,21 +63,21 @@ public class TicketService {
         return ticketRepository.findByRow(row);
     }
 
-    public Ticket findbyColumn (int column) {
-        if (column < 0) {
+    public Ticket findbyColumn (int seatColumn) {
+        if (seatColumn < 0) {
             return null;
         }
-        return ticketRepository.findByColumn(column);
+        return ticketRepository.findByColumn(seatColumn);
     }
 
-    public Ticket findByRowandColumn (int row, int column) {
-        if (row < 0 || column < 0) {
+    public Ticket findByRowandColumn (int row, int seatColumn) {
+        if (row < 0 || seatColumn < 0) {
             return null;
         }
-        if (ticketRepository.findByRowandColumn(row, column) == null) {
+        if (ticketRepository.findByRowAndSeatColumn(row, seatColumn) == null) {
             return null;
         }
-        return ticketRepository.findByRowandColumn(row, column);
+        return ticketRepository.findByRowAndSeatColumn(row, seatColumn);
     }
 
     public Optional<Ticket> findById(Long id) {
@@ -91,7 +91,7 @@ public class TicketService {
         if (user == null) {
             return null;
         }
-        return ticketRepository.findByUser(user);
+        return ticketRepository.findByClient(user);
     }
 
     public List<Ticket> findByDate(Date date) {

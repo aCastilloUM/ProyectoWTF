@@ -4,6 +4,7 @@ package edu.uy.um.wtf.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.Date;
 
@@ -17,7 +18,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class FilmShow {
+public class FilmShow implements Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -31,15 +32,15 @@ public class FilmShow {
     private LocalTime time;
 
     @ManyToOne
-    @JoinColumn(name = "Cinema_Branch")
+    @JoinColumn(name = "Branch_Id")
     private Branch branch;
 
     @ManyToOne
-    @JoinColumn(name = "Movie")
+    @JoinColumn(name = "Movie_Id")
     private Movie movie;
 
     @ManyToOne
-    @JoinColumn(name = "Room")
+    @JoinColumn(name = "Room_Id")
     private Room room;
 
     @Column(name = "Special_Effects")

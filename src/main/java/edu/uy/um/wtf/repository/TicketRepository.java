@@ -16,11 +16,9 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
     List<Ticket> findByRoom(Room room);
 
-    List<Ticket> findByUser(User user);
+    Ticket findByRowAndSeatColumn(int row, int seatColumn);
 
-    Ticket findByRowandColumn(int row, int column);
-
-    Ticket findByColumn(int column);
+    Ticket findByColumn(int seatColumn);
 
     Ticket findByRow(int row);
 

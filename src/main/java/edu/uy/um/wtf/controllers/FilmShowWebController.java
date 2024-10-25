@@ -129,8 +129,8 @@ public class FilmShowWebController {
             funcion.setDate(date);
             funcion.setLanguage(language);
             funcion.setSpecialEffects(specialEffects);
-            funcion.setRoom(room);
-            funcion.setMovie(movie);
+           /* funcion.setRoom(room);
+            funcion.setMovie(movie);*/
             filmShowService.updateFunction(funcion);
             model.addAttribute("funcion", funcion);
             return "filmshows/detail";

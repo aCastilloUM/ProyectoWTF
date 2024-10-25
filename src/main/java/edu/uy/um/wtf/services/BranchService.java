@@ -1,6 +1,7 @@
 package edu.uy.um.wtf.services;
 
 import edu.uy.um.wtf.entities.Branch;
+import edu.uy.um.wtf.entities.Room;
 import edu.uy.um.wtf.repository.BranchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ public class BranchService {
     @Autowired
     private BranchRepository branchRepository;
 
-    public Branch addBranch(String name, String location, int rooms){
+    public Branch addBranch(String name, String location, List<Room> rooms){
         if (name == null || location == null) {
             return null;
         }

@@ -3,6 +3,8 @@ package edu.uy.um.wtf.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "Branch")
 @Getter
@@ -23,6 +25,6 @@ public class Branch {
     @Column(name = "Location")
     private String location;
 
-    @Column(name = "Rooms")
-    private int rooms;
+    @OneToMany(mappedBy = "branch", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Room> rooms;
 }

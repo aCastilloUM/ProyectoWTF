@@ -1,9 +1,9 @@
 package edu.uy.um.wtf.entities;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.List;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -15,28 +15,26 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-
-public class Bill {
+public class Bill implements Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "Id")
     private Long id;
 
-    @Column(name = "Client")
+    @ManyToOne
+    @JoinColumn(name = "Client_Id", nullable = false)
     private User client;
 
-    @ElementCollection
-    @CollectionTable(name = "Bill_Snacks", joinColumns = @JoinColumn(name = "Bill"))
-    @Column(name = "Snack")
+    @OneToMany
+    @JoinColumn(name = "Bill_Id")
     private List<Snack> snacks;
 
     @Column(name = "TotalSnacks")
     private double totalSnacks;
 
-    @ElementCollection
-    @CollectionTable(name = "Bill_Tickets", joinColumns = @JoinColumn(name = "Bill"))
-    @Column(name = "Ticket")
+    @OneToMany
+    @JoinColumn(name = "Bill_Id")
     private List<Ticket> tickets;
 
     @Column(name = "TotalTickets")

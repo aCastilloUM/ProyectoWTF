@@ -1,6 +1,7 @@
 package edu.uy.um.wtf.services;
 
 
+import edu.uy.um.wtf.entities.Branch;
 import edu.uy.um.wtf.entities.FilmShow;
 import edu.uy.um.wtf.entities.Movie;
 import edu.uy.um.wtf.entities.Room;
@@ -20,8 +21,8 @@ public class FilmShowService {
     @Autowired
     private FilmShowRepository filmShowRepository;
 
-    public FilmShow addFunction(Date Date, LocalTime time, Movie movie, Room room, String Special_Effects, String Language) {
-        if (Date == null || time == null || movie == null || room == null || Special_Effects == null || Language == null) {
+    public FilmShow addFunction(Date Date, LocalTime time, Movie movie, Branch branch, Room room, String Special_Effects, String Language) {
+        if (Date == null || time == null || movie == null || room == null || Special_Effects == null || Language == null || branch == null) {
             return null;
         }
         if (Special_Effects.trim().equals("") || Language.trim().equals("")) {
@@ -32,6 +33,7 @@ public class FilmShowService {
                 .date(Date)
                 .time(time)
                 .movie(movie)
+                .branch(branch)
                 .room(room)
                 .specialEffects(Special_Effects)
                 .language(Language)

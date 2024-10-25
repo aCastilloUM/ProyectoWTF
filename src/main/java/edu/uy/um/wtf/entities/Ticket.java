@@ -1,12 +1,11 @@
 package edu.uy.um.wtf.entities;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.Date;
-import java.util.List;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -17,18 +16,19 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-
-public class Ticket {
+public class Ticket implements Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "Id")
     private Long id;
 
-    @Column(name = "Client")
+    @ManyToOne
+    @JoinColumn(name = "Client_Id", nullable = false)
     private User client;
 
-    @Column(name = "FilmShow")
+    @ManyToOne
+    @JoinColumn(name = "FilmShow_Id", nullable = false)
     private FilmShow filmShow;
 
     @Column(name = "Price")
@@ -37,13 +37,15 @@ public class Ticket {
     @Column(name = "Row")
     private int row;
 
-    @Column(name = "Column")
-    private int column;
+    @Column(name = "seatColumn")
+    private int seatColumn;
 
-    @Column(name = "Room")
+    @ManyToOne
+    @JoinColumn(name = "Room_Id", nullable = false)
     private Room room;
 
-    @Column(name = "Movie")
+    @ManyToOne
+    @JoinColumn(name = "Movie_Id", nullable = false)
     private Movie movie;
 
     @Column(name = "Date")
@@ -52,5 +54,3 @@ public class Ticket {
     @Column(name = "Time")
     private LocalTime time;
 }
-
-

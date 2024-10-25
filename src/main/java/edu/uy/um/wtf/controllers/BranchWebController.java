@@ -1,6 +1,7 @@
 package edu.uy.um.wtf.controllers;
 
 
+import edu.uy.um.wtf.entities.Room;
 import edu.uy.um.wtf.exceptions.EntityNotFoundException;
 import org.springframework.ui.Model; // Correct import
 import edu.uy.um.wtf.entities.Branch;
@@ -63,7 +64,7 @@ public class BranchWebController {
 
     @PostMapping("/add")
     public String addBranch(@RequestParam String name, @RequestParam String location,
-                            @RequestParam int rooms,   @RequestParam Model model){
+                            @RequestParam List<Room> rooms, @RequestParam Model model){
         Branch branch = branchService.addBranch(name, location, rooms);
         if (branch == null) {
             model.addAttribute("error", "Branch not added");
