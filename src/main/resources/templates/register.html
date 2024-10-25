@@ -4,138 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Usuario</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Estilos básicos para el cuerpo de la página */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #d0dbf2;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+        .card-body {
+            color: black;
         }
-
-        /* Estilos para el contenedor del formulario */
-        .form-container {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 350px;
-            position: relative;
-        }
-
-        /* Estilo para el enlace de flecha de regreso */
-        .back-link {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            text-decoration: none;
-            font-size: 20px;
-            color: gray; /* Cambia la flecha a color gris */
-        }
-
-        /* Estilo cuando se pasa el cursor sobre la flecha */
-        .back-link:hover {
-            color: #505050; /* Un gris un poco más oscuro cuando se pasa el ratón */
-        }
-
-        /* Estilo para el título del formulario */
-        .form-container h1 {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        /* Estilo para las etiquetas del formulario */
-        .form-container label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        /* Estilo para los campos de entrada */
-        .form-container input[type="text"],
-        .form-container input[type="number"],
-        .form-container input[type="date"],
-        .form-container input[type="email"] {
-            width: calc(100% - 12px); /* Reduce el ancho para dejar espacio para el padding */
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 2px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        /* Estilo para el enlace de método de pago */
-        .payment-link {
-            display: block;
-            margin-bottom: 10px; /* Añade espacio debajo del enlace */
-            text-align: center;
-            font-size: 12px; /* Achica el tamaño de la fuente */
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        /* Estilo para el enlace de método de pago cuando se pasa el cursor sobre él */
-        .payment-link:hover {
+        .text-primary:hover {
             text-decoration: underline;
         }
-
-        /* Estilo para el botón de enviar */
-        .form-container input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
+        .full-height {
+            height: 100vh;
         }
-
-        /* Estilo para el botón de enviar cuando se pasa el cursor sobre él */
-        .form-container input[type="submit"]:hover {
-            background-color: #0056b3;
+        .card {
+            max-width: 500px;
+            margin: auto;
         }
-
     </style>
 </head>
-<body>
+<body class="bg-dark text-white d-flex justify-content-center align-items-center full-height">
 
-<div class="form-container">
-    <!-- Flecha gris dentro del cuadro blanco del formulario -->
-    <a href="/user/logIn" class="back-link">&#8592;</a>
-
-    <h1>Nuevo Usuario</h1>
-    <hr>
-    <form action="/api/v1/user/register" method="POST">
-        <label for="id">Cédula:</label>
-        <input type="text" name="id" id="id" required oninput="formatCedula(this)"><br>
-
-        <label for="firstName">Nombre:</label>
-        <input type="text" name="firstName" id="firstName" required><br>
-
-        <label for="lastName">Apellido:</label>
-        <input type="text" name="lastName" id="lastName" required><br>
-
-        <label for="birthDate">Fecha de nacimiento (yyyy-MM-dd):</label>
-        <input type="date" name="birthDate" id="birthDate" required><br>
-
-        <label for="age">Edad:</label>
-        <input type="number" name="age" id="age" required><br>
-
-        <label for="mail">Correo electrónico:</label>
-        <input type="email" name="mail" id="mail" required><br>
-
-        <!-- Enlace de método de pago arriba del botón de registro -->
-        <a href="/metodoPago" class="payment-link">¿Quieres ingresar un método de pago? Hazlo aquí</a>
-
-        <input type="submit" value="Registrar">
-    </form>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="text-center mb-4">
+                <h1>Registro de Usuario</h1>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <a href="/user/logIn" class="text-primary">&#8592; Volver</a>
+                    <h2 class="card-title text-center">Nuevo Usuario</h2>
+                    <form action="/api/v1/user/register" method="POST">
+                        <div class="form-group">
+                            <label for="id">Cédula:</label>
+                            <input type="text" class="form-control" name="id" id="id" required oninput="formatCedula(this)">
+                        </div>
+                        <div class="form-group">
+                            <label for="firstName">Nombre:</label>
+                            <input type="text" class="form-control" name="firstName" id="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Apellido:</label>
+                            <input type="text" class="form-control" name="lastName" id="lastName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="birthDate">Fecha de nacimiento (yyyy-MM-dd):</label>
+                            <input type="date" class="form-control" name="birthDate" id="birthDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="mail">Correo electrónico:</label>
+                            <input type="email" class="form-control" name="mail" id="mail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="username">Nombre de Usuario:</label>
+                            <input type="text" class="form-control" name="username" id="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Contraseña:</label>
+                            <input type="password" class="form-control" name="password" id="password" required>
+                        </div>
+                        <div class="text-center mt-3">
+                            <a href="/metodoPago" class="text-primary">¿Quieres ingresar un método de pago? Hazlo aquí</a>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block mt-3">Registrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
-    filmShow formatCedula(input) {
+    function formatCedula(input) {
         let value = input.value.replace(/\D/g, ''); // Elimina cualquier carácter no numérico
         if (value.length > 7) {
             value = value.slice(0, 7) + '-' + value.slice(7, 12); // Agrega el guion después del séptimo dígito
