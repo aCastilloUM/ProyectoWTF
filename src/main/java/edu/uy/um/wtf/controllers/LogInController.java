@@ -17,11 +17,6 @@ public class LogInController {
     @Autowired
     private AdminService adminService;
 
-    @GetMapping("/")
-    public String redirectToLogin() {
-        return "logIn";
-    }
-
     @GetMapping("/logIn")
     public String showLoginForm() {
         return "logIn";
@@ -43,8 +38,4 @@ public class LogInController {
         return "logIn";
     }
 
-    @GetMapping("/register")
-    public String showRegisterForm() {
-        return "register";
-    }
 }

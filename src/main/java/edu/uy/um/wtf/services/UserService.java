@@ -31,7 +31,7 @@ public class UserService {
     }
 
     public User addUser(Long id, String firstName, String lastName, Date birthDate, String mail){
-        if (firstName == null || lastName == null || birthDate == null || mail == null){
+        if (firstName == null || lastName == null || birthDate == null || mail == null) {
             return null;
         }
 
@@ -49,5 +49,24 @@ public class UserService {
     public boolean authenticate(String userName, String password) {
         Optional<User> user = userRepository.findByMail(userName);
         return user.isPresent();
+    }
+
+    public boolean register(String id, String firstName, String lastName, String birthDate, String mail, String userName, String password) {
+        if (id == null || firstName == null || lastName == null || birthDate == null || mail == null || userName == null || password == null) {
+            return false;
+        }
+
+        User newUser = User.builder()
+                .id(Long.parseLong(id))
+                .firstName(firstName)
+                .lastName(lastName)
+                .birthDate(new Date(birthDate))
+                .mail(mail)
+                .userName(userName)
+                .password(password)
+                .build();
+
+        userRepository.save(newUser);
+        return true;
     }
 }
