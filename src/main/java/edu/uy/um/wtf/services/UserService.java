@@ -1,12 +1,10 @@
 package edu.uy.um.wtf.services;
 
 import edu.uy.um.wtf.entities.User;
-import edu.uy.um.wtf.exceptions.InvalidDataException;
 import edu.uy.um.wtf.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -46,5 +44,10 @@ public class UserService {
                 .build();
 
         return userRepository.save(newUser);
+    }
+
+    public boolean authenticate(String userName, String password) {
+        Optional<User> user = userRepository.findByMail(userName);
+        return user.isPresent();
     }
 }

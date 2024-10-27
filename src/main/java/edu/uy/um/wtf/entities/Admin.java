@@ -29,6 +29,9 @@ public class Admin {
     @Column(name = "Birthdate")
     private Date birthDate;
 
+    @Column(name = "Mail")
+    private String mail;
+
     @Override
     public String toString() {
         return (new StringBuilder())
