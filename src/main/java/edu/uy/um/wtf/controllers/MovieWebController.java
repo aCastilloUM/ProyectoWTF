@@ -1,4 +1,3 @@
-
 package edu.uy.um.wtf.controllers;
 
 import edu.uy.um.wtf.entities.Movie;
@@ -26,8 +25,8 @@ public class MovieWebController {
         return "movies/list";
     }
 
-    @GetMapping("/byTitle{Title}")
-    public String findByTitle(@PathVariable("Titulo") String title, Model model) {
+    @GetMapping("/byTitle/{title}")
+    public String findByTitle(@PathVariable("title") String title, Model model) {
         try {
             Movie laPelicula = movieService.findByTitle(title).get();
             model.addAttribute("pelicula", laPelicula);
@@ -38,8 +37,8 @@ public class MovieWebController {
         }
     }
 
-    @GetMapping("/byDirector{Director}")
-    public String findByDirector(@PathVariable("Director") String director, Model model) {
+    @GetMapping("/byDirector/{director}")
+    public String findByDirector(@PathVariable("director") String director, Model model) {
         try {
             List<Movie> peliculas = movieService.findByDirector(director);
             model.addAttribute("peliculas", peliculas);
@@ -50,8 +49,8 @@ public class MovieWebController {
         }
     }
 
-    @GetMapping("/byGenre{Genre}")
-    public String findByGenre(@PathVariable("Genero") String genre, Model model) {
+    @GetMapping("/byGenre/{genre}")
+    public String findByGenre(@PathVariable("genre") String genre, Model model) {
         try {
             List<Movie> peliculas = movieService.findByGenre(genre);
             model.addAttribute("peliculas", peliculas);
@@ -62,8 +61,8 @@ public class MovieWebController {
         }
     }
 
-    @GetMapping("/{Id}")
-    public String findById(@PathVariable("Id") Long id, Model model) {
+    @GetMapping("/{id}")
+    public String findById(@PathVariable("id") Long id, Model model) {
         try {
             Movie laPelicula = movieService.findById(id).get();
             model.addAttribute("pelicula", laPelicula);
@@ -101,6 +100,4 @@ public class MovieWebController {
             return "error";
         }
     }
-
 }
-
