@@ -27,7 +27,7 @@ public class Snack {
     @Column(name = "Price")
     private double price;
 
-    @Column(name = "Stock")
-    private int stock;
+    @Column(name = "Type")
+    private String type;
 
 }

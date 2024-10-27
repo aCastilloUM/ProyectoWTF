@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Películas</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card-body {
+            color: black;
+        }
+        .text-primary:hover {
+            text-decoration: underline;
+        }
+        .full-height {
+            height: 100vh;
+        }
+        .card {
+            max-width: 500px;
+            margin: 20px auto;
+        }
+        .first-card {
+            margin-top: 500px; /* Increase the margin-top value */
+        }
+        .card:not(.first-card) {
+            margin-top: 50px; /* Add margin-top to other cards */
+        }
+    </style>
+</head>
+<body class="bg-dark text-white d-flex justify-content-center align-items-center full-height">
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="text-center mb-4">
+                <h1>Administrar Películas</h1>
+            </div>
+
+            <!-- Add/Update Movie Card -->
+            <div class="card first-card">
+                <div class="card-body">
+                    <h2 class="card-title text-center">Agregar/Actualizar Película</h2>
+                    <!-- Form to add or update a movie -->
+                    <form th:action="@{/movies/update}" method="post">
+                        <div class="form-group">
+                            <label for="title">Título:</label>
+                            <input type="text" class="form-control" id="title" name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="director">Director:</label>
+                            <input type="text" class="form-control" id="director" name="director" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="genre">Género:</label>
+                            <div id="genre">
+                                <!-- Checkbox options for genres -->
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="accion" name="genre" value="Acción">
+                                    <label class="form-check-label" for="accion">Acción</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="comedia" name="genre" value="Comedia">
+                                    <label class="form-check-label" for="comedia">Comedia</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="drama" name="genre" value="Drama">
+                                    <label class="form-check-label" for="drama">Drama</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="fantasia" name="genre" value="Fantasía">
+                                    <label class="form-check-label" for="fantasia">Fantasía</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="terror" name="genre" value="Terror">
+                                    <label class="form-check-label" for="terror">Terror</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="cienciaFiccion" name="genre" value="Ciencia Ficción">
+                                    <label class="form-check-label" for="cienciaFiccion">Ciencia Ficción</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="musical" name="genre" value="Musical">
+                                    <label class="form-check-label" for="musical">Musical</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="romance" name="genre" value="Romance">
+                                    <label class="form-check-label" for="romance">Romance</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="suspenso" name="genre" value="Suspenso">
+                                    <label class="form-check-label" for="suspenso">Suspenso</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="duration">Duración (minutos):</label>
+                            <input type="number" class="form-control" id="duration" name="duration" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Search Movie Card -->
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center">Buscar Película</h2>
+                    <!-- Form to search for a movie by title -->
+                    <form th:action="@{/movies/byTitle}" method="get">
+                        <div class="form-group">
+                            <label for="searchTitle">Título:</label>
+                            <input type="text" class="form-control" id="searchTitle" name="title" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Buscar</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Delete Movie Card -->
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center">Eliminar Película</h2>
+                    <!-- Form to delete a movie by ID -->
+                    <form th:action="@{/movies/delete}" method="post">
+                        <div class="form-group">
+                            <label for="deleteId">ID:</label>
+                            <input type="number" class="form-control" id="deleteId" name="id" required>
+                        </div>
+                        <button type="submit" class="btn btn-danger btn-block">Eliminar</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+

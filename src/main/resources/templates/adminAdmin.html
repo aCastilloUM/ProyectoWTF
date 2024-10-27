@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Administradores</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card-body {
+            color: black;
+        }
+        .text-primary:hover {
+            text-decoration: underline;
+        }
+        .full-height {
+            height: 100vh;
+        }
+        .card {
+            max-width: 500px;
+            margin: 20px auto;
+        }
+        .first-card {
+            margin-top: 400px; /* Increase the margin-top value */
+        }
+        .card:not(.first-card) {
+            margin-top: 50px; /* Add margin-top to other cards */
+        }
+    </style>
+</head>
+<body class="bg-dark text-white d-flex justify-content-center align-items-center full-height">
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="text-center mb-4">
+                <h1>Administrar Administradores</h1>
+            </div>
+
+            <!-- Add/Update Admin Card -->
+            <div class="card first-card">
+                <div class="card-body">
+                    <h2 class="card-title text-center">Agregar/Actualizar Administrador</h2>
+                    <!-- Form to add or update an admin -->
+                    <form th:action="@{/admins/update}" method="post">
+                        <div class="form-group">
+                            <label for="firstName">Nombre:</label>
+                            <input type="text" class="form-control" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Apellido:</label>
+                            <input type="text" class="form-control" id="lastName" name="lastName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Correo Electrónico:</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="username">Nombre de Usuario:</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="birthDate">Fecha de Nacimiento:</label>
+                            <input type="date" class="form-control" id="birthDate" name="birthDate" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Search Admin Card -->
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center">Buscar Administrador</h2>
+                    <!-- Form to search for an admin by username -->
+                    <form th:action="@{/admins/byUsername}" method="get">
+                        <div class="form-group">
+                            <label for="searchUsername">Nombre de Usuario:</label>
+                            <input type="text" class="form-control" id="searchUsername" name="username" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Buscar</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Delete Admin Card -->
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center">Eliminar Administrador</h2>
+                    <!-- Form to delete an admin by ID -->
+                    <form th:action="@{/admins/delete}" method="post">
+                        <div class="form-group">
+                            <label for="deleteId">ID:</label>
+                            <input type="number" class="form-control" id="deleteId" name="id" required>
+                        </div>
+                        <button type="submit" class="btn btn-danger btn-block">Eliminar</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
