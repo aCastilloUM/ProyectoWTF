@@ -51,9 +51,9 @@ public class SnackWebController {
     }
 
     @PostMapping("/add")
-    public String addSnack(@RequestParam String name, @RequestParam double price, @RequestParam int stock, Model model) {
+    public String addSnack(@RequestParam String name, @RequestParam double price, @RequestParam String type, Model model) {
         try {
-            Snack snack = snackService.addSnack(name, price, stock);
+            Snack snack = snackService.addSnack(name, price, type);
             model.addAttribute("snack", snack);
             return "snacks/detail";
         } catch (EntityNotFoundException e) {
@@ -63,12 +63,12 @@ public class SnackWebController {
     }
 
     @GetMapping("/update{Id}{Name}{Price}{Stock}")
-    public String updateSnack(@PathVariable("Id") Long id, @PathVariable("Name") String name, @PathVariable("Price") double price, @PathVariable("Stock") int stock, Model model) {
+    public String updateSnack(@PathVariable("Id") Long id, @PathVariable("Name") String name, @PathVariable("Price") double price, @PathVariable("Type") String type, Model model) {
         try {
             Snack snack = snackService.findById(id).orElseThrow(EntityNotFoundException::new);
             snack.setName(name);
             snack.setPrice(price);
-            snack.setStock(stock);
+            snack.setType(type);
             snackService.updateSnack(snack);
             model.addAttribute("snack", snack);
             return "snacks/detail";

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Snacks</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card-body {
+            color: black;
+        }
+        .text-primary:hover {
+            text-decoration: underline;
+        }
+        .full-height {
+            height: 100vh;
+        }
+        .card {
+            max-width: 500px;
+            margin: 20px auto;
+        }
+        .first-card {
+            margin-top: 300px; /* Increase the margin-top value */
+        }
+        .card:not(.first-card) {
+            margin-top: 50px; /* Add margin-top to other cards */
+        }
+    </style>
+</head>
+<body class="bg-dark text-white d-flex justify-content-center align-items-center full-height">
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="text-center mb-4">
+                <h1>Administrar Snacks</h1>
+            </div>
+
+            <!-- Add/Update Snack Card -->
+            <div class="card first-card">
+                <div class="card-body">
+                    <h2 class="card-title text-center">Agregar/Actualizar Snack</h2>
+                    <!-- Form to add or update a snack -->
+                    <form th:action="@{/snacks/update}" method="post">
+                        <div class="form-group">
+                            <label for="name">Nombre:</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="type">Tipo:</label>
+                            <div id="type">
+                                <!-- Radio options for types -->
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="pop" name="type" value="Pop" required>
+                                    <label class="form-check-label" for="pop">Pop</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="bebida" name="type" value="Bebida" required>
+                                    <label class="form-check-label" for="bebida">Bebida</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="combo" name="type" value="Combo" required>
+                                    <label class="form-check-label" for="combo">Combo</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="otros" name="type" value="Otros" required>
+                                    <label class="form-check-label" for="otros">Otros</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Precio:</label>
+                            <input type="number" class="form-control" id="price" name="price" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Search Snack Card -->
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center">Buscar Snack</h2>
+                    <!-- Form to search for a snack by name -->
+                    <form th:action="@{/snacks/byName}" method="get">
+                        <div class="form-group">
+                            <label for="searchName">Nombre:</label>
+                            <input type="text" class="form-control" id="searchName" name="name" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Buscar</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Delete Snack Card -->
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center">Eliminar Snack</h2>
+                    <!-- Form to delete a snack by ID -->
+                    <form th:action="@{/snacks/delete}" method="post">
+                        <div class="form-group">
+                            <label for="deleteId">ID:</label>
+                            <input type="number" class="form-control" id="deleteId" name="id" required>
+                        </div>
+                        <button type="submit" class="btn btn-danger btn-block">Eliminar</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

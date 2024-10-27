@@ -14,8 +14,8 @@ public class SnackService {
     @Autowired
     private SnackRepository snackRepository;
 
-    public Snack addSnack(String name, double price, int stock) {
-        if (name == null || name.isEmpty() || stock < 0) {
+    public Snack addSnack(String name, double price, String type) {
+        if (name == null || name.isEmpty() || type == null) {
             return null;
         }
         if (price < 0) {
@@ -31,7 +31,7 @@ public class SnackService {
         Snack snack = Snack.builder()
                 .name(name)
                 .price(price)
-                .stock(stock)
+                .type(type)
                 .build();
 
         return snackRepository.save(snack);
