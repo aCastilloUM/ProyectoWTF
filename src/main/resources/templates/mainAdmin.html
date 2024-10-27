@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administrador</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card-body {
+            color: black;
+        }
+        .text-primary:hover {
+            text-decoration: underline;
+        }
+        .full-height {
+            height: 100vh;
+        }
+        .card {
+            max-width: 500px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body class="bg-dark text-white d-flex justify-content-center align-items-center full-height">
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="text-center mb-4">
+                <h1>Panel de Administrador</h1>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center">Opciones de Administrador</h2>
+                    <ul class="list-group">
+                        <li class="list-group-item"><a href="/admin/option1" class="text-primary"> Administrar Peliculas</a></li>
+                        <li class="list-group-item"><a href="/admin/option2" class="text-primary">Administrar Snacks</a></li>
+                        <li class="list-group-item"><a href="/admin/option3" class="text-primary">Administrar Admin</a></li>
+                        <li class="list-group-item"><a href="/admin/option4" class="text-primary">Administrar Funcion</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
