@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snack Purchase</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-dark text-white d-flex justify-content-center align-items-center" style="height: 100vh;">
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="text-center mb-4">
+                <h1>Compra de Snacks</h1>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center">Selecciona tus opciones</h2>
+                    <form action="/api/v1/snacks/purchase" method="POST">
+                        <div class="form-group">
+                            <label for="combo">¿Algún combo en especial?</label>
+                            <select id="combo" name="combo" class="form-control">
+                                <option value="combo1">Combo 1</option>
+                                <option value="combo2">Combo 2</option>
+                                <option value="combo3">Combo 3</option>
+                            </select>
+                            <label for="comboQty" class="mt-2">Cantidad:</label>
+                            <input type="number" id="comboQty" name="comboQty" class="form-control" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="snackPop">¿Snack?¿Pop?¡O ambas!</label>
+                            <select id="snackPop" name="snackPop" class="form-control">
+                                <option value="snack">Snack</option>
+                                <option value="pop">Pop</option>
+                                <option value="both">Ambas</option>
+                            </select>
+                            <label for="snackPopQty" class="mt-2">Cantidad:</label>
+                            <input type="number" id="snackPopQty" name="snackPopQty" class="form-control" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="drink">¿Algo para beber?</label>
+                            <select id="drink" name="drink" class="form-control">
+                                <option value="drink1">Bebida 1</option>
+                                <option value="drink2">Bebida 2</option>
+                                <option value="drink3">Bebida 3</option>
+                            </select>
+                            <label for="drinkQty" class="mt-2">Cantidad:</label>
+                            <input type="number" id="drinkQty" name="drinkQty" class="form-control" min="1">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block mt-3">Comprar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html></title>
+</head>
+<body>
+
+</body>
+</html>
