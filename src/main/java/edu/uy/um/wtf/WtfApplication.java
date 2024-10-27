@@ -22,6 +22,7 @@ public class  WtfApplication {
 	private UserService userService;
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(WtfApplication.class, args);
 	}
 }
