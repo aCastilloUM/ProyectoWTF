@@ -62,7 +62,7 @@ public class MovieWebController {
         }
     }
 
-    @GetMapping("/byId{Id}")
+    @GetMapping("/{Id}")
     public String findById(@PathVariable("Id") Long id, Model model) {
         try {
             Movie laPelicula = movieService.findById(id).get();

@@ -67,7 +67,7 @@ public class TicketService {
         if (seatColumn < 0) {
             return null;
         }
-        return ticketRepository.findByColumn(seatColumn);
+        return ticketRepository.findBySeatColumn(seatColumn);
     }
 
     public Ticket findByRowandColumn (int row, int seatColumn) {
