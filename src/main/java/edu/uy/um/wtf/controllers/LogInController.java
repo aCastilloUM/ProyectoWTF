@@ -26,12 +26,12 @@ public class LogInController {
     public String logIn(@RequestParam String userName, @RequestParam String password, Model model) {
         boolean isUserAuthenticated = userService.authenticate(userName, password);
         if (isUserAuthenticated) {
-            return "redirect:/Main";
+            return "redirect:/users/main";
         }
 
         boolean isAdminAuthenticated = adminService.authenticate(userName, password);
         if (isAdminAuthenticated) {
-            return "redirect:/mainAdmin";
+            return "redirect:/admin/mainAdmin";
         }
 
         model.addAttribute("error", "Nombre de usuario o contraseña incorrectos");

@@ -31,7 +31,7 @@
             </div>
             <div class="card">
                 <div class="card-body">
-                    <a th:href="/logIn" class="text-primary">&#8592; Volver</a>
+                    <a th:href="@{/logIn}" class="text-primary">&#8592; Volver</a>
                     <h2 class="card-title text-center">Nuevo Usuario</h2>
                     <form th:action="@{/register}" method="POST">
                         <div class="form-group">
@@ -63,7 +63,7 @@
                             <input type="password" class="form-control" name="password" id="password" required>
                         </div>
                         <div class="text-center mt-3">
-                            <a href="/metodoPago" class="text-primary">¿Quieres ingresar un método de pago? Hazlo aquí</a>
+                            <a th:href="@{/metodoPago}" class="text-primary">¿Quieres ingresar un método de pago? Hazlo aquí</a>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block mt-3">Registrar</button>
                     </form>

@@ -23,6 +23,11 @@ public class UserWebController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/main")
+    public String showUserPage() {
+        return "main";
+    }
+
     @GetMapping("/all")
     public String getAll(Model model){
         List<User> users = userService.getAll();

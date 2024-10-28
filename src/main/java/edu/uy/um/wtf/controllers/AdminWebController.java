@@ -23,6 +23,11 @@ public class AdminWebController {
     @Autowired
     private AdminService adminService;
 
+    @GetMapping("/mainAdmin")
+    public String showAdminPage() {
+        return "mainAdmin";
+    }
+
     @GetMapping("/all")
     public String getAll(Model model){
         List<Admin> admins = adminService.getAll();
