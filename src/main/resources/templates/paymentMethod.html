@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Método de Pago</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card-body {
+            color: black;
+        }
+        .text-primary:hover {
+            text-decoration: underline;
+        }
+        .full-height {
+            height: 100vh;
+        }
+        .card {
+            max-width: 500px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body class="bg-dark text-white d-flex justify-content-center align-items-center full-height">
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="text-center mb-4">
+                <h1>Método de Pago</h1>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <a th:href="@{/register}" class="text-primary">&#8592; Volver</a>
+                    <form th:action="@{/paymentMethod}" method="POST">
+                        <div class="form-group">
+                            <label for="cardNumber">Número de Tarjeta:</label>
+                            <input type="text" class="form-control" name="cardNumber" id="cardNumber" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cardHolderName">Nombre del Titular:</label>
+                            <input type="text" class="form-control" name="cardHolderName" id="cardHolderName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="expiryDate">Fecha de Expiración (MM/YY):</label>
+                            <input type="text" class="form-control" name="expiryDate" id="expiryDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cvv">CVV:</label>
+                            <input type="text" class="form-control" name="cvv" id="cvv" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block mt-3">Guardar Método de Pago</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

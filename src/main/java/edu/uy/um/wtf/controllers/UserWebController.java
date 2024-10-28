@@ -32,7 +32,7 @@ public class UserWebController {
     public String getAll(Model model){
         List<User> users = userService.getAll();
         model.addAttribute("users", users);
-        return "users/list";
+        return "list";
     }
 
     @GetMapping("/register")
@@ -40,12 +40,12 @@ public class UserWebController {
         return "register";
     }
 
-    @GetMapping("/byId{id}")
+    @GetMapping("/byId/{id}")
     public String findById(@PathVariable("id") Long id, Model model){
         try {
             User user = userService.findById(id).get();
             model.addAttribute("user", user);
-            return "users/detail";
+            return "register";
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", "Id not found");
             return "error";

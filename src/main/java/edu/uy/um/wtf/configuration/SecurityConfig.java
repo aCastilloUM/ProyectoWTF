@@ -14,8 +14,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/logIn", "/register", "/metodoPago").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/**").permitAll()
+                        //.anyRequest().authenticated()
                 )
                 .formLogin(login -> login
                         .loginPage("/logIn")
@@ -25,3 +25,4 @@ public class SecurityConfig {
         return http.build();
     }
 }
+//"/logIn", "/register", "/paymentMethod", "/users/all"

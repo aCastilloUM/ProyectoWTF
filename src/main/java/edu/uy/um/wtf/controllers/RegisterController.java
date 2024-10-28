@@ -32,4 +32,9 @@ public class RegisterController {
             return "register";
         }
     }
+
+    @GetMapping("/paymentMethod")
+    public String showPaymentMethodPage() {
+        return "paymentMethod";
+    }
 }
