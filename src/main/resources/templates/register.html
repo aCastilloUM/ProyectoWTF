@@ -78,12 +78,9 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
     function formatCedula(input) {
-        let value = input.value.replace(/\D/g, ''); // Elimina cualquier carácter no numérico
-        if (value.length > 7) {
-            value = value.slice(0, 7) + '-' + value.slice(7, 12); // Agrega el guion después del séptimo dígito
-        }
-        input.value = value;
-    }
+    let value = input.value.replace(/\D/g, ''); // Remove any non-numeric characters
+    input.value = value; // Update the input value without the hyphen
+}
 </script>
 </body>
 </html>

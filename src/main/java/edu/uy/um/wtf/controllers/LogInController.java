@@ -1,5 +1,6 @@
 package edu.uy.um.wtf.controllers;
 
+import edu.uy.um.wtf.entities.User;
 import edu.uy.um.wtf.services.AdminService;
 import edu.uy.um.wtf.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Optional;
 
 @Controller
 public class LogInController {
@@ -24,18 +27,14 @@ public class LogInController {
 
     @PostMapping("/logIn")
     public String logIn(@RequestParam String userName, @RequestParam String password, Model model) {
-        boolean isUserAuthenticated = userService.authenticate(userName, password);
-        if (isUserAuthenticated) {
-            return "redirect:/users/main";
+        User user = userService.authenticate(userName, password);
+        if (user != null) {
+            model.addAttribute("user", user);
+            return "main";
+        } else {
+            model.addAttribute("error", "Nombre de usuario o contraseña invalidas");
+            return "logIn";
         }
-
-        boolean isAdminAuthenticated = adminService.authenticate(userName, password);
-        if (isAdminAuthenticated) {
-            return "redirect:/admin/mainAdmin";
-        }
-
-        model.addAttribute("error", "Nombre de usuario o contraseña incorrectos");
-        return "logIn";
     }
 
 }

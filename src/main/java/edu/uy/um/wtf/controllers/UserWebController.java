@@ -67,9 +67,9 @@ public class UserWebController {
     @GetMapping("/add")
     public String addUser(@RequestParam Long id, @RequestParam String firstName,
                           @RequestParam String lastName, @RequestParam Date birthDate,
-                          @RequestParam String mail, Model model){
+                          @RequestParam String mail, @RequestParam String userName, @RequestParam String password, Model model){
         try {
-            User user = userService.addUser(id, firstName, lastName, birthDate, mail);
+            User user = userService.addUser(id, firstName, lastName, birthDate, mail, userName, password);
             model.addAttribute("user", user);
             return "users/detail";
         } catch (EntityNotFoundException e) {

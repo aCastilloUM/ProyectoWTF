@@ -1,16 +1,18 @@
 package edu.uy.um.wtf.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "Clients")
+@Table(name = "Users")
 @Getter
 @Setter
 @Builder
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 
@@ -32,9 +34,11 @@ public class User implements Serializable {
     @Column(name = "Mail")
     private String mail;
 
-    @Column(name = "Username")
+    @NotNull
+    @Column(name = "userName")
     private String userName;
 
+    @NotNull
     @Column(name = "Password")
     private String password;
 }

@@ -1,6 +1,7 @@
 package edu.uy.um.wtf.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.Date;
@@ -10,6 +11,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Builder
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Admin {
@@ -32,6 +34,14 @@ public class Admin {
     @Column(name = "Mail")
     private String mail;
 
+    @NotNull
+    @Column(name = "UserName")
+    private String userName;
+
+    @NotNull
+    @Column(name = "Password")
+    private String password;
+
     @Override
     public String toString() {
         return (new StringBuilder())
@@ -43,6 +53,12 @@ public class Admin {
                 .append(lastName)
                 .append("\t, Birthdate: ")
                 .append(birthDate)
+                .append("\t, Mail: ")
+                .append(mail)
+                .append("\t, User name: ")
+                .append(userName)
+                .append("\t, Password: ")
+                .append(password)
                 .append("}")
                 .toString();
     }

@@ -4,6 +4,9 @@ import edu.uy.um.wtf.entities.User;
 import edu.uy.um.wtf.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
 import java.util.List;
@@ -30,8 +33,8 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User addUser(Long id, String firstName, String lastName, Date birthDate, String mail){
-        if (firstName == null || lastName == null || birthDate == null || mail == null) {
+    public User addUser(Long id, String firstName, String lastName, Date birthDate, String mail, String userName, String password){
+        if (firstName == null || lastName == null || birthDate == null || mail == null || userName == null || password == null) {
             return null;
         }
 
@@ -41,32 +44,19 @@ public class UserService {
                 .lastName(lastName)
                 .birthDate(birthDate)
                 .mail(mail)
+                .userName(userName)
+                .password(password)
                 .build();
 
         return userRepository.save(newUser);
     }
 
-    public boolean authenticate(String userName, String password) {
-        Optional<User> user = userRepository.findByMail(userName);
-        return user.isPresent();
-    }
-
-    public boolean register(String id, String firstName, String lastName, String birthDate, String mail, String userName, String password) {
-        if (id == null || firstName == null || lastName == null || birthDate == null || mail == null || userName == null || password == null) {
-            return false;
+    public User authenticate(String userName, String password) {
+        Optional<User> user = userRepository.findByUserName(userName);
+        if (user.isPresent() && user.get().getPassword().equals(password)) {
+            return user.get();
         }
-
-        User newUser = User.builder()
-                .id(Long.parseLong(id))
-                .firstName(firstName)
-                .lastName(lastName)
-                .birthDate(new Date(birthDate))
-                .mail(mail)
-                .userName(userName)
-                .password(password)
-                .build();
-
-        userRepository.save(newUser);
-        return true;
+        return null;
     }
+
 }
