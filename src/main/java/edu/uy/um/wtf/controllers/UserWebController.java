@@ -35,6 +35,11 @@ public class UserWebController {
         return "users/list";
     }
 
+    @GetMapping("/register")
+    public String showRegisterPage() {
+        return "register";
+    }
+
     @GetMapping("/byId{id}")
     public String findById(@PathVariable("id") Long id, Model model){
         try {
