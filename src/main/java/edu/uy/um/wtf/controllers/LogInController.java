@@ -1,5 +1,6 @@
 package edu.uy.um.wtf.controllers;
 
+import edu.uy.um.wtf.entities.Admin;
 import edu.uy.um.wtf.entities.User;
 import edu.uy.um.wtf.services.AdminService;
 import edu.uy.um.wtf.services.UserService;
@@ -27,7 +28,14 @@ public class LogInController {
 
     @PostMapping("/logIn")
     public String logIn(@RequestParam String userName, @RequestParam String password, Model model) {
+
         User user = userService.authenticate(userName, password);
+        Boolean admin = adminService.authenticate(userName, password);
+
+        if (admin.booleanValue()){
+            model.addAttribute("admin", admin);
+            return "mainAdmin";
+        }
         if (user != null) {
             model.addAttribute("user", user);
             return "main";
@@ -35,6 +43,7 @@ public class LogInController {
             model.addAttribute("error", "Nombre de usuario o contraseña invalidas");
             return "logIn";
         }
+
     }
 
 }

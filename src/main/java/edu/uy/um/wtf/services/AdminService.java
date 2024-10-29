@@ -64,8 +64,20 @@ public class AdminService {
         return adminRepository.findByFirstNameAndLastName(firstName, lastName);
     }
 
+    public Optional<Admin> findByMail(String mail) {
+        return adminRepository.findByMail(mail);
+    }
+
+    public Optional<Admin> findByUserName(String userName) {
+        return adminRepository.findByUserName(userName);
+    }
+
     public boolean authenticate(String userName, String password) {
         Optional<Admin> user = adminRepository.findByMail(userName);
-        return user.isPresent();
+        if (user.isPresent() && user.get().getPassword().equals(password) ){
+            return true;
+        }
+        else
+            return false;
     }
 }

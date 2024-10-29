@@ -23,10 +23,6 @@ public class AdminWebController {
     @Autowired
     private AdminService adminService;
 
-    @GetMapping("/mainAdmin")
-    public String showAdminPage() {
-        return "mainAdmin";
-    }
 
     @GetMapping("/all")
     public String getAll(Model model){
@@ -71,6 +67,32 @@ public class AdminWebController {
             return "error";
         }
     }
+
+    @GetMapping("/movieAdmin")
+    public String showMovieAdminPage(){
+        return "movieAdmin";
+    }
+
+    @GetMapping("/adminAdmin")
+    public String showAdminAdminPage(){
+        return "adminAdmin";
+    }
+
+    @GetMapping("/snackAdmin")
+    public String showSanckAdminPage(){
+        return "snackAdmin";
+    }
+
+    @GetMapping("/filmshowAdmin")
+    public String showFilmshowAdminPage(){
+        return "filmshowAdmin";
+    }
+
+    @GetMapping("/mainAdmin")
+    public String shoMainAdminPage() {
+        return "mainAdmin";
+    }
+
 
 
 }
