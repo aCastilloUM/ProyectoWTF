@@ -78,9 +78,9 @@ public class AdminWebController {
         return "adminAdmin";
     }
 
-    @GetMapping("/snackAdmin")
+    @GetMapping("/snacksAdmin")
     public String showSanckAdminPage(){
-        return "snackAdmin";
+        return "snacksAdmin";
     }
 
     @GetMapping("/filmshowAdmin")
