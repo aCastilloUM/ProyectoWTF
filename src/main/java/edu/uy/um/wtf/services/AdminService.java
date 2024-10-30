@@ -1,6 +1,7 @@
 package edu.uy.um.wtf.services;
 
 import edu.uy.um.wtf.entities.Admin;
+import edu.uy.um.wtf.entities.User;
 import edu.uy.um.wtf.exceptions.InvalidDataException;
 import edu.uy.um.wtf.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,8 @@ public class AdminService {
         return adminRepository.findAll();
     }
 
-    public Admin addAdmin(Long id, String firstName, String lastName, Date birthdate) throws InvalidDataException {
-        if (firstName == null || lastName == null || birthdate == null){
+    public Admin addAdmin(Long id, String firstName, String lastName, Date birthdate, String mail, String userName, String password) throws InvalidDataException {
+        if (firstName == null || lastName == null || birthdate == null || mail == null || userName == null || password == null) {
             throw new InvalidDataException("Los datos no son correctos");
         }
 
@@ -37,6 +38,9 @@ public class AdminService {
                 .firstName(firstName)
                 .lastName(lastName)
                 .birthDate(birthdate)
+                .mail(mail)
+                .userName(userName)
+                .password(password)
                 .build();
         return adminRepository.save(newAdmin);
     }
@@ -72,12 +76,11 @@ public class AdminService {
         return adminRepository.findByUserName(userName);
     }
 
-    public boolean authenticate(String userName, String password) {
-        Optional<Admin> user = adminRepository.findByMail(userName);
-        if (user.isPresent() && user.get().getPassword().equals(password) ){
-            return true;
+    public Admin authenticate(String userName, String password) {
+        Optional<Admin> admin = adminRepository.findByUserName(userName);
+        if (admin.isPresent() && admin.get().getPassword().equals(password)) {
+            return admin.get();
         }
-        else
-            return false;
+        return null;
     }
 }

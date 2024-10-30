@@ -55,7 +55,7 @@ public class Admin {
                 .append(birthDate)
                 .append("\t, Mail: ")
                 .append(mail)
-                .append("\t, User name: ")
+                .append("\t, UserName: ")
                 .append(userName)
                 .append("\t, Password: ")
                 .append(password)

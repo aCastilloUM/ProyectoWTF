@@ -35,7 +35,7 @@ public class User implements Serializable {
     private String mail;
 
     @NotNull
-    @Column(name = "userName")
+    @Column(name = "UserName")
     private String userName;
 
     @NotNull

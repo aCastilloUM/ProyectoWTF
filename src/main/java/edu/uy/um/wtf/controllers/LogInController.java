@@ -22,26 +22,33 @@ public class LogInController {
     private AdminService adminService;
 
     @GetMapping("/logIn")
-    public String showLoginForm() {
+    public String showLoginForm(@RequestParam(value = "error", required = false) String error, Model model) {
+        if (error != null) {
+            model.addAttribute("error", "Nombre de usuario o contraseña inválidos");
+        }
         return "logIn";
     }
 
     @PostMapping("/logIn")
     public String logIn(@RequestParam String userName, @RequestParam String password, Model model) {
 
-        User user = userService.authenticate(userName, password);
-        Boolean admin = adminService.authenticate(userName, password);
-
-        if (admin.booleanValue()){
-            model.addAttribute("admin", admin);
-            return "mainAdmin";
+        if (userName == null || userName.isEmpty() || password == null || password.isEmpty()) {
+            model.addAttribute("error", "Nombre de usuario o contraseña invalidas");
+            return "redirect:/logIn";
         }
+        Optional<Admin> admin = adminService.findByUserName(userName);
+
+        if (admin.isPresent() && admin.get().getPassword().equals(password)){
+            model.addAttribute("admin", admin.get());
+            return "redirect:/admin/mainAdmin";
+        }
+        User user = userService.authenticate(userName, password);
         if (user != null) {
             model.addAttribute("user", user);
-            return "main";
+            return "redirect:/users/main";
         } else {
             model.addAttribute("error", "Nombre de usuario o contraseña invalidas");
-            return "logIn";
+            return "redirect:/logIn";
         }
 
     }

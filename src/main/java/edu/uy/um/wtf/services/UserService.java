@@ -33,6 +33,13 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public Optional<User> findByUserName(String userName) {
+        if (userName == null || userName.isEmpty()) {
+            return Optional.empty();
+        }
+        return userRepository.findByUserName(userName);
+    }
+
     public User addUser(Long id, String firstName, String lastName, Date birthDate, String mail, String userName, String password){
         if (firstName == null || lastName == null || birthDate == null || mail == null || userName == null || password == null) {
             return null;
