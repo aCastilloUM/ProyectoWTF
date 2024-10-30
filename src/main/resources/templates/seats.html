@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>WTF Cinema</title>
+    <style>
+        body {
+            background-color: #2d2d2d;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            margin: 20px 0;
+        }
+
+        .seat {
+            width: 40px;
+            height: 40px;
+            margin: 5px;
+            border-radius: 8px;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .seat:hover {
+            transform: scale(1.1); /* Efecto al pasar el ratón por encima */
+        }
+
+        .ocupado {
+            background-color: red;
+            pointer-events: none; /* No se puede seleccionar */
+        }
+
+        .disponible {
+            background-color: #B0BEC5;
+            cursor: pointer;
+        }
+
+        table {
+            margin: 0 auto;
+            border-spacing: 0;
+        }
+
+        td {
+            padding: 5px;
+        }
+
+        .pantalla {
+            margin: 20px auto;
+            background-color: white;
+            width: 80%;
+            height: 5px;
+        }
+
+        .leyenda {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .leyenda div {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .color-box {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+    </style>
+
+    <script>
+        // Función para cambiar el estado del asiento al hacer clic
+        function toggleSeat(seat) {
+            if (seat.classList.contains('disponible')) {
+                seat.classList.remove('disponible');
+                seat.classList.add('ocupado');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<h1>Elegí tu asiento</h1>
+
+<div class="leyenda">
+    <div>
+        <div class="color-box" style="background-color: red;"></div>
+        <span>Asientos ocupados</span>
+    </div>
+    <div>
+        <div class="color-box" style="background-color: #B0BEC5;"></div>
+        <span>Asientos disponibles</span>
+    </div>
+</div>
+
+<div class="pantalla"></div>
+<p>Pantalla / Escenario</p>
+
+<table>
+    <tbody>
+    <!-- Loop para 15 filas -->
+    <tr th:each="i : ${#numbers.sequence(0, 14)}">
+        <!-- Loop para 10 columnas -->
+        <td th:each="j : ${#numbers.sequence(0, 9)}">
+            <div
+                    class="seat disponible"
+                    onclick="toggleSeat(this)"></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<button style="margin-top: 20px;">Confirmar Reserva</button>
+
+</body>
+</html>

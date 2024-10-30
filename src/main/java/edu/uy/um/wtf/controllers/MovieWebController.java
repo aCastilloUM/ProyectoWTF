@@ -18,11 +18,11 @@ public class MovieWebController {
     @Autowired
     private MovieService movieService;
 
-    @GetMapping("/all")
-    public String getAll(Model model) {
-        List<Movie> peliculas = movieService.getAll();
-        model.addAttribute("peliculas", peliculas);
-        return "movies/list";
+    @GetMapping("/list")
+    public String getAllMovies(Model model) {
+        List<Movie> movies = movieService.getAll();
+        model.addAttribute("movies", movies);
+        return "main";
     }
 
     @GetMapping("/byTitle/{title}")
