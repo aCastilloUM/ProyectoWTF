@@ -33,11 +33,11 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public Optional<User> findByUserName(String username) {
+    public Optional<User> findByUsername(String username) {
         if (username == null || username.isEmpty()) {
             return Optional.empty();
         }
-        return userRepository.findByUserName(username);
+        return userRepository.findByUsername(username);
     }
 
     public User addUser(Long id, String firstName, String lastName, Date birthDate, String mail, String username, String password){
@@ -59,7 +59,7 @@ public class UserService {
     }
 
     public User authenticate(String userName, String password) {
-        Optional<User> user = userRepository.findByUserName(userName);
+        Optional<User> user = userRepository.findByUsername(userName);
         if (user.isPresent() && user.get().getPassword().equals(password)) {
             return user.get();
         }

@@ -30,19 +30,19 @@ public class LogInController {
     }
 
     @PostMapping("/logIn")
-    public String logIn(@RequestParam String userName, @RequestParam String password, Model model) {
+    public String logIn(@RequestParam String username, @RequestParam String password, Model model) {
 
-        if (userName == null || userName.isEmpty() || password == null || password.isEmpty()) {
+        if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
             model.addAttribute("error", "Nombre de usuario o contraseña invalidas");
             return "redirect:/logIn";
         }
-        Optional<Admin> admin = adminService.findByUserName(userName);
+        Optional<Admin> admin = adminService.findByUserName(username);
 
         if (admin.isPresent() && admin.get().getPassword().equals(password)){
             model.addAttribute("admin", admin.get());
             return "redirect:/admin/mainAdmin";
         }
-        Optional<User> user = userService.findByUserName(userName);
+        Optional<User> user = userService.findByUsername(username);
         if (user.isPresent() && user.get().getPassword().equals(password)) {
             model.addAttribute("user", user.get());
             return "redirect:/users/main";
