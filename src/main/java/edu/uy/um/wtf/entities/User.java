@@ -18,27 +18,27 @@ import java.util.Date;
 
 public class User implements Serializable {
     @Id
-    @Column(name = "Id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "First Name")
+    @Column(name = "first name")
     private String firstName;
 
-    @Column(name = "Last Name")
+    @Column(name = "last name")
     private String lastName;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "Birth Date")
+    @Column(name = "birth date")
     private Date birthDate;
 
-    @Column(name = "Mail")
+    @Column(name = "mail")
     private String mail;
 
     @NotNull
-    @Column(name = "UserName")
-    private String userName;
+    @Column(name = "username")
+    private String username;
 
     @NotNull
-    @Column(name = "Password")
+    @Column(name = "password")
     private String password;
 }

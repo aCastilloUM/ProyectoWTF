@@ -33,15 +33,15 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public Optional<User> findByUserName(String userName) {
-        if (userName == null || userName.isEmpty()) {
+    public Optional<User> findByUserName(String username) {
+        if (username == null || username.isEmpty()) {
             return Optional.empty();
         }
-        return userRepository.findByUserName(userName);
+        return userRepository.findByUserName(username);
     }
 
-    public User addUser(Long id, String firstName, String lastName, Date birthDate, String mail, String userName, String password){
-        if (firstName == null || lastName == null || birthDate == null || mail == null || userName == null || password == null) {
+    public User addUser(Long id, String firstName, String lastName, Date birthDate, String mail, String username, String password){
+        if (firstName == null || lastName == null || birthDate == null || mail == null || username == null || password == null) {
             return null;
         }
 
@@ -51,7 +51,7 @@ public class UserService {
                 .lastName(lastName)
                 .birthDate(birthDate)
                 .mail(mail)
-                .userName(userName)
+                .username(username)
                 .password(password)
                 .build();
 

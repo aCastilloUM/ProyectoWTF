@@ -22,21 +22,21 @@ public class Movie implements Serializable
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "Id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "Title")
+    @Column(name = "title")
     private String title;
 
-    @Column(name = "Director")
+    @Column(name = "director")
     private String director;
 
     @ElementCollection
     @CollectionTable(name = "Movie_Genres", joinColumns = @JoinColumn(name = "Movie_Id"))
-    @Column(name = "Genre")
+    @Column(name = "genre")
     private List<String> genre;
 
-    @Column(name = "Duration")
+    @Column(name = "duration")
     private int duration;
 
 

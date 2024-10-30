@@ -22,34 +22,34 @@ public class FilmShow implements Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "Id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "Date")
+    @Column(name = "date")
     private Date date;
 
-    @Column(name = "Time")
+    @Column(name = "time")
     private LocalTime time;
 
     @ManyToOne
-    @JoinColumn(name = "Branch_Id")
+    @JoinColumn(name = "branch_id")
     private Branch branch;
 
     @ManyToOne
-    @JoinColumn(name = "Movie_Id")
+    @JoinColumn(name = "movie_id")
     private Movie movie;
 
     @ManyToOne
-    @JoinColumn(name = "Room_Id")
+    @JoinColumn(name = "room_id")
     private Room room;
 
-    @Column(name = "Special_Effects")
+    @Column(name = "special_effects")
     private String specialEffects;
 
-    @Column(name = "Language")
+    @Column(name = "language")
     private String language;
 
-    @Column(name = "Duration")
+    @Column(name = "duration")
     private int duration;
 
 }

@@ -18,16 +18,16 @@ public class Snack {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "Id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "Name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "Price")
+    @Column(name = "price")
     private double price;
 
-    @Column(name = "Type")
+    @Column(name = "type")
     private String type;
 
 }

@@ -20,37 +20,37 @@ public class Ticket implements Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "Id")
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "Client_Id", nullable = false)
+    @JoinColumn(name = "client_id", nullable = false)
     private User client;
 
     @ManyToOne
-    @JoinColumn(name = "FilmShow_Id", nullable = false)
+    @JoinColumn(name = "filmShow_id", nullable = false)
     private FilmShow filmShow;
 
-    @Column(name = "Price")
+    @Column(name = "price")
     private double price;
 
-    @Column(name = "Row")
+    @Column(name = "row")
     private int row;
 
-    @Column(name = "seatColumn")
+    @Column(name = "seat column")
     private int seatColumn;
 
     @ManyToOne
-    @JoinColumn(name = "Room_Id", nullable = false)
+    @JoinColumn(name = "room_id", nullable = false)
     private Room room;
 
     @ManyToOne
-    @JoinColumn(name = "Movie_Id", nullable = false)
+    @JoinColumn(name = "movie_id", nullable = false)
     private Movie movie;
 
-    @Column(name = "Date")
+    @Column(name = "date")
     private Date date;
 
-    @Column(name = "Time")
+    @Column(name = "time")
     private LocalTime time;
 }

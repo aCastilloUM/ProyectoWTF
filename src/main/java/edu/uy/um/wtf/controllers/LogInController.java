@@ -42,15 +42,14 @@ public class LogInController {
             model.addAttribute("admin", admin.get());
             return "redirect:/admin/mainAdmin";
         }
-        User user = userService.authenticate(userName, password);
-        if (user != null) {
-            model.addAttribute("user", user);
+        Optional<User> user = userService.findByUserName(userName);
+        if (user.isPresent() && user.get().getPassword().equals(password)) {
+            model.addAttribute("user", user.get());
             return "redirect:/users/main";
         } else {
             model.addAttribute("error", "Nombre de usuario o contraseña invalidas");
             return "redirect:/logIn";
         }
-
     }
 
 }

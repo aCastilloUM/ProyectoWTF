@@ -21,22 +21,22 @@ public class Room implements Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "Id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "Number")
+    @Column(name = "number")
     private int number;
 
-    @Column(name = "Capacity")
+    @Column(name = "capacity")
     private int capacity;
 
-    @Column(name = "Rows")
+    @Column(name = "rows")
     private int rows;
 
-    @Column(name = "Columns")
+    @Column(name = "columns")
     private int columns;
 
     @ManyToOne
-    @JoinColumn(name = "Branch_Id", nullable = false)
+    @JoinColumn(name = "branch_id", nullable = false)
     private Branch branch;
 }

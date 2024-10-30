@@ -19,27 +19,27 @@ public class Bill implements Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "Id")
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "Client_Id", nullable = false)
+    @JoinColumn(name = "client_id", nullable = false)
     private User client;
 
     @OneToMany
-    @JoinColumn(name = "Bill_Id")
+    @JoinColumn(name = "bill_id")
     private List<Snack> snacks;
 
-    @Column(name = "TotalSnacks")
+    @Column(name = "total snacks")
     private double totalSnacks;
 
     @OneToMany
-    @JoinColumn(name = "Bill_Id")
+    @JoinColumn(name = "bill_id")
     private List<Ticket> tickets;
 
-    @Column(name = "TotalTickets")
+    @Column(name = "total tickets")
     private double totalTickets;
 
-    @Column(name = "Total")
+    @Column(name = "total")
     private double total;
 }

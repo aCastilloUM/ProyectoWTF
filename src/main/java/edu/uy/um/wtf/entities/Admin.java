@@ -18,28 +18,28 @@ public class Admin {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "First Name")
+    @Column(name = "first name")
     private String firstName;
 
-    @Column(name = "Last Name")
+    @Column(name = "last name")
     private String lastName;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "Birthdate")
+    @Column(name = "birthdate")
     private Date birthDate;
 
-    @Column(name = "Mail")
+    @Column(name = "mail")
     private String mail;
 
     @NotNull
-    @Column(name = "UserName")
+    @Column(name = "username")
     private String userName;
 
     @NotNull
-    @Column(name = "Password")
+    @Column(name = "password")
     private String password;
 
     @Override
