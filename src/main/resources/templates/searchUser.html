@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light text-dark">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="text-center">User Details</h1>
+            <div th:if="${user != null}">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>ID</th>
+                        <td th:text="${user.id}"></td>
+                    </tr>
+                    <tr>
+                        <th>First Name</th>
+                        <td th:text="${user.firstName}"></td>
+                    </tr>
+                    <tr>
+                        <th>Last Name</th>
+                        <td th:text="${user.lastName}"></td>
+                    </tr>
+                    <tr>
+                        <th>Birth Date</th>
+                        <td th:text="${user.birthDate}"></td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td th:text="${user.mail}"></td>
+                    </tr>
+                    <tr>
+                        <th>Username</th>
+                        <td th:text="${user.userName}"></td>
+                    </tr>
+                </table>
+            </div>
+            <div th:if="${error != null}">
+                <div class="alert alert-danger" th:text="${error}"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

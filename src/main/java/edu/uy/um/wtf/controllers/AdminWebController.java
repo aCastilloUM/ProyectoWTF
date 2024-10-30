@@ -58,10 +58,10 @@ public class AdminWebController {
     @GetMapping("/add")
     public String addAdmin(@RequestParam Long id, @RequestParam String firstName,
                            @RequestParam String lastName, @RequestParam Date birthdate,
-                           @RequestParam String mail, @RequestParam String userName, @RequestParam String password,
+                           @RequestParam String mail, @RequestParam String username, @RequestParam String password,
                            Model model){
         try {
-            Admin admin = adminService. addAdmin(id, firstName, lastName, birthdate,mail, userName, password);
+            Admin admin = adminService. addAdmin(id, firstName, lastName, birthdate,mail, username, password);
             model.addAttribute("admin", admin);
             return "admins/detail";
         } catch (InvalidDataException e) {

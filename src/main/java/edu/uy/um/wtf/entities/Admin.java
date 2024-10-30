@@ -36,30 +36,30 @@ public class Admin {
 
     @NotNull
     @Column(name = "username")
-    private String userName;
+    private String username;
 
     @NotNull
     @Column(name = "password")
     private String password;
 
-    @Override
-    public String toString() {
-        return (new StringBuilder())
-                .append("\tAdmin{Id: ")
-                .append(id)
-                .append("\t, First name: ")
-                .append(firstName)
-                .append("\t, Last name: ")
-                .append(lastName)
-                .append("\t, Birthdate: ")
-                .append(birthDate)
-                .append("\t, Mail: ")
-                .append(mail)
-                .append("\t, UserName: ")
-                .append(userName)
-                .append("\t, Password: ")
-                .append(password)
-                .append("}")
-                .toString();
-    }
+//    @Override
+//    public String toString() {
+//        return (new StringBuilder())
+//                .append("\tAdmin{Id: ")
+//                .append(id)
+//                .append("\t, First name: ")
+//                .append(firstName)
+//                .append("\t, Last name: ")
+//                .append(lastName)
+//                .append("\t, Birthdate: ")
+//                .append(birthDate)
+//                .append("\t, Mail: ")
+//                .append(mail)
+//                .append("\t, UserName: ")
+//                .append(userName)
+//                .append("\t, Password: ")
+//                .append(password)
+//                .append("}")
+//                .toString();
+//    }
 }

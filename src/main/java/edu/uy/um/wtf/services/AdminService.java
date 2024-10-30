@@ -28,8 +28,8 @@ public class AdminService {
         return adminRepository.findAll();
     }
 
-    public Admin addAdmin(Long id, String firstName, String lastName, Date birthdate, String mail, String userName, String password) throws InvalidDataException {
-        if (firstName == null || lastName == null || birthdate == null || mail == null || userName == null || password == null) {
+    public Admin addAdmin(Long id, String firstName, String lastName, Date birthdate, String mail, String username, String password) throws InvalidDataException {
+        if (firstName == null || lastName == null || birthdate == null || mail == null || username == null || password == null) {
             throw new InvalidDataException("Los datos no son correctos");
         }
 
@@ -39,7 +39,7 @@ public class AdminService {
                 .lastName(lastName)
                 .birthDate(birthdate)
                 .mail(mail)
-                .userName(userName)
+                .username(username)
                 .password(password)
                 .build();
         return adminRepository.save(newAdmin);
@@ -72,12 +72,12 @@ public class AdminService {
         return adminRepository.findByMail(mail);
     }
 
-    public Optional<Admin> findByUserName(String userName) {
-        return adminRepository.findByUserName(userName);
+    public Optional<Admin> findByUsername(String username) {
+        return adminRepository.findByUsername(username);
     }
 
-    public Admin authenticate(String userName, String password) {
-        Optional<Admin> admin = adminRepository.findByUserName(userName);
+    public Admin authenticate(String username, String password) {
+        Optional<Admin> admin = adminRepository.findByUsername(username);
         if (admin.isPresent() && admin.get().getPassword().equals(password)) {
             return admin.get();
         }
