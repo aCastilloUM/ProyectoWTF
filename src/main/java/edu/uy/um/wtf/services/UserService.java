@@ -3,6 +3,8 @@ package edu.uy.um.wtf.services;
 import edu.uy.um.wtf.entities.User;
 import edu.uy.um.wtf.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,8 +19,22 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
     public void saveUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
+    }
+
+    public Optional<User> findByUsernameAndPassword(String username, String password) {
+        if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
+            return Optional.empty();
+        }
+        Optional<User> user = userRepository.findByUsername(username);
+        if (user.isPresent() && passwordEncoder.matches(password, user.get().getPassword())) {
+            return user;
+        }
+        return Optional.empty();
     }
 
     public Optional<User> findByEmail(String email) {
@@ -56,14 +72,6 @@ public class UserService {
                 .build();
 
         return userRepository.save(newUser);
-    }
-
-    public User authenticate(String userName, String password) {
-        Optional<User> user = userRepository.findByUsername(userName);
-        if (user.isPresent() && user.get().getPassword().equals(password)) {
-            return user.get();
-        }
-        return null;
     }
 
 }

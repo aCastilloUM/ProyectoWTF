@@ -36,7 +36,7 @@ public class LogInController {
             model.addAttribute("error", "Nombre de usuario o contraseña invalidas");
             return "redirect:/logIn";
         }
-        Optional<Admin> admin = adminService.findByUserName(username);
+        Optional<Admin> admin = adminService.findByUsername(username);
 
         if (admin.isPresent() && admin.get().getPassword().equals(password)){
             model.addAttribute("admin", admin.get());
@@ -53,3 +53,6 @@ public class LogInController {
     }
 
 }
+
+
+

@@ -32,7 +32,7 @@ public class UserWebController {
     public String getAll(Model model){
         List<User> users = userService.getAll();
         model.addAttribute("users", users);
-        return "list";
+        return "userList";
     }
 
     @GetMapping("/register")

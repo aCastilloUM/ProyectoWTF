@@ -25,19 +25,27 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public String register(@RequestParam Long id, @RequestParam String firstName, @RequestParam String lastName,
-                           @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date birthDate, @RequestParam String mail, @RequestParam String username,
-                           @RequestParam String password, Model model) {
-
-        Optional<User> existingUser = userService.findByEmail(mail);
-        if (existingUser.isPresent()) {
-            model.addAttribute("error", "El usuario ya fue registrado");
-            return "error";
+    public String registerUser(@RequestParam String username, @RequestParam String password,
+                               @RequestParam String firstName, @RequestParam String lastName,
+                               @RequestParam String email, @RequestParam Date birthDate, Model model) {
+        if (username == null || username.isEmpty() || password == null || password.isEmpty() ||
+                firstName == null || firstName.isEmpty() || lastName == null || lastName.isEmpty() ||
+                email == null || email.isEmpty() || birthDate == null) {
+            model.addAttribute("error", "Todos los campos son requeridos");
+            return "redirect:/register";
         }
 
-        User newUser = userService.addUser(id, firstName, lastName, birthDate, mail, username, password);
-        model.addAttribute("user", newUser);
-        return "logIn";
+        User newUser = User.builder()
+                .username(username)
+                .password(password)
+                .firstName(firstName)
+                .lastName(lastName)
+                .mail(email)
+                .birthDate(birthDate)
+                .build();
+
+        userService.saveUser(newUser);
+        return "redirect:/login";
     }
 
     @GetMapping("/paymentMethod")
