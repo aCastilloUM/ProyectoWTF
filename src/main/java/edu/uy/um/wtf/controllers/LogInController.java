@@ -22,34 +22,33 @@ public class LogInController {
     private AdminService adminService;
 
     @GetMapping("/logIn")
-    public String showLoginForm(@RequestParam(value = "error", required = false) String error, Model model) {
-        if (error != null) {
-            model.addAttribute("error", "Nombre de usuario o contraseña inválidos");
-        }
+    public String showLoginForm() {
         return "logIn";
     }
 
-    @PostMapping("/logIn")
+    @PostMapping("/logInPost")
     public String logIn(@RequestParam String username, @RequestParam String password, Model model) {
 
-        if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
-            model.addAttribute("error", "Nombre de usuario o contraseña invalidas");
-            return "redirect:/logIn";
-        }
+//        if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
+//            model.addAttribute("error", "Nombre de usuario o contraseña invalidas");
+//            return "redirect:/logIn";
+//        }
+
         Optional<Admin> admin = adminService.findByUsername(username);
 
         if (admin.isPresent() && admin.get().getPassword().equals(password)){
             model.addAttribute("admin", admin.get());
             return "redirect:/admin/mainAdmin";
         }
+
         Optional<User> user = userService.findByUsername(username);
         if (user.isPresent() && user.get().getPassword().equals(password)) {
             model.addAttribute("user", user.get());
             return "redirect:/users/main";
-        } else {
-            model.addAttribute("error", "Nombre de usuario o contraseña invalidas");
-            return "redirect:/logIn";
         }
+
+        model.addAttribute("error", "Nombre de usuario o contraseña invalidas");
+        return "redirect:/logIn";
     }
 
 }

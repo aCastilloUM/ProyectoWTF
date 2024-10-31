@@ -22,7 +22,7 @@
       <div class="card">
         <div class="card-body">
           <h2 class="card-title text-center">Iniciar Sesión</h2>
-          <form th:action="@{/logIn}" method="POST">
+          <form th:action="@{/logInPost}" method="POST">
             <div class="form-group">
               <label for="username">Nombre de Usuario</label>
               <input type="text" class="form-control" id="username" name="username" required>
@@ -34,7 +34,7 @@
             <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
           </form>
           <div class="text-center mt-3">
-            <a th:href="@{/register}" class="text-primary">¿No tienes una cuenta? Regístrate aquí</a>
+            <a th:href="@{/users/register}" class="text-primary">¿No tienes una cuenta? Regístrate aquí</a>
           </div>
         <div th:if="${error}" class="alert alert-danger mt-3" role="alert">
         <p th:text="${error}"></p>

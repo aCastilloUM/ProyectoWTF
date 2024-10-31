@@ -38,7 +38,7 @@ public class UserWebController {
         return "register";
     }
 
-    @PostMapping("/register")
+    @PostMapping("/registerPost")
     public String registerUser(@RequestParam String username, @RequestParam String password,
                                @RequestParam String firstName, @RequestParam String lastName,
                                @RequestParam String email, @RequestParam Date birthDate, Model model) {
@@ -59,7 +59,7 @@ public class UserWebController {
                 .build();
 
         userService.saveUser(newUser);
-        return "redirect:/login";
+        return "redirect:/logIn";
     }
 
     @GetMapping("/paymentMethod")
