@@ -2,6 +2,7 @@ package edu.uy.um.wtf.controllers;
 
 import edu.uy.um.wtf.entities.User;
 import edu.uy.um.wtf.services.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -25,27 +26,29 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@RequestParam String username, @RequestParam String password,
+    public String registerUser(@RequestParam Long id, @RequestParam String username, @RequestParam String password,
                                @RequestParam String firstName, @RequestParam String lastName,
-                               @RequestParam String email, @RequestParam Date birthDate, Model model) {
-        if (username == null || username.isEmpty() || password == null || password.isEmpty() ||
+                               @RequestParam String mail, @RequestParam("birthDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date birthDate, Model model, HttpSession session) {
+        if (id == null || username == null || username.isEmpty() || password == null || password.isEmpty() ||
                 firstName == null || firstName.isEmpty() || lastName == null || lastName.isEmpty() ||
-                email == null || email.isEmpty() || birthDate == null) {
+                mail == null || mail.isEmpty() || birthDate == null) {
             model.addAttribute("error", "Todos los campos son requeridos");
             return "redirect:/register";
         }
 
         User newUser = User.builder()
+                .id(id)
                 .username(username)
                 .password(password)
                 .firstName(firstName)
                 .lastName(lastName)
-                .mail(email)
+                .mail(mail)
                 .birthDate(birthDate)
                 .build();
 
         userService.saveUser(newUser);
-        return "redirect:/login";
+        session.setAttribute("user", newUser);
+        return "redirect:/logIn";
     }
 
     @GetMapping("/paymentMethod")
