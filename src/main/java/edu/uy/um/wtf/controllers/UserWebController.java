@@ -7,12 +7,9 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import edu.uy.um.wtf.entities.User;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
 import java.util.List;
@@ -37,6 +34,7 @@ public class UserWebController {
 
     }
 
+
     @GetMapping("/all")
     public String getAll(Model model){
         List<User> users = userService.getAll();
@@ -45,8 +43,37 @@ public class UserWebController {
     }
 
     @GetMapping("/register")
-    public String showRegisterPage() {
+    public String showRegisterForm() {
         return "register";
+    }
+
+    @PostMapping("/register")
+    public String registerUser(@RequestParam String username, @RequestParam String password,
+                               @RequestParam String firstName, @RequestParam String lastName,
+                               @RequestParam String email, @RequestParam Date birthDate, Model model) {
+        if (username == null || username.isEmpty() || password == null || password.isEmpty() ||
+                firstName == null || firstName.isEmpty() || lastName == null || lastName.isEmpty() ||
+                email == null || email.isEmpty() || birthDate == null) {
+            model.addAttribute("error", "Todos los campos son requeridos");
+            return "redirect:/register";
+        }
+
+        User newUser = User.builder()
+                .username(username)
+                .password(password)
+                .firstName(firstName)
+                .lastName(lastName)
+                .mail(email)
+                .birthDate(birthDate)
+                .build();
+
+        userService.saveUser(newUser);
+        return "redirect:/login";
+    }
+
+    @GetMapping("/paymentMethod")
+    public String showPaymentMethodPage() {
+        return "paymentMethod";
     }
 
     @GetMapping("/byId/{id}")
