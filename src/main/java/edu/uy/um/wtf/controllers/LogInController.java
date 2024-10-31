@@ -29,10 +29,10 @@ public class LogInController {
     @PostMapping("/logInPost")
     public String logIn(@RequestParam String username, @RequestParam String password, Model model) {
 
-//        if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
-//            model.addAttribute("error", "Nombre de usuario o contraseña invalidas");
-//            return "redirect:/logIn";
-//        }
+        if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
+            model.addAttribute("error", "Nombre de usuario o contraseña invalidas");
+            return "redirect:/logIn";
+        }
 
         Optional<Admin> admin = adminService.findByUsername(username);
 
