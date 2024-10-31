@@ -21,10 +21,18 @@ public class SecurityConfig {
                 )
                 .formLogin(login -> login
                         .loginPage("/logIn")
+                        .loginProcessingUrl("/logIn")
+                        .defaultSuccessUrl("/users/main", true)
+                        .failureUrl("/logIn?error=true")
                         .permitAll()
                 )
                 .logout(LogoutConfigurer::permitAll);
         return http.build();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
 //"/logIn", "/register", "/paymentMethod", "/users/all"

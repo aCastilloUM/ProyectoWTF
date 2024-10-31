@@ -3,7 +3,9 @@ package edu.uy.um.wtf.controllers;
 
 import edu.uy.um.wtf.exceptions.EntityNotFoundException;
 import edu.uy.um.wtf.services.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
@@ -21,8 +23,15 @@ public class UserWebController {
     private UserService userService;
 
     @GetMapping("/main")
-    public String showUserPage() {
-        return "main";
+    public String showUserPage(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            model.addAttribute("user", user);
+            return "main";
+        }else {
+            return "redirect:/logIn";
+        }
+
     }
 
 
@@ -93,7 +102,7 @@ public class UserWebController {
 
     @GetMapping("/add")
     public String addUser(@RequestParam Long id, @RequestParam String firstName,
-                          @RequestParam String lastName, @RequestParam Date birthDate,
+                          @RequestParam String lastName, @RequestParam("birthDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date birthDate,
                           @RequestParam String mail, @RequestParam String username, @RequestParam String password, Model model){
         try {
             User user = userService.addUser(id, firstName, lastName, birthDate, mail, username, password);

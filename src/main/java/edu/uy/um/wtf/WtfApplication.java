@@ -1,5 +1,7 @@
 package edu.uy.um.wtf;
 
+import edu.uy.um.wtf.controllers.LogInController;
+import edu.uy.um.wtf.entities.User;
 import edu.uy.um.wtf.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -20,9 +22,26 @@ public class  WtfApplication {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private final LogInController login;
 
-	public static void main(String[] args) {
+    public WtfApplication(LogInController login) {
+        this.login = login;
+    }
 
-		SpringApplication.run(WtfApplication.class, args);
+    public static void main(String[] args) {
+
+		ApplicationContext ctx = SpringApplication.run(WtfApplication.class, args);
+		WtfApplication app = ctx.getBean(WtfApplication.class);
+		app.runInCommandLine();
 	}
+
+	public void runInCommandLine()
+	{
+		User user = userService.addUser(54930262L, "Nicolas", "Gonzalez", new Date(), "martinestefanell@gmail.com", "nicogonzalez", "1234");
+		System.out.println(user);
+		System.out.println(userService.findByUsername("ale"));
+	}
+
+
 }
