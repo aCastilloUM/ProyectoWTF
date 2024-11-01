@@ -48,11 +48,8 @@ public class SnackService {
         return snackRepository.findByName(name);
     }
 
-    public Optional<Snack> findById(Long id) {
-        if (id == null) {
-            return null;
-        }
-        return snackRepository.findById(id);
+    public Snack findById(Long id) {
+        return snackRepository.findById(id).orElse(null);
     }
 
     public Snack updateSnack(Snack snack){
@@ -63,5 +60,6 @@ public class SnackService {
     }
 
     public void deleteSnack(Snack snack) {
+        snackRepository.delete(snack);
     }
 }

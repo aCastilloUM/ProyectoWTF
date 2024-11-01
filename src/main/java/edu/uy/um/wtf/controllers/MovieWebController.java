@@ -94,9 +94,20 @@ public class MovieWebController {
                 throw new InvalidDataException("Invalid Data");
             }
             model.addAttribute("pelicula", movie);
-            return "movies/detail";
+            return "movieAdmin";
         } catch (InvalidDataException e) {
             model.addAttribute("error", "Invalid data");
+            return "redirect:/movies";
+        }
+    }
+
+    @PostMapping("/delete")
+    public String deleteMovie(@RequestParam Long id, Model model) {
+        try {
+            movieService.deleteMovie(id);
+            return "movieAdmin";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("error", "Id not found");
             return "error";
         }
     }

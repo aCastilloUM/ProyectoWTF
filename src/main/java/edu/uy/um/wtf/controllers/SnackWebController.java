@@ -41,7 +41,7 @@ public class SnackWebController {
     @GetMapping("/byId{Id}")
     public String findById(@PathVariable("Id") Long id, Model model) {
         try {
-            Snack snack = snackService.findById(id).orElseThrow(EntityNotFoundException::new);
+            Snack snack = snackService.findById(id);
             model.addAttribute("snack", snack);
             return "snacks/detail";
         } catch (EntityNotFoundException e) {
@@ -54,18 +54,16 @@ public class SnackWebController {
     public String addSnack(@RequestParam String name, @RequestParam double price, @RequestParam String type, Model model) {
         try {
             Snack snack = snackService.addSnack(name, price, type);
-            model.addAttribute("snack", snack);
-            return "snacks/detail";
-        } catch (EntityNotFoundException e) {
-            model.addAttribute("error", "Error adding snack");
-            return "error";
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", "Error al agregar el snack");
         }
+        return "snacksAdmin";
     }
 
     @GetMapping("/update{Id}{Name}{Price}{Stock}")
     public String updateSnack(@PathVariable("Id") Long id, @PathVariable("Name") String name, @PathVariable("Price") double price, @PathVariable("Type") String type, Model model) {
         try {
-            Snack snack = snackService.findById(id).orElseThrow(EntityNotFoundException::new);
+            Snack snack = snackService.findById(id);
             snack.setName(name);
             snack.setPrice(price);
             snack.setType(type);
@@ -78,17 +76,15 @@ public class SnackWebController {
         }
     }
 
-    @GetMapping("/delete{Id}")
-    public String deleteSnack(@PathVariable("Id") Long id, Model model) {
+    @PostMapping("/delete")
+    public String deleteSnack(@RequestParam Long id, Model model) {
         try {
-            Snack snack = snackService.findById(id).orElseThrow(EntityNotFoundException::new);
+            Snack snack = snackService.findById(id);
             snackService.deleteSnack(snack);
-            model.addAttribute("snack", snack);
-            return "snacks/detail";
-        } catch (EntityNotFoundException e) {
-            model.addAttribute("error", "Error deleting snack");
-            return "error";
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", "Error al eliminar el snack");
         }
+        return "snacksAdmin";
     }
 
 

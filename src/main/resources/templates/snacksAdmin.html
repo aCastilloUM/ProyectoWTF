@@ -41,13 +41,12 @@
             <div class="text-center mb-4">
                 <h1>Administrar Snacks</h1>
             </div>
-
             <!-- Add/Update Snack Card -->
             <div class="card first-card">
                 <div class="card-body">
                     <h2 class="card-title text-center">Agregar/Actualizar Snack</h2>
                     <!-- Form to add or update a snack -->
-                    <form th:action="@{/snacks/update}" method="post">
+                    <form th:action="@{/snacks/add}" method="post">
                         <div class="form-group">
                             <label for="name">Nombre:</label>
                             <input type="text" class="form-control" id="name" name="name" required>
@@ -116,7 +115,7 @@
         </div>
     </div>
 </div>
-<a href="mainAdmin" class="back-link">&larr; Volver a Panel de Administrador</a>
+<a th:href="@{/admin/mainAdmin}" class="back-link">&larr; Volver a Panel de Administrador</a>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

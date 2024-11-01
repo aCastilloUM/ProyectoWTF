@@ -71,12 +71,11 @@ public class MovieService {
     }
 
     public Movie updateMovie(Movie movie) {
-        if (movieRepository.existsById(movie.getId())) {
-            return movieRepository.save(movie);
-        }
-        return null;
+        return movieRepository.save(movie);
     }
 
 
-
+    public void deleteMovie(Long id) {
+        movieRepository.deleteById(id);
+    }
 }

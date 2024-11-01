@@ -47,7 +47,7 @@
                 <div class="card-body">
                     <h2 class="card-title text-center">Agregar/Actualizar Película</h2>
                     <!-- Form to add or update a movie -->
-                    <form th:action="@{/movies/update}" method="post">
+                    <form th:action="@{/movies/add}" method="post">
                         <div class="form-group">
                             <label for="title">Título:</label>
                             <input type="text" class="form-control" id="title" name="title" required>
@@ -60,7 +60,7 @@
                             <label for="genre">Género:</label>
                             <div id="genre">
                                 <!-- Checkbox options for genres -->
-                                <div class="form-check">
+                                <div class="form-check ">
                                     <input class="form-check-input" type="checkbox" id="accion" name="genre" value="Acción">
                                     <label class="form-check-label" for="accion">Acción</label>
                                 </div>
