@@ -1,18 +1,18 @@
 package edu.uy.um.wtf.controllers;
 
 
+import edu.uy.um.wtf.entities.Branch;
 import edu.uy.um.wtf.entities.FilmShow;
 import edu.uy.um.wtf.entities.Movie;
 import edu.uy.um.wtf.entities.Room;
 import edu.uy.um.wtf.exceptions.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import edu.uy.um.wtf.services.FilmShowService;
 
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
@@ -140,4 +140,26 @@ public class FilmShowWebController {
         }
     }
 
+    @PostMapping("/add")
+    public String addFunction(@RequestParam Date date, @RequestParam LocalTime time,
+                              @RequestParam Movie movie, @RequestParam Branch branch,
+                              @RequestParam Room room, @RequestParam String specialEffects,
+                              @RequestParam String language, Model model) {
+        try {
+            FilmShow funcion = filmShowService.addFunction(date, time, movie, branch, room, specialEffects, language);
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", "Error al agregar la funcion");
+        }
+        return "filmshowsAdmin";
+    }
+
+    @PostMapping("/delete")
+    public String deleteFunction(@RequestParam Long id, Model model) {
+        try {
+            filmShowService.deleteFunction(id);
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", "Error al eliminar la funcion");
+        }
+        return "filmshowsAdmin";
+    }
 }

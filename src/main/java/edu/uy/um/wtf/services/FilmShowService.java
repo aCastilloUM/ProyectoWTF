@@ -98,9 +98,7 @@ public class FilmShowService {
     }
 
     public void deleteFunction(Long id) {
-        if (id != null) {
             filmShowRepository.deleteById(id);
-        }
     }
 
 }
