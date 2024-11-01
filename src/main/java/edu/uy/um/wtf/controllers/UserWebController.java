@@ -6,6 +6,7 @@ import edu.uy.um.wtf.services.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
@@ -21,6 +22,8 @@ public class UserWebController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/main")
     public String showUserPage(HttpSession session, Model model) {
@@ -48,10 +51,10 @@ public class UserWebController {
     }
 
     @PostMapping("/registerPost")
-    public String registerUser(@RequestParam String username, @RequestParam String password,
+    public String registerUser(@RequestParam Long id, @RequestParam String username, @RequestParam String password,
                                @RequestParam String firstName, @RequestParam String lastName,
-                               @RequestParam String email, @RequestParam Date birthDate, Model model) {
-        if (username == null || username.isEmpty() || password == null || password.isEmpty() ||
+                               @RequestParam String email, @RequestParam("birthDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date birthDate, Model model, HttpSession session) {
+        if (id == null || username == null || username.isEmpty() || password == null || password.isEmpty() ||
                 firstName == null || firstName.isEmpty() || lastName == null || lastName.isEmpty() ||
                 email == null || email.isEmpty() || birthDate == null) {
             model.addAttribute("error", "Todos los campos son requeridos");
@@ -59,8 +62,9 @@ public class UserWebController {
         }
 
         User newUser = User.builder()
+                .id(id)
                 .username(username)
-                .password(password)
+                .password(passwordEncoder.encode(password))
                 .firstName(firstName)
                 .lastName(lastName)
                 .mail(email)
@@ -68,6 +72,7 @@ public class UserWebController {
                 .build();
 
         userService.saveUser(newUser);
+        session.setAttribute("user", newUser);
         return "redirect:/logIn";
     }
 

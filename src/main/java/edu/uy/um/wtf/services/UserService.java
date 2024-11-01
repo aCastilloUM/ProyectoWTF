@@ -58,7 +58,7 @@ public class UserService {
     }
 
     public User addUser(Long id, String firstName, String lastName, Date birthDate, String mail, String username, String password){
-        if (firstName == null || lastName == null || birthDate == null || mail == null || username == null || password == null) {
+        if (id == null || firstName == null || lastName == null || birthDate == null || mail == null || username == null || password == null) {
             return null;
         }
 

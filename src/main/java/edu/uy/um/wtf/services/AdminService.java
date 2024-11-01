@@ -29,7 +29,7 @@ public class AdminService {
     }
 
     public Admin addAdmin(Long id, String firstName, String lastName, Date birthdate, String mail, String username, String password) throws InvalidDataException {
-        if (firstName == null || lastName == null || birthdate == null || mail == null || username == null || password == null) {
+        if (id == null || firstName == null || lastName == null || birthdate == null || mail == null || username == null || password == null) {
             throw new InvalidDataException("Los datos no son correctos");
         }
 

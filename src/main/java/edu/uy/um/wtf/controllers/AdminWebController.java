@@ -4,7 +4,9 @@ import edu.uy.um.wtf.entities.Admin;
 import edu.uy.um.wtf.exceptions.EntityNotFoundException;
 import edu.uy.um.wtf.exceptions.InvalidDataException;
 import edu.uy.um.wtf.services.AdminService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -57,12 +59,13 @@ public class AdminWebController {
 
     @GetMapping("/add")
     public String addAdmin(@RequestParam Long id, @RequestParam String firstName,
-                           @RequestParam String lastName, @RequestParam Date birthdate,
+                           @RequestParam String lastName, @RequestParam("birthDatet") @DateTimeFormat(pattern = "yyyy-MM-dd") Date birthdate,
                            @RequestParam String mail, @RequestParam String username, @RequestParam String password,
-                           Model model){
+                           Model model, HttpSession session){
         try {
             Admin admin = adminService. addAdmin(id, firstName, lastName, birthdate,mail, username, password);
             model.addAttribute("admin", admin);
+            session.setAttribute("admin", admin);
             return "admins/detail";
         } catch (InvalidDataException e) {
             model.addAttribute("error", "Invalid data");
