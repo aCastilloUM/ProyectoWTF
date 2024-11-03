@@ -37,18 +37,17 @@ public class LogInController {
 
         if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
             redirectAttributes.addFlashAttribute("error", "Nombre de usuario o contraseña invalidas");
-            return "/logIn";
+            return "redirect:/logIn";
         }
 
         Optional<Admin> admin = adminService.findByUsername(username);
-
-        if (admin.isPresent() && passwordEncoder.matches((password), admin.get().getPassword())) {
+        if (admin.isPresent() && password.equals(admin.get().getPassword())) {
             session.setAttribute("admin", admin.get());
             return "redirect:/admin/mainAdmin";
         }
 
         Optional<User> user = userService.findByUsername(username);
-        if (user.isPresent() && passwordEncoder.matches(password, user.get().getPassword())) {
+        if (user.isPresent() && password.equals(user.get().getPassword())) {
             session.setAttribute("user", user.get());
             return "redirect:/users/main";
         }
@@ -56,7 +55,6 @@ public class LogInController {
         redirectAttributes.addFlashAttribute("error", "Nombre de usuario o contraseña invalidas");
         return "redirect:/logIn";
     }
-
 }
 
 

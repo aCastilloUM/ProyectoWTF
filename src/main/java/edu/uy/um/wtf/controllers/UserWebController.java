@@ -37,7 +37,6 @@ public class UserWebController {
 
     }
 
-
     @GetMapping("/all")
     public String getAll(Model model){
         List<User> users = userService.getAll();
@@ -64,7 +63,7 @@ public class UserWebController {
         User newUser = User.builder()
                 .id(id)
                 .username(username)
-                .password(passwordEncoder.encode(password))
+                .password(password)
                 .firstName(firstName)
                 .lastName(lastName)
                 .mail(email)

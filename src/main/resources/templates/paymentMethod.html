@@ -32,22 +32,22 @@
             <div class="card">
                 <div class="card-body">
                     <a th:href="@{/users/register}" class="text-primary">&#8592; Volver</a>
-                    <form th:action="@{/paymentMethod}" method="POST">
+                    <form th:action="@{/paymentMethodPost}" method="POST">
                         <div class="form-group">
                             <label for="cardNumber">Número de Tarjeta:</label>
-                            <input type="text" class="form-control" name="cardNumber" id="cardNumber" required>
+                            <input type="text" class="form-control" name="cardNumber" id="cardNumber" pattern="\d{4} \d{4} \d{4} \d{4}" maxlength="19" required oninput="formatCardNumber(this)">
                         </div>
                         <div class="form-group">
-                            <label for="cardHolderName">Nombre del Titular:</label>
-                            <input type="text" class="form-control" name="cardHolderName" id="cardHolderName" required>
+                            <label for="cardHolder">Nombre Completo del Titular:</label>
+                            <input type="text" class="form-control" name="cardHolder" id="cardHolder" required>
                         </div>
                         <div class="form-group">
-                            <label for="expiryDate">Fecha de Expiración (MM/YY):</label>
-                            <input type="text" class="form-control" name="expiryDate" id="expiryDate" required>
+                            <label for="expirationDate">Fecha de Expiración (MM/YY):</label>
+                            <input type="text" class="form-control" name="expirationDate" id="expirationDate" pattern="\d{2}/\d{2}" maxlength="5" required oninput="formatExpiryDate(this)">
                         </div>
                         <div class="form-group">
                             <label for="cvv">CVV:</label>
-                            <input type="text" class="form-control" name="cvv" id="cvv" required>
+                            <input type="text" class="form-control" name="cvv" id="cvv" pattern="\d{3}" maxlength="3" required>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block mt-3">Guardar Método de Pago</button>
                     </form>
@@ -56,6 +56,16 @@
         </div>
     </div>
 </div>
+
+<script>
+    function formatCardNumber(input) {
+        input.value = input.value.replace(/\W/gi, '').replace(/(.{4})/g, '$1 ').trim();
+    }
+
+    function formatExpiryDate(input) {
+        input.value = input.value.replace(/\W/gi, '').replace(/(.{2})/, '$1/').trim();
+    }
+</script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
