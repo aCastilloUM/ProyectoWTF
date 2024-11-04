@@ -13,7 +13,8 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PaymentMethod {
+
+public class PeymentMethod {
     @Id
     @Column(name = "card number")
     private Long cardNumber;

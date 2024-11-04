@@ -1,6 +1,6 @@
 package edu.uy.um.wtf.controllers;
 
-import edu.uy.um.wtf.entities.PaymentMethod;
+import edu.uy.um.wtf.entities.PeymentMethod;
 import edu.uy.um.wtf.entities.User;
 import edu.uy.um.wtf.services.PaymentMethodService;
 import edu.uy.um.wtf.services.UserService;
@@ -11,14 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Optional;
 
 @Controller
 public class RegisterController {
@@ -81,7 +79,7 @@ public class RegisterController {
             return "redirect:/paymentMethod";
         }
 
-        PaymentMethod newPaymentMethod = PaymentMethod.builder()
+        PeymentMethod newPaymentMethod = PeymentMethod.builder()
                 .cardNumber(Long.parseLong(cardNumber.replaceAll("\\s", ""))) // Remove spaces and parse as Long
                 .holderName(cardHolderName)
                 .expirationDate(expirationDate)

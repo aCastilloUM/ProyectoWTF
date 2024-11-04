@@ -1,4 +1,4 @@
-package edu.uy.um.wtf.controllers;
+package edu.uy.um.wtf.controllers.entitiesControllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

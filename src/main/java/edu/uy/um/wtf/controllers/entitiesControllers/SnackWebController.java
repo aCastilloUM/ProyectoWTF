@@ -1,4 +1,4 @@
-package edu.uy.um.wtf.controllers;
+package edu.uy.um.wtf.controllers.entitiesControllers;
 
 
 import edu.uy.um.wtf.entities.Snack;
