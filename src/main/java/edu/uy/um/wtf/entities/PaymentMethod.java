@@ -18,11 +18,11 @@ public class PaymentMethod {
     @Column(name = "card number")
     private Long cardNumber;
 
-    //Hacer que se relacione con el user
     @Column(name = "holder name")
     private String holderName;
 
     @Column(name = "expiration date")
+    @Temporal(TemporalType.DATE)
     private Date expirationDate;
 
     @Column(name = "cvv")

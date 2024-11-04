@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
 
@@ -63,18 +65,27 @@ public class RegisterController {
     }
 
     @PostMapping("/paymentMethodPost")
-    public String registerPaymentMethod(@RequestParam Long cardNumber, @RequestParam String cardHolder,
-                                        @RequestParam String expirationDate, @RequestParam Integer cvv, RedirectAttributes redirectAttributes) {
-        if (cardNumber == null || cardHolder == null || cardHolder.isEmpty() || expirationDate == null || expirationDate.isEmpty() || cvv == null) {
+    public String registerPaymentMethod(@RequestParam String cardNumber, @RequestParam String cardHolderName,
+                                        @RequestParam String expiryDate, @RequestParam String cvv, RedirectAttributes redirectAttributes) {
+        if (cardNumber == null || cardHolderName == null || cardHolderName.isEmpty() || expiryDate == null || expiryDate.isEmpty() || cvv == null) {
             redirectAttributes.addFlashAttribute("error", "Todos los campos son requeridos");
             return "redirect:/paymentMethod";
         }
 
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/yy");
+        Date expirationDate;
+        try {
+            expirationDate = dateFormat.parse(expiryDate);
+        } catch (ParseException e) {
+            redirectAttributes.addFlashAttribute("error", "Fecha de expiración inválida");
+            return "redirect:/paymentMethod";
+        }
+
         PaymentMethod newPaymentMethod = PaymentMethod.builder()
-                .cardNumber(cardNumber)
-                .holderName(cardHolder)
-                .expirationDate(new Date(expirationDate))
-                .cvv(cvv)
+                .cardNumber(Long.parseLong(cardNumber.replaceAll("\\s", ""))) // Remove spaces and parse as Long
+                .holderName(cardHolderName)
+                .expirationDate(expirationDate)
+                .cvv(Integer.parseInt(cvv))
                 .build();
 
         paymentMethodService.savePaymentMethod(newPaymentMethod);
