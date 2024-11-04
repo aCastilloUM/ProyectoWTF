@@ -14,7 +14,7 @@ public class BranchService {
     @Autowired
     private BranchRepository branchRepository;
 
-    public Branch addBranch(String name, String location, List<Room> rooms){
+    public Branch addBranch(String name, String location, List<Room> rooms, Integer roomsNumber) {
         if (name == null || location == null) {
             return null;
         }
@@ -26,6 +26,7 @@ public class BranchService {
                 .name(name)
                 .location(location)
                 .rooms(rooms)
+                .rommsNumber(roomsNumber)
                 .build();
 
         return branchRepository.save(branch);

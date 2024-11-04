@@ -34,6 +34,7 @@ public class  WtfApplication {
 		ApplicationContext ctx = SpringApplication.run(WtfApplication.class, args);
 		WtfApplication app = ctx.getBean(WtfApplication.class);
 		app.runInCommandLine();
+
 	}
 
 	public void runInCommandLine()

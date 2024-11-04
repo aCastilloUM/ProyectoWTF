@@ -22,9 +22,13 @@ public class Branch {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "location")
+    @Column(name = "location", unique = true)
     private String location;
 
     @OneToMany(mappedBy = "branch", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Room> rooms;
+
+    @Column(name = "rooms number")
+    private Integer rommsNumber;
+
 }

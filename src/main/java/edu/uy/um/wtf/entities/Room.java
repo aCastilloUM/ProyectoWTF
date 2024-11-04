@@ -24,16 +24,17 @@ public class Room implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "number")
+
+    @Column(name = "number", unique = true)
     private int number;
 
     @Column(name = "capacity")
     private int capacity;
 
-    @Column(name = "rows")
+    @Column(name = "rows") //15
     private int rows;
 
-    @Column(name = "columns")
+    @Column(name = "columns") //10
     private int columns;
 
     @ManyToOne

@@ -31,7 +31,7 @@ public class User implements Serializable {
     @Column(name = "birth date")
     private Date birthDate;
 
-    @Column(name = "mail")
+    @Column(name = "mail", unique = true)
     private String mail;
 
     @NotNull

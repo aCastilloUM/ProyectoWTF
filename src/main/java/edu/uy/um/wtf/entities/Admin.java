@@ -17,8 +17,7 @@ import java.util.Date;
 public class Admin {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", unique = true)
     private Long id;
 
     @Column(name = "first name")
@@ -31,35 +30,15 @@ public class Admin {
     @Column(name = "birthdate")
     private Date birthDate;
 
-    @Column(name = "mail")
+    @Column(name = "mail", unique = true)
     private String mail;
 
     @NotNull
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
 
     @NotNull
     @Column(name = "password")
     private String password;
 
-//    @Override
-//    public String toString() {
-//        return (new StringBuilder())
-//                .append("\tAdmin{Id: ")
-//                .append(id)
-//                .append("\t, First name: ")
-//                .append(firstName)
-//                .append("\t, Last name: ")
-//                .append(lastName)
-//                .append("\t, Birthdate: ")
-//                .append(birthDate)
-//                .append("\t, Mail: ")
-//                .append(mail)
-//                .append("\t, UserName: ")
-//                .append(userName)
-//                .append("\t, Password: ")
-//                .append(password)
-//                .append("}")
-//                .toString();
-//    }
 }

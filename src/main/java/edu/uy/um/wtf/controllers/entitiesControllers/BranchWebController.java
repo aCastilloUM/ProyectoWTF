@@ -64,8 +64,8 @@ public class BranchWebController {
 
     @PostMapping("/add")
     public String addBranch(@RequestParam String name, @RequestParam String location,
-                            @RequestParam List<Room> rooms, @RequestParam Model model){
-        Branch branch = branchService.addBranch(name, location, rooms);
+                            @RequestParam List<Room> rooms, @RequestParam Integer roomsNumber, @RequestParam Model model){
+        Branch branch = branchService.addBranch(name, location, rooms, roomsNumber);
         if (branch == null) {
             model.addAttribute("error", "Branch not added");
             return "error";

@@ -15,6 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 
 public class PeymentMethod {
+
     @Id
     @Column(name = "card number", unique = true)
     private Long cardNumber;
@@ -28,4 +29,5 @@ public class PeymentMethod {
 
     @Column(name = "cvv")
     private String cvv;
+
 }
