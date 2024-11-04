@@ -4,13 +4,12 @@ import edu.uy.um.wtf.entities.Movie;
 import edu.uy.um.wtf.entities.PeymentMethod;
 import edu.uy.um.wtf.entities.Snack;
 import edu.uy.um.wtf.entities.Ticket;
-import edu.uy.um.wtf.services.SessionService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.print.attribute.standard.JobKOctets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,45 +17,41 @@ import java.util.List;
 @RequestMapping("/session")
 public class SessionController {
 
-    @Autowired
-    public SessionService sessionService;
-
-
     @PostMapping("/addPeymentMethod")
-    public String addPeymentMethod(String key, PeymentMethod peymentMethod) {
+    public String addPeymentMethod(String key, PeymentMethod peymentMethod, HttpSession session) {
         if (peymentMethod == null) {
             return "redirect:/peymentMethods";
         }
-        sessionService.addAttribute(key, peymentMethod);
+        session.setAttribute(key, peymentMethod);
         return "redirect:/peymentMethods";
     }
 
     @PostMapping("/deletePeymentMethod")
-    public String deletePeymentMethod(String key) {
-        sessionService.removeAttribute(key);
+    public String deletePeymentMethod(String key, HttpSession session) {
+        session.removeAttribute(key);
         return "redirect:/peymentMethods";
     }
 
     @PostMapping("/addSnack")
-    public String addSnack(String key, Snack snack) {
+    public String addSnack(String key, Snack snack, HttpSession session) {
 
-        List<Snack> snacks = (List<Snack>) sessionService.getAttribute(key);
+        List<Snack> snacks = (List<Snack>) session.getAttribute(key);
         if (snacks == null) {
             snacks = new ArrayList<>();
         }
         snacks.add(snack);
-        sessionService.addAttribute(key, snacks);
+        session.setAttribute(key, snacks);
 
         return "redirect:/snacks";
     }
 
     @PostMapping("/deleteSnack")
-    public String deleteSnack(String key) {
+    public String deleteSnack(String key, HttpSession session) {
 
         List<Snack> snacks;
         try {
-            snacks = (List<Snack>) sessionService.getAttribute(key);
-            sessionService.addAttribute(key, snacks);
+            snacks = (List<Snack>) session.getAttribute(key);
+            session.setAttribute(key, snacks);
         } catch (Exception e) {
             return "redirect:/snacks";
         }
@@ -71,25 +66,25 @@ public class SessionController {
     }
 
     @PostMapping("/addTicket")
-    public String addTicket(String key, Ticket ticket) {
+    public String addTicket(String key, Ticket ticket, HttpSession session) {
 
-        List<Ticket> tickets = (List<Ticket>) sessionService.getAttribute(key);
+        List<Ticket> tickets = (List<Ticket>) session.getAttribute(key);
         if (tickets == null) {
             tickets = new ArrayList<>();
         }
         tickets.add(ticket);
-        sessionService.addAttribute(key, tickets);
+        session.setAttribute(key, tickets);
 
         return "redirect:/tickets";
     }
 
     @PostMapping("/deleteTicket")
-    public String deleteTicket(String key) {
+    public String deleteTicket(String key, HttpSession session) {
 
         List<Ticket> tickets;
         try {
-            tickets = (List<Ticket>) sessionService.getAttribute(key);
-            sessionService.addAttribute(key, tickets);
+            tickets = (List<Ticket>) session.getAttribute(key);
+            session.setAttribute(key, tickets);
         } catch (Exception e) {
             return "redirect:/tickets";
         }
@@ -104,25 +99,25 @@ public class SessionController {
     }
 
     @PostMapping("/addMovie")
-    public String addMovie(String key, Movie movie) {
+    public String addMovie(String key, Movie movie, HttpSession session) {
 
-        List<Movie> movies = (List<Movie>) sessionService.getAttribute(key);
+        List<Movie> movies = (List<Movie>) session.getAttribute(key);
         if (movies == null) {
             movies = new ArrayList<>();
         }
         movies.add(movie);
-        sessionService.addAttribute(key, movies);
+        session.setAttribute(key, movies);
 
         return "redirect:/movies";
     }
 
     @PostMapping("/deleteMovie")
-    public String deleteMovie(String key) {
+    public String deleteMovie(String key, HttpSession session) {
 
         List<Movie> movies;
         try {
-            movies = (List<Movie>) sessionService.getAttribute(key);
-            sessionService.addAttribute(key, movies);
+            movies = (List<Movie>) session.getAttribute(key);
+            session.setAttribute(key, movies);
         } catch (Exception e) {
             return "redirect:/movies";
         }
@@ -136,12 +131,9 @@ public class SessionController {
         return "redirect:/movies";
     }
 
-
-
-
     @PostMapping("/invalidate")
-    public String invalidate() {
-        sessionService.invalidate();
+    public String invalidate(HttpSession session) {
+        session.invalidate();
         return "redirect:/";
     }
 
