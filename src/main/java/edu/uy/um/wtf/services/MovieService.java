@@ -14,8 +14,9 @@ public class MovieService {
     @Autowired
     private MovieRepository movieRepository;
 
-    public Movie addMovie(String title, List<String> genre, String director, int duration) {
-        if (title == null || title.isEmpty() || genre == null || genre.isEmpty() || director == null || director.isEmpty()) {
+    public Movie addMovie(String title, String description, List<String> genre, String director, int duration, int ageRegistration) {
+        if (title == null || title.isEmpty() || description == null || description.isEmpty() || genre == null ||
+                genre.isEmpty() || director == null || director.isEmpty() || duration <= 0 || ageRegistration < 0) {
             return null;
         }
         if (duration < 0) {
@@ -30,9 +31,11 @@ public class MovieService {
 
         Movie movie = Movie.builder()
                 .title(title)
+                .description(description)
                 .director(director)
                 .genre(genre)
                 .duration(duration)
+                .ageRegistration(ageRegistration)
                 .build();
 
         return movieRepository.save(movie);
@@ -77,5 +80,10 @@ public class MovieService {
 
     public void deleteMovie(Long id) {
         movieRepository.deleteById(id);
+    }
+
+    public boolean canPurchaseTicket(Long movieId, int userAge) {
+        Optional<Movie> movie = movieRepository.findById(movieId);
+        return movie.map(value -> userAge >= value.getAgeRegistration()).orElse(false);
     }
 }

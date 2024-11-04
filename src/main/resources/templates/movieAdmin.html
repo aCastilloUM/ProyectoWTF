@@ -31,6 +31,9 @@
             left: 20px;
             color: white;
         }
+        .form-group {
+            margin-bottom: 3px; /* Reduce the margin-bottom value */
+        }
     </style>
 </head>
 <body class="bg-dark text-white d-flex justify-content-center align-items-center full-height">
@@ -51,6 +54,10 @@
                         <div class="form-group">
                             <label for="title">Título:</label>
                             <input type="text" class="form-control" id="title" name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Descripción:</label>
+                            <textarea class="form-control" id="description" name="description" rows="1" required></textarea>
                         </div>
                         <div class="form-group">
                             <label for="director">Director:</label>
@@ -102,6 +109,10 @@
                             <label for="duration">Duración (minutos):</label>
                             <input type="number" class="form-control" id="duration" name="duration" required>
                         </div>
+                        <div class="form-group">
+                            <label for="ageRegistration">Edad Mínima:</label>
+                            <input type="number" class="form-control" id="ageRegistration" name="ageRegistration" value ="0" required >
+                        </div>
                         <button type="submit" class="btn btn-primary btn-block">Guardar</button>
                     </form>
                 </div>
@@ -140,11 +151,10 @@
         </div>
     </div>
 </div>
-<a th:href="@{/admin/mainAdmin}" class="back-link">&larr; Volver a Panel de Administrador</a>
+<a href="@{/admin/mainAdmin}" class="back-link">&larr; Volver a Panel de Administrador</a>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-

@@ -14,7 +14,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/movies")
 public class MovieWebController {
-
     @Autowired
     private MovieService movieService;
 
@@ -86,18 +85,17 @@ public class MovieWebController {
     }
 
     @PostMapping("/add")
-    public String addMovie(@RequestParam String title, @RequestParam List<String> director,
-                           @RequestParam String genre, @RequestParam int duration, Model model) {
+    public String addMovie(@RequestParam String title, @RequestParam String description, @RequestParam List<String> director,
+                           @RequestParam String genre, @RequestParam int duration, int ageRegistration, Model model) {
         try {
-            Movie movie = movieService.addMovie(title, director, genre, duration);
-            if (movie == null) {
+            Movie newMovie = movieService.addMovie(title, description, director, genre, duration, ageRegistration);
+            if (newMovie == null) {
                 throw new InvalidDataException("Invalid Data");
             }
-            model.addAttribute("pelicula", movie);
-            return "movieAdmin";
+            return "redirect:/movies/list";
         } catch (InvalidDataException e) {
             model.addAttribute("error", "Invalid data");
-            return "redirect:/movies";
+            return "redirect:/movieAdmin";
         }
     }
 
@@ -105,7 +103,7 @@ public class MovieWebController {
     public String deleteMovie(@RequestParam Long id, Model model) {
         try {
             movieService.deleteMovie(id);
-            return "movieAdmin";
+            return "redirect:/movies/list";
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", "Id not found");
             return "error";

@@ -28,6 +28,9 @@ public class Movie implements Serializable
     @Column(name = "title")
     private String title;
 
+    @Column(name = "description")
+    private String description;
+
     @Column(name = "director")
     private String director;
 
@@ -39,6 +42,7 @@ public class Movie implements Serializable
     @Column(name = "duration")
     private int duration;
 
-
+    @Column(name = "ageRestriction")
+    private Integer ageRegistration = 0;
 
 }
