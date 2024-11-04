@@ -16,7 +16,7 @@ import java.util.Date;
 
 public class PeymentMethod {
     @Id
-    @Column(name = "card number")
+    @Column(name = "card number", unique = true)
     private Long cardNumber;
 
     @Column(name = "holder name")
@@ -27,5 +27,5 @@ public class PeymentMethod {
     private Date expirationDate;
 
     @Column(name = "cvv")
-    private Integer cvv;
+    private String cvv;
 }

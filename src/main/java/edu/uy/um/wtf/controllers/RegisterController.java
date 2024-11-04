@@ -83,7 +83,7 @@ public class RegisterController {
                 .cardNumber(Long.parseLong(cardNumber.replaceAll("\\s", ""))) // Remove spaces and parse as Long
                 .holderName(cardHolderName)
                 .expirationDate(expirationDate)
-                .cvv(Integer.parseInt(cvv))
+                .cvv(cvv)
                 .build();
 
         paymentMethodService.savePaymentMethod(newPaymentMethod);

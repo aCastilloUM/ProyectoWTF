@@ -19,9 +19,19 @@
             max-width: 500px;
             margin: auto;
         }
+        .navbar-dark .navbar-nav .nav-link {
+            color: white;
+        }
+        .center-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
     </style>
 </head>
-<body class="bg-dark text-white d-flex justify-content-center align-items-center full-height">
+<body class="bg-dark text-white center-content">
 
 <div class="container">
     <div class="row justify-content-center">
@@ -39,6 +49,9 @@
                         <li class="list-group-item"><a href="/admin/filmshowAdmin" class="text-primary">Administrar Funcion</a></li>
                     </ul>
                 </div>
+            </div>
+            <div class="text-center mt-4">
+                <a class="btn btn-secondary" href="/logOut">Cerrar Sesión</a>
             </div>
         </div>
     </div>
