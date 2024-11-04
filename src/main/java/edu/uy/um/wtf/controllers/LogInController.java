@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
 @Controller
@@ -59,12 +57,11 @@ public class LogInController {
     }
 
     @GetMapping("/logOut")
-    public String logout(HttpServletRequest request, HttpServletResponse response) {
-        javax.servlet.http.HttpSession session = request.getSession(false);
+    public String logout(HttpSession session) {
         if (session != null) {
             session.invalidate();
         }
-        return "redirect:/logIn"; 
+        return "redirect:/logIn";
     }
 }
 
