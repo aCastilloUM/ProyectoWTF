@@ -56,6 +56,13 @@ public class LogInController {
         return "redirect:/logIn";
     }
 
+    @GetMapping("/logOut")
+    public String logout(HttpSession session) {
+        if (session != null) {
+            session.invalidate();
+        }
+        return "redirect:/logIn";
+    }
 }
 
 
