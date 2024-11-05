@@ -17,7 +17,8 @@ public class MovieWebController {
     @Autowired
     private MovieService movieService;
 
-    @GetMapping("/list")
+    //Puedo agregar otra ruta para que acceda:
+    @GetMapping({"/users/main", "/movies/list"})
     public String getAllMovies(Model model) {
         List<Movie> movies = movieService.getAll();
         model.addAttribute("movies", movies);
