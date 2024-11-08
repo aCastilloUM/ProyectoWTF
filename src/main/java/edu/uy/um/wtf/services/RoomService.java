@@ -14,11 +14,8 @@ public class RoomService {
     @Autowired
     private RoomRepository roomRepository;
 
-    public Room addRoom(int number, int capacity, int rows, int columns) {
-        if (number <= 0 || capacity <= 0 || rows <= 0 || columns <= 0) {
-            return null;
-        }
-        if (roomRepository.findByNumber(number).isPresent()) {
+    public Room addRoom(String number, int capacity, int rows, int columns) {
+        if (number != null || capacity <= 0 || rows <= 0 || columns <= 0) {
             return null;
         }
 
@@ -36,16 +33,10 @@ public class RoomService {
         return roomRepository.findAll();
     }
 
-    public Optional<Room> findByNumber(int number) {
-        if (number <= 0) {
-            return Optional.empty();
-        }
-        return roomRepository.findByNumber(number);
-    }
 
     public Optional<Room> findById(Long id) {
         if (id == null) {
-            return Optional.empty();
+            return null;
         }
         return roomRepository.findById(id);
     }

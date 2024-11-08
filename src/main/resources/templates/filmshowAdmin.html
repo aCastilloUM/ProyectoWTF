@@ -47,7 +47,7 @@
                 <div class="card-body">
                     <h2 class="card-title text-center">Agregar/Actualizar Film Show</h2>
                     <!-- Form to add or update a film show -->
-                    <form th:action="@{/filmshows/update}" method="post">
+                    <form th:action="@{/filmshows/add}" method="post">
                         <div class="form-group">
                             <label for="date">Fecha:</label>
                             <input type="date" class="form-control" id="date" name="date" required>
@@ -66,7 +66,7 @@
                         </div>
                         <div class="form-group">
                             <label for="room">Sala:</label>
-                            <input type="text" class="form-control" id="room" name="room" required>
+                            <input type="number" class="form-control" id="room" name="room" required>
                         </div>
                         <div class="form-group">
                             <label for="specialEffects">Efectos Especiales:</label>

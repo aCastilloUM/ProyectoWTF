@@ -103,13 +103,14 @@
             <div class="movie-details">
                 <h4>Horarios disponibles:</h4>
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="timeDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="showtimeDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Horarios
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="timeDropdown">
-                        <a class="dropdown-item" href="#">10:00 AM</a>
-                        <a class="dropdown-item" href="#">1:00 PM</a>
-                        <a class="dropdown-item" href="#">4:00 PM</a>
+                    <div class="dropdown-menu" aria-labelledby="showtimeDropdown">
+                        <a class="dropdown-item"
+                           th:each="showtime : ${showtimes}"
+                           th:text="${showtime.time}"
+                           th:href="@{'/seats/showSeats/' + ${showtime.id}}"></a>
                     </div>
                 </div>
             </div>

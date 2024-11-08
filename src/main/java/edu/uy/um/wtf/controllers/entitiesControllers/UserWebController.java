@@ -1,7 +1,9 @@
 package edu.uy.um.wtf.controllers.entitiesControllers;
 
 
+import edu.uy.um.wtf.entities.Movie;
 import edu.uy.um.wtf.exceptions.EntityNotFoundException;
+import edu.uy.um.wtf.services.MovieService;
 import edu.uy.um.wtf.services.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,10 @@ public class UserWebController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private MovieService movieService;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -29,12 +35,13 @@ public class UserWebController {
     public String showUserPage(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         if (user != null) {
+            List<Movie> movies = movieService.getAll();
+            model.addAttribute("movies", movies);
             model.addAttribute("user", user);
             return "main";
-        }else {
+        } else {
             return "redirect:/logIn";
         }
-
     }
 
     @GetMapping("/all")

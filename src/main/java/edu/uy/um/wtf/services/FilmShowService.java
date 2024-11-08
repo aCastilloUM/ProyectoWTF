@@ -101,4 +101,10 @@ public class FilmShowService {
             filmShowRepository.deleteById(id);
     }
 
+    public List<FilmShow> findByMovieId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        return filmShowRepository.findByMovieId(id);
+    }
 }

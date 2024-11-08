@@ -6,7 +6,11 @@ import edu.uy.um.wtf.entities.FilmShow;
 import edu.uy.um.wtf.entities.Movie;
 import edu.uy.um.wtf.entities.Room;
 import edu.uy.um.wtf.exceptions.EntityNotFoundException;
+import edu.uy.um.wtf.services.BranchService;
+import edu.uy.um.wtf.services.MovieService;
+import edu.uy.um.wtf.services.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
@@ -15,6 +19,7 @@ import edu.uy.um.wtf.services.FilmShowService;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/filmshows")
@@ -22,6 +27,10 @@ public class FilmShowWebController {
 
     @Autowired
     private FilmShowService filmShowService;
+    private MovieService movieService;
+    private BranchService branchService;
+    private RoomService roomService;
+
 
     @GetMapping("/all")
     public String getAll(Model model) {
@@ -30,12 +39,12 @@ public class FilmShowWebController {
         return "filmshows/list";
     }
 
-    @GetMapping("/byId{Id}")
+    @GetMapping("/{Id}")
     public String findById(@PathVariable("Id") Long id, Model model) {
         try {
             FilmShow funcion = filmShowService.findById(id).orElseThrow(EntityNotFoundException::new);
             model.addAttribute("funcion", funcion);
-            return "filmshows/detail";
+            return "main";
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", "Id not found");
             return "error";
@@ -133,7 +142,7 @@ public class FilmShowWebController {
             funcion.setMovie(movie);*/
             filmShowService.updateFunction(funcion);
             model.addAttribute("funcion", funcion);
-            return "filmshows/detail";
+            return "adminAdmin";
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", "Error updating function");
             return "error";
@@ -141,12 +150,18 @@ public class FilmShowWebController {
     }
 
     @PostMapping("/add")
-    public String addFunction(@RequestParam Date date, @RequestParam LocalTime time,
-                              @RequestParam Movie movie, @RequestParam Branch branch,
-                              @RequestParam Room room, @RequestParam String specialEffects,
+    public String addFunction(@DateTimeFormat(pattern = "yyyy-MM-dd") Date date, @RequestParam LocalTime time,
+                              @RequestParam String movie, @RequestParam String branch,
+                              @RequestParam Long room, @RequestParam String specialEffects,
                               @RequestParam String language, Model model) {
+
+        Movie movie1 = movieService.findByTitle(movie);
+        Branch branch1 = branchService.findByName(branch);
+        Optional<Room> Room = roomService.findById(room);
+        Room room1 = Room.orElseThrow(EntityNotFoundException::new);
+
         try {
-            FilmShow funcion = filmShowService.addFunction(date, time, movie, branch, room, specialEffects, language);
+            FilmShow funcion = filmShowService.addFunction(date, time, movie1, branch1, room1, specialEffects, language);
         } catch (Exception e) {
             model.addAttribute("errorMessage", "Error al agregar la funcion");
         }

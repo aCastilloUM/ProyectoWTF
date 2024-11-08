@@ -28,7 +28,7 @@ public class RoomWebController {
     }
 
     @PostMapping("/add")
-    public String addRoom(@RequestParam int number, @RequestParam  int capacity, @RequestParam  int rows, @RequestParam  int columns, Model model) {
+    public String addRoom(@RequestParam String number, @RequestParam  int capacity, @RequestParam  int rows, @RequestParam  int columns, Model model) {
         Room room = roomService.addRoom(number, capacity, rows, columns);
         if (room == null) {
             model.addAttribute("error", "Room not added");

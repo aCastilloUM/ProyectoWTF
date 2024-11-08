@@ -1,7 +1,9 @@
 package edu.uy.um.wtf.controllers.entitiesControllers;
 
+import edu.uy.um.wtf.entities.FilmShow;
 import edu.uy.um.wtf.entities.Movie;
 import edu.uy.um.wtf.exceptions.InvalidDataException;
+import edu.uy.um.wtf.services.FilmShowService;
 import edu.uy.um.wtf.services.MovieService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +16,16 @@ import java.util.List;
 @Controller
 @RequestMapping("/movies")
 public class MovieWebController {
+
+
     @Autowired
     private MovieService movieService;
 
+    @Autowired
+    private FilmShowService filmShowService;
+
     //Puedo agregar otra ruta para que acceda:
-    @GetMapping({"/users/main", "/movies/list"})
+    @GetMapping("/list")
     public String getAllMovies(Model model) {
         List<Movie> movies = movieService.getAll();
         model.addAttribute("movies", movies);
@@ -28,7 +35,7 @@ public class MovieWebController {
     @GetMapping("/byTitle/{title}")
     public String findByTitle(@PathVariable("title") String title, Model model) {
         try {
-            Movie laPelicula = movieService.findByTitle(title).get();
+            Movie laPelicula = movieService.findByTitle(title);
             model.addAttribute("pelicula", laPelicula);
             return "movies/detail";
         } catch (EntityNotFoundException e) {
@@ -66,7 +73,7 @@ public class MovieWebController {
         try {
             Movie laPelicula = movieService.findById(id).get();
             model.addAttribute("pelicula", laPelicula);
-            return "movies/detail";
+            return "main";
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", "Id not found");
             return "error";
@@ -86,10 +93,10 @@ public class MovieWebController {
     }
 
     @PostMapping("/add")
-    public String addMovie(@RequestParam String title, @RequestParam String description, @RequestParam List<String> director,
-                           @RequestParam String genre, @RequestParam int duration, int ageRegistration, Model model) {
+    public String addMovie(@RequestParam String title, @RequestParam String description, @RequestParam List<String> genre,
+                           @RequestParam String director, @RequestParam int duration, int ageRegistration, Model model) {
         try {
-            Movie newMovie = movieService.addMovie(title, description, director, genre, duration, ageRegistration);
+            Movie newMovie = movieService.addMovie(title, description, genre, director, duration, ageRegistration);
             if (newMovie == null) {
                 throw new InvalidDataException("Invalid Data");
             }
@@ -105,6 +112,19 @@ public class MovieWebController {
         try {
             movieService.deleteMovie(id);
             return "redirect:/movies/list";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("error", "Id not found");
+            return "error";
+        }
+    }
+    @GetMapping("/{id}/showtimes")
+    public String getShowtimesByMovieId(@PathVariable("id") Long id, Model model) {
+        try {
+            Movie movie = movieService.findById(id).get();
+            List<FilmShow> showtimes = filmShowService.findByMovieId(id);
+            model.addAttribute("pelicula", movie);
+            model.addAttribute("showtimes", showtimes);
+            return "movies/showtimes";
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", "Id not found");
             return "error";

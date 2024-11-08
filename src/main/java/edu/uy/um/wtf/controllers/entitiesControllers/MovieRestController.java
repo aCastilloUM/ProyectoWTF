@@ -27,7 +27,7 @@ public class MovieRestController {
     @GetMapping("/byTitle/{title}")
     public ResponseEntity<?> findByTitle(@PathVariable("title") String title) {
         try {
-            Movie laPelicula = movieService.findByTitle(title).get();
+            Movie laPelicula = movieService.findByTitle(title);
             return ResponseEntity.ok(laPelicula);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(404).body(new ErrorResponse("Title not found"));

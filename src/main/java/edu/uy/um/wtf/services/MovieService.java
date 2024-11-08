@@ -22,7 +22,7 @@ public class MovieService {
         if (duration < 0) {
             return null;
         }
-        if (movieRepository.findByTitle(title).isPresent()) {
+        if (movieRepository.findByTitle(title) != null) {
             return null;
         }
         if (title.trim().equals("") || director.trim().equals("")) {
@@ -45,7 +45,7 @@ public class MovieService {
         return movieRepository.findAll();
     }
 
-    public Optional<Movie> findByTitle(String title) {
+    public Movie findByTitle(String title) {
         if (title == null || title.isEmpty()) {
             return null;
         }

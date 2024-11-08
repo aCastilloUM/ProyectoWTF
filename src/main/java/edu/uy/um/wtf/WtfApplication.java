@@ -33,16 +33,13 @@ public class  WtfApplication {
 
 		ApplicationContext ctx = SpringApplication.run(WtfApplication.class, args);
 		WtfApplication app = ctx.getBean(WtfApplication.class);
-		app.runInCommandLine();
+		//app.runInCommandLine();
 
 	}
 
-	public void runInCommandLine()
-	{
-		User user = userService.addUser(54930262L, "Nicolas", "Gonzalez", new Date(), "martinestefanell@gmail.com", "nicogonzalez", "1234");
-		System.out.println(user);
-		System.out.println(userService.findByUsername("ale"));
-	}
+	//public void runInCommandLine()
+	//{
+	//}
 
 
 }
