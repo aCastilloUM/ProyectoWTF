@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -26,9 +27,9 @@ public class AdminWebController {
 
     @GetMapping("/all")
     public String getAll(Model model){
-        List<Admin> admins = adminService.getAll();
-        model.addAttribute("admins", admins);
-        return "admins/list";
+        List<Admin> admin = adminService.getAll();
+        model.addAttribute("admin", admin);
+        return "adminList";
     }
 
     @GetMapping("/byId{id}")
@@ -36,10 +37,28 @@ public class AdminWebController {
         try {
             Admin admin = adminService.findById(id).get();
             model.addAttribute("admin", admin);
-            return "admins/detail";
+            return "adminDetail";
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", "Id not found");
             return "error";
+        }
+    }
+
+    //crear una findByUsername
+    @GetMapping("/byUsername/{username}")
+    public String findByUsername(@PathVariable("username") String username, Model model) {
+        try {
+            Optional<Admin> admin = adminService.findByUsername(username);
+            if (admin.isPresent()) {
+                model.addAttribute("admin", admin.get());
+                return "adminDetail";
+            } else {
+                model.addAttribute("error", "Username not found");
+                return "error";
+            }
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("admin", "Username not found");
+            return "adminAdmin";
         }
     }
 
@@ -48,7 +67,7 @@ public class AdminWebController {
         try {
             Admin admin = (Admin) adminService.findByFirstNameAndLastName(firstName, lastName);
             model.addAttribute("admin", admin);
-            return "admins/detail";
+            return "adminDetail";
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", "First name and last name not found");
             return "error";
@@ -64,8 +83,7 @@ public class AdminWebController {
             Admin admin = adminService. addAdmin(id, firstName, lastName, birthdate,mail, username, password);
             model.addAttribute("admin", admin);
             session.setAttribute("admin", admin);
-            redirectAttributes.addFlashAttribute("message", "Admin added successfully");
-            return "redirect:/admin/mainAdmin";
+            return "mainAdmin";
         } catch (InvalidDataException e) {
             redirectAttributes.addFlashAttribute("error", "Invalid data");
             return "error";

@@ -100,10 +100,10 @@ public class MovieWebController {
             if (newMovie == null) {
                 throw new InvalidDataException("Invalid Data");
             }
-            return "redirect:/movies/list";
+            return "movieAdmin";
         } catch (InvalidDataException e) {
             model.addAttribute("error", "Invalid data");
-            return "redirect:/movieAdmin";
+            return "movieAdmin";
         }
     }
 

@@ -89,7 +89,7 @@
                 <div class="card-body">
                     <h2 class="card-title text-center">Buscar Administrador</h2>
                     <!-- Form to search for an admin by username -->
-                    <form th:action="@{/admin/byUsername}" method="get">
+                    <form th:action="@{/admin/byUsername/{username}(username=${searchUsername})}" method="get">
                         <div class="form-group">
                             <label for="searchUsername">Nombre de Usuario:</label>
                             <input type="text" class="form-control" id="searchUsername" name="username" required>
@@ -118,7 +118,7 @@
     </div>
 </div>
 
-<a href="@{/admin/mainAdmin}" class="back-link">&larr; Volver a Panel de Administrador</a>
+<a th:href="@{/admin/mainAdmin}" class="back-link">&larr; Volver a Panel de Administrador</a>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
