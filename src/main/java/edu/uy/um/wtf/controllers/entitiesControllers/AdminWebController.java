@@ -8,11 +8,9 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Date;
 import java.util.List;
@@ -57,21 +55,23 @@ public class AdminWebController {
         }
     }
 
-    @GetMapping("/add")
+    @PostMapping("/add")
     public String addAdmin(@RequestParam Long id, @RequestParam String firstName,
-                           @RequestParam String lastName, @RequestParam("birthDatet") @DateTimeFormat(pattern = "yyyy-MM-dd") Date birthdate,
+                           @RequestParam String lastName, @RequestParam("birthDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date birthdate,
                            @RequestParam String mail, @RequestParam String username, @RequestParam String password,
-                           Model model, HttpSession session){
+                           Model model, HttpSession session, RedirectAttributes redirectAttributes){
         try {
             Admin admin = adminService. addAdmin(id, firstName, lastName, birthdate,mail, username, password);
             model.addAttribute("admin", admin);
             session.setAttribute("admin", admin);
-            return "admins/detail";
+            redirectAttributes.addFlashAttribute("message", "Admin added successfully");
+            return "redirect:/admin/mainAdmin";
         } catch (InvalidDataException e) {
-            model.addAttribute("error", "Invalid data");
+            redirectAttributes.addFlashAttribute("error", "Invalid data");
             return "error";
         }
     }
+
 
     @GetMapping("/movieAdmin")
     public String showMovieAdminPage(){
