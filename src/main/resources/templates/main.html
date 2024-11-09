@@ -36,33 +36,33 @@
     <div class="row">
         <div class="col-md-8">
             <div class="card mb-4">
-                <img src="path/to/movie-poster1.jpg" class="card-img-top movie-poster" alt="Movie Poster 1">
+                <img th:src="@{|/images/${firstMovie.posterPath}|}" class="card-img-top movie-poster" alt="Movie Poster">
                 <div class="card-body">
-                    <h5 class="card-title">Movie Title 1</h5>
-                    <p class="card-text">Description: Descripción1.</p>
-                    <p class="card-text">Director: Luciana Barberousse</p>
-                    <p class="card-text">Duration: 120 minutes</p>
-                    <p class="card-text">Genre: Triste</p>
+                    <h5 class="card-title" th:text="${firstMovie.title}">Movie Title</h5>
+                    <p class="card-text">Description: <span th:text="${firstMovie.description}">Descripción</span></p>
+                    <p class="card-text">Director: <span th:text="${firstMovie.director}">Director</span></p>
+                    <p class="card-text">Duration: <span th:text="${firstMovie.duration}">Duration</span> minutes</p>
+                    <p class="card-text">Genre: <span th:text="${firstMovie.genre}">Genre</span></p>
                 </div>
             </div>
             <div class="card mb-4">
-                <img src="path/to/movie-poster2.jpg" class="card-img-top movie-poster" alt="Movie Poster 2">
+                <img th:src="@{|/images/${secondMovie.posterPath}|}" class="card-img-top movie-poster" alt="Movie Poster">
                 <div class="card-body">
-                    <h5 class="card-title">Movie Title 2</h5>
-                    <p class="card-text">Description: Descripción2.</p>
-                    <p class="card-text">Director: Casti</p>
-                    <p class="card-text">Duration: 30 segundos</p>
-                    <p class="card-text">Genre: Negros</p>
+                    <h5 class="card-title" th:text="${secondMovie.title}">Movie Title</h5>
+                    <p class="card-text">Description: <span th:text="${secondMovie.description}">Descripción</span></p>
+                    <p class="card-text">Director: <span th:text="${secondMovie.director}">Director</span></p>
+                    <p class="card-text">Duration: <span th:text="${secondMovie.duration}">Duration</span> minutes</p>
+                    <p class="card-text">Genre: <span th:text="${secondMovie.genre}">Genre</span></p>
                 </div>
             </div>
             <div class="card mb-4">
-                <img src="path/to/movie-poster3.jpg" class="card-img-top movie-poster" alt="Movie Poster 3">
+                <img th:src="@{|/images/${secondMovie.posterPath}|}" class="card-img-top movie-poster" alt="Movie Poster">
                 <div class="card-body">
-                    <h5 class="card-title">Movie Title 3</h5>
-                    <p class="card-text">Description: Descripción3.</p>
-                    <p class="card-text">Director: Martin</p>
-                    <p class="card-text">Duration: 130 minutes</p>
-                    <p class="card-text">Genre: ElPropio</p>
+                    <h5 class="card-title" th:text="${secondMovie.title}">Movie Title</h5>
+                    <p class="card-text">Description: <span th:text="${secondMovie.description}">Descripción</span></p>
+                    <p class="card-text">Director: <span th:text="${secondMovie.director}">Director</span></p>
+                    <p class="card-text">Duration: <span th:text="${secondMovie.duration}">Duration</span> minutes</p>
+                    <p class="card-text">Genre: <span th:text="${secondMovie.genre}">Genre</span></p>
                 </div>
             </div>
         </div>
