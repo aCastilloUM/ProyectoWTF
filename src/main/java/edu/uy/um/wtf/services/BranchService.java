@@ -64,4 +64,10 @@ public class BranchService {
         return null;
     }
 
+    public List<Branch> findByMovie(long movieid)
+    {
+        //agregar logica para que devuelva todas sucursales donde se proyecta la pelicula
+        return getAll();
+    }
+
 }
