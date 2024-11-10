@@ -45,4 +45,6 @@ public class Movie implements Serializable
     @Column(name = "ageRestriction")
     private Integer ageRegistration = 0;
 
+    @Column(name = "posterPath")
+    private String posterPath; // Añadido el campo posterPath
 }

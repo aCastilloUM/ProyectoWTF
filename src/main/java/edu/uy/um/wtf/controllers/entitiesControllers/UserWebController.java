@@ -1,8 +1,10 @@
 package edu.uy.um.wtf.controllers.entitiesControllers;
 
 
+import edu.uy.um.wtf.entities.FilmShow;
 import edu.uy.um.wtf.entities.Movie;
 import edu.uy.um.wtf.exceptions.EntityNotFoundException;
+import edu.uy.um.wtf.services.FilmShowService;
 import edu.uy.um.wtf.services.MovieService;
 import edu.uy.um.wtf.services.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -27,6 +29,9 @@ public class UserWebController {
 
     @Autowired
     private MovieService movieService;
+
+    @Autowired
+    private FilmShowService filmShowService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -62,6 +67,17 @@ public class UserWebController {
         } else {
             return "redirect:/logIn";
         }
+    }
+
+    @GetMapping("/movies/{id}")
+    public String getMovieDetails(@PathVariable Long id, Model model) {
+        Movie movie = movieService.findById(id).orElseThrow(() -> new RuntimeException("Movie not found"));
+        List<Movie> movies = movieService.getAll();
+        List<FilmShow> filmShows = filmShowService.findByMovieId(id);
+        model.addAttribute("movies", movies);
+        model.addAttribute("selectedMovie", movie);
+        model.addAttribute("filmShows", filmShows);
+        return "main";
     }
 
     @GetMapping("/all")

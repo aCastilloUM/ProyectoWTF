@@ -56,13 +56,13 @@
                 </div>
             </div>
             <div class="card mb-4">
-                <img th:src="@{|/images/${secondMovie.posterPath}|}" class="card-img-top movie-poster" alt="Movie Poster">
+                <img th:src="@{|/images/${thirdMovie.posterPath}|}" class="card-img-top movie-poster" alt="Movie Poster">
                 <div class="card-body">
-                    <h5 class="card-title" th:text="${secondMovie.title}">Movie Title</h5>
-                    <p class="card-text">Description: <span th:text="${secondMovie.description}">Descripción</span></p>
-                    <p class="card-text">Director: <span th:text="${secondMovie.director}">Director</span></p>
-                    <p class="card-text">Duration: <span th:text="${secondMovie.duration}">Duration</span> minutes</p>
-                    <p class="card-text">Genre: <span th:text="${secondMovie.genre}">Genre</span></p>
+                    <h5 class="card-title" th:text="${thirdMovie.title}">Movie Title</h5>
+                    <p class="card-text">Description: <span th:text="${thirdMovie.description}">Descripción</span></p>
+                    <p class="card-text">Director: <span th:text="${thirdMovie.director}">Director</span></p>
+                    <p class="card-text">Duration: <span th:text="${thirdMovie.duration}">Duration</span> minutes</p>
+                    <p class="card-text">Genre: <span th:text="${thirdMovie.genre}">Genre</span></p>
                 </div>
             </div>
         </div>
@@ -84,19 +84,14 @@
             </div>
             <div class="movie-details">
                 <h4>Sucursales disponibles:</h4>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="branchDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Sucursales
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="branchDropdown">
-                        <a class="dropdown-item" href="#">Punta Carretas</a>
-                        <a class="dropdown-item" href="#">Ciudad Vieja</a>
-                        <a class="dropdown-item" href="#">Pocitos</a>
-                        <a class="dropdown-item" href="#">Carrasco</a>
-                        <a class="dropdown-item" href="#">Tres Cruces</a>
-                        <a class="dropdown-item" href="#">Centro</a>
-                        <a class="dropdown-item" href="#">Malvin</a>
-                        <a class="dropdown-item" href="#">Buceo</a>
+                <!-- Mostrar sucursales y horarios disponibles para la película seleccionada -->
+                <div th:if="${selectedMovie}">
+                    <h3>Funciones para [[${selectedMovie.title}]]</h3>
+                    <div th:each="filmShow : ${filmShows}">
+                        <p>Sucursal: <span th:text="${filmShow.branch.name}"></span></p>
+                        <p>Hora: <span th:text="${#temporals.format(filmShow.time, 'HH:mm')}"></span></p>
+                        <p>Fecha: <span th:text="${#temporals.format(filmShow.date, 'yyyy-MM-dd')}"></span></p>
+                        <hr/>
                     </div>
                 </div>
             </div>
@@ -125,21 +120,14 @@
 
 </div>
 
-<script th:type="javascript">
-    function btnclick(){
-alert("HOLA");
-        $.ajax({
-            url: 'http://localhost:8080/api/v1/branch/bymovie/5',
-            method: 'GET',
-            success: function(response) {
-                document.getElementById("cont").innerHTML("<code>" + response + "</code>");
-                console.log(response);
-            },
-            error: function(xhr, status, error) {
-                // Handle errors here
-                console.error(status, error);
-            }
-        });
+<script>
+    function loadFilmShows(movieId) {
+        fetch(`/filmshows/movie/${movieId}/filmshows`)
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById("filmshowContainer").innerHTML = html;
+            })
+            .catch(error => console.error("Error loading film shows:", error));
     }
 </script>
 

@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/movies")
@@ -68,14 +69,16 @@ public class MovieWebController {
         }
     }
 
-    @GetMapping("/{id}")
-    public String findById(@PathVariable("id") Long id, Model model) {
-        try {
-            Movie laPelicula = movieService.findById(id).get();
-            model.addAttribute("pelicula", laPelicula);
-            return "main";
-        } catch (EntityNotFoundException e) {
-            model.addAttribute("error", "Id not found");
+    @GetMapping("/movies/{movieId}")
+    public String getFilmShowsByMovie(@PathVariable Long movieId, Model model) {
+        Optional<Movie> movieOpt = movieService.findById(movieId);
+        if (movieOpt.isPresent()) {
+            List<FilmShow> filmShows = filmShowService.findByMovie(movieOpt.get());
+            model.addAttribute("filmShows", filmShows);
+            model.addAttribute("selectedMovie", movieOpt.get());
+            return "users/main";  // Regresa a la página principal o una página específica de detalles
+        } else {
+            model.addAttribute("error", "Movie not found");
             return "error";
         }
     }
@@ -117,14 +120,15 @@ public class MovieWebController {
             return "error";
         }
     }
-    @GetMapping("/{id}/showtimes")
+
+    @GetMapping("/{id}")
     public String getShowtimesByMovieId(@PathVariable("id") Long id, Model model) {
         try {
             Movie movie = movieService.findById(id).get();
             List<FilmShow> showtimes = filmShowService.findByMovieId(id);
             model.addAttribute("pelicula", movie);
             model.addAttribute("showtimes", showtimes);
-            return "movies/showtimes";
+            return "main";
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", "Id not found");
             return "error";
