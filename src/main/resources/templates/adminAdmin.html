@@ -84,18 +84,22 @@
                 </div>
             </div>
 
-            <!-- Search Admin Card -->
+            <!-- Select Admin Card -->
             <div class="card">
                 <div class="card-body">
-                    <h2 class="card-title text-center">Buscar Administrador</h2>
-                    <!-- Form to search for an admin by username -->
-                    <form th:action="@{/admin/byUsername/{username}(username=${#strings.escapeJavaScript(searchUsername)})}" method="get">
-                        <div class="form-group">
-                            <label for="searchUsername">Nombre de Usuario:</label>
-                            <input type="text" class="form-control" id="searchUsername" name="searchUsername" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">Buscar</button>
-                    </form>
+                    <h2 class="card-title text-center">Seleccionar Administrador</h2>
+                    <!-- Menú desplegable para seleccionar un administrador -->
+                    <div class="form-group">
+                        <label for="adminSelect">Administradores:</label>
+                        <select id="adminSelect" class="form-control" onchange="redirectToAdminInfo(this)">
+                            <option value="">-- Selecciona un administrador --</option>
+                            <!-- Llenar opciones con los nombres de los administradores -->
+                            <option th:each="admin : ${adminList}"
+                                    th:value="${admin.id}"
+                                    th:text="${admin.username}">
+                            </option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
@@ -117,6 +121,16 @@
         </div>
     </div>
 </div>
+
+<script>
+    function redirectToAdminInfo(selectElement) {
+        var adminId = selectElement.value;
+        if (adminId) {
+            // Redirige a la página de detalles del administrador usando el ID seleccionado
+            window.location.href = '/admin/info/' + adminId;
+        }
+    }
+</script>
 
 <a th:href="@{/admin/mainAdmin}" class="back-link">&larr; Volver a Panel de Administrador</a>
 

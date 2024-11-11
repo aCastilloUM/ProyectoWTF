@@ -25,22 +25,22 @@ public class AdminWebController {
     private AdminService adminService;
 
 
-    @GetMapping("/all")
-    public String getAll(Model model){
-        List<Admin> admin = adminService.getAll();
-        model.addAttribute("admin", admin);
-        return "adminList";
+    @GetMapping("/adminAdmin")
+    public String getAllAdmins(Model model) {
+        List<Admin> adminList = adminService.getAll();
+        model.addAttribute("adminList", adminList);
+        return "adminAdmin"; // Nombre de la vista debe coincidir con el archivo HTML sin extensión
     }
 
-    @GetMapping("/byId{id}")
-    public String findById(@PathVariable("id") Long id, Model model){
-        try {
-            Admin admin = adminService.findById(id).get();
-            model.addAttribute("admin", admin);
-            return "adminDetail";
-        } catch (EntityNotFoundException e) {
-            model.addAttribute("error", "Id not found");
-            return "error";
+    @GetMapping("/info/{id}")
+    public String getAdminInfo(@PathVariable("id") Long id, Model model) {
+        Optional<Admin> admin = adminService.getById(id); // Ajusta el método según tu servicio
+        if (admin.isPresent()) {
+            model.addAttribute("admin", admin.get());
+            return "adminInfo"; // Envía a la vista de detalles del administrador
+        } else {
+            model.addAttribute("error", "Administrador no encontrado");
+            return "error"; // En caso de que el administrador no sea encontrado
         }
     }
 
@@ -96,10 +96,6 @@ public class AdminWebController {
         return "movieAdmin";
     }
 
-    @GetMapping("/adminAdmin")
-    public String showAdminAdminPage(){
-        return "adminAdmin";
-    }
 
     @GetMapping("/snacksAdmin")
     public String showSanckAdminPage(){
