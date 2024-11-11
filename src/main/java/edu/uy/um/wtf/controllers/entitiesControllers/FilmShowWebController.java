@@ -32,6 +32,20 @@ public class FilmShowWebController {
     private RoomService roomService;
 
 
+    @GetMapping("/movie/{movieId}/filmshows")
+    @ResponseBody
+    public List<FilmShow> getFilmShowsForMovie(@PathVariable Long movieId, Model model) {
+        // Lógica para obtener las funciones (FilmShows) de la película con movieId
+        List<FilmShow> filmShows = filmShowService.getFilmShowsByMovieId(movieId);
+
+        // Añade la lista de funciones al modelo
+        model.addAttribute("filmShows", filmShows);
+
+        // Devuelve un fragmento Thymeleaf que renderiza las funciones
+        return filmShows;
+    }
+
+
     @GetMapping("/all")
     public String getAll(Model model) {
         List<FilmShow> funciones = filmShowService.getAll();

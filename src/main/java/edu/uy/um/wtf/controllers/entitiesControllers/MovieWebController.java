@@ -114,7 +114,7 @@ public class MovieWebController {
     public String deleteMovie(@RequestParam Long id, Model model) {
         try {
             movieService.deleteMovie(id);
-            return "redirect:/movies/list";
+            return "movieAdmin";
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", "Id not found");
             return "error";

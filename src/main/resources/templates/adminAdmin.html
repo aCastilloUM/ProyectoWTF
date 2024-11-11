@@ -89,10 +89,10 @@
                 <div class="card-body">
                     <h2 class="card-title text-center">Buscar Administrador</h2>
                     <!-- Form to search for an admin by username -->
-                    <form th:action="@{/admin/byUsername/{username}(username=${searchUsername})}" method="get">
+                    <form th:action="@{/admin/byUsername/{username}(username=${#strings.escapeJavaScript(searchUsername)})}" method="get">
                         <div class="form-group">
                             <label for="searchUsername">Nombre de Usuario:</label>
-                            <input type="text" class="form-control" id="searchUsername" name="username" required>
+                            <input type="text" class="form-control" id="searchUsername" name="searchUsername" required>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Buscar</button>
                     </form>

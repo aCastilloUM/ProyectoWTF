@@ -107,4 +107,8 @@ public class FilmShowService {
         }
         return filmShowRepository.findByMovieId(id);
     }
+
+    public List<FilmShow> getFilmShowsByMovieId(Long movieId) {
+        return filmShowRepository.findByMovieId(movieId);
+    }
 }

@@ -78,22 +78,15 @@
                         <a class="dropdown-item"
                            th:each="movie : ${movies}"
                            th:text="${movie.title}"
-                           th:href="@{'/movies/' + ${movie.id}}"></a>
+                           th:href="@{'/users/movies/' + ${movie.id}}"
+                           th:attr="onclick='loadFilmShows(' + ${movie.id} + ')'"></a>
                     </div>
                 </div>
             </div>
             <div class="movie-details">
                 <h4>Sucursales disponibles:</h4>
-                <!-- Mostrar sucursales y horarios disponibles para la película seleccionada -->
-                <div th:if="${selectedMovie}">
-                    <h3>Funciones para [[${selectedMovie.title}]]</h3>
-                    <div th:each="filmShow : ${filmShows}">
-                        <p>Sucursal: <span th:text="${filmShow.branch.name}"></span></p>
-                        <p>Hora: <span th:text="${#temporals.format(filmShow.time, 'HH:mm')}"></span></p>
-                        <p>Fecha: <span th:text="${#temporals.format(filmShow.date, 'yyyy-MM-dd')}"></span></p>
-                        <hr/>
-                    </div>
-                </div>
+                <!-- Contenedor para mostrar sucursales y horarios -->
+                <div id="filmshowContainer"></div>
             </div>
             <div class="movie-details">
                 <h4>Horarios disponibles:</h4>
@@ -103,9 +96,9 @@
                     </button>
                     <div class="dropdown-menu" aria-labelledby="showtimeDropdown">
                         <a class="dropdown-item"
-                           th:each="showtime : ${showtimes}"
-                           th:text="${showtime.time}"
-                           th:href="@{'/seats/showSeats/' + ${showtime.id}}"></a>
+                           th:each="filmshow : ${time}"
+                           th:text="${filmshow.time}"
+                           th:href="@{'/seats/showSeats/' + ${filmShow.id}}"></a>
                     </div>
                 </div>
             </div>
@@ -123,12 +116,25 @@
 <script>
     function loadFilmShows(movieId) {
         fetch(`/filmshows/movie/${movieId}/filmshows`)
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById("filmshowContainer").innerHTML = html;
+            .then(response => response.json())
+            .then(filmShows => {
+                const container = document.getElementById("filmshowContainer");
+                container.innerHTML = ''; // Clear previous content
+                filmShows.forEach(filmShow => {
+                    const filmShowHTML = `
+                    <div>
+                        <p>Sucursal: ${filmShow.branch.name}</p>
+                        <p>Hora: ${new Date(filmShow.time).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</p>
+                        <p>Fecha: ${new Date(filmShow.date).toLocaleDateString('es-ES')}</p>
+                        <hr/>
+                    </div>
+                `;
+                    container.innerHTML += filmShowHTML;
+                });
             })
             .catch(error => console.error("Error loading film shows:", error));
     }
+
 </script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

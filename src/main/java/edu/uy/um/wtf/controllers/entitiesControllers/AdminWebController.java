@@ -51,13 +51,13 @@ public class AdminWebController {
             Optional<Admin> admin = adminService.findByUsername(username);
             if (admin.isPresent()) {
                 model.addAttribute("admin", admin.get());
-                return "adminDetail";
+                return "adminInfo";
             } else {
                 model.addAttribute("error", "Username not found");
                 return "error";
             }
         } catch (EntityNotFoundException e) {
-            model.addAttribute("admin", "Username not found");
+            model.addAttribute("error", "Username not found");
             return "adminAdmin";
         }
     }
