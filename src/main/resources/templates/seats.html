@@ -31,7 +31,6 @@
 
         .ocupado {
             background-color: red;
-            pointer-events: none; /* No se puede seleccionar */
         }
 
         .disponible {
@@ -76,11 +75,14 @@
     </style>
 
     <script>
-        // Función para cambiar el estado del asiento al hacer clic
+        // Función para alternar el estado del asiento al hacer clic
         function toggleSeat(seat) {
             if (seat.classList.contains('disponible')) {
                 seat.classList.remove('disponible');
                 seat.classList.add('ocupado');
+            } else if (seat.classList.contains('ocupado')) {
+                seat.classList.remove('ocupado');
+                seat.classList.add('disponible');
             }
         }
     </script>

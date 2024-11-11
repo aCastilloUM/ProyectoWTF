@@ -110,7 +110,7 @@
 
                     // Añadir horarios al select de horarios
                     const showtimeOption = document.createElement("option");
-                    showtimeOption.text = `${new Date(filmShow.time).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })} - ${new Date(filmShow.date).toLocaleDateString('es-ES')}`;
+                    showtimeOption.text = `${filmShow.time} - ${new Date(filmShow.date).toLocaleDateString('es-ES')}`;
                     showtimeOption.value = filmShow.id;
                     showtimeDropdown.add(showtimeOption);
                 });
