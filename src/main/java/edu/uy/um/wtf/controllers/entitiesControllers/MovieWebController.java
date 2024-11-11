@@ -97,9 +97,9 @@ public class MovieWebController {
 
     @PostMapping("/add")
     public String addMovie(@RequestParam String title, @RequestParam String description, @RequestParam List<String> genre,
-                           @RequestParam String director, @RequestParam int duration, int ageRegistration, Model model) {
+                           @RequestParam String director, @RequestParam int duration, @RequestParam int ageRegistration, @RequestParam String posterPath, Model model) {
         try {
-            Movie newMovie = movieService.addMovie(title, description, genre, director, duration, ageRegistration);
+            Movie newMovie = movieService.addMovie(title, description, genre, director, duration, ageRegistration, posterPath);
             if (newMovie == null) {
                 throw new InvalidDataException("Invalid Data");
             }

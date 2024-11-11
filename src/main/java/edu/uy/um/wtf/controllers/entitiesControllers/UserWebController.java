@@ -43,22 +43,25 @@ public class UserWebController {
             List<Movie> movies = movieService.getAll();
             model.addAttribute("movies", movies);
 
-            //Obtenemos la primera pelicula
+            // Obtenemos la primera película
             if (!movies.isEmpty()) {
                 Movie firstMovie = movies.get(0);
                 model.addAttribute("firstMovie", firstMovie);
+                model.addAttribute("firstMovieImagePath", firstMovie.getPosterPath());
             }
 
-            //Obtenemos la segunda pelicula
+            // Obtenemos la segunda película
             if (movies.size() > 1) {
                 Movie secondMovie = movies.get(1);
                 model.addAttribute("secondMovie", secondMovie);
+                model.addAttribute("secondMovieImagePath", secondMovie.getPosterPath());
             }
 
-            //Obtenemos la segunda pelicula
+            // Obtenemos la tercera película
             if (movies.size() > 2) {
                 Movie thirdMovie = movies.get(2);
                 model.addAttribute("thirdMovie", thirdMovie);
+                model.addAttribute("thirdMovieImagePath", thirdMovie.getPosterPath());
             }
 
             model.addAttribute("user", user);

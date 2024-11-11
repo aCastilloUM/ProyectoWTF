@@ -14,7 +14,7 @@ public class MovieService {
     @Autowired
     private MovieRepository movieRepository;
 
-    public Movie addMovie(String title, String description, List<String> genre, String director, int duration, int ageRegistration) {
+    public Movie addMovie(String title, String description, List<String> genre, String director, int duration, int ageRegistration, String posterPath) {
         if (title == null || title.isEmpty() || description == null || description.isEmpty() || genre == null ||
                 genre.isEmpty() || director == null || director.isEmpty() || duration <= 0 || ageRegistration < 0) {
             return null;
@@ -36,6 +36,7 @@ public class MovieService {
                 .genre(genre)
                 .duration(duration)
                 .ageRegistration(ageRegistration)
+                .posterPath(posterPath)
                 .build();
 
         return movieRepository.save(movie);

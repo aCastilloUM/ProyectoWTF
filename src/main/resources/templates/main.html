@@ -6,12 +6,24 @@
     <title>WTF Cinema</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        .movie-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
         .movie-poster {
-            width: 100%;
+            max-width: 150px;
             height: auto;
+            margin-right: 20px;
         }
         .movie-details {
-            margin-top: 20px;
+            flex-grow: 1;
+        }
+        .movie-details h5 {
+            margin-bottom: 10px;
+        }
+        .movie-details p {
+            margin-bottom: 5px;
         }
     </style>
 </head>
@@ -32,34 +44,16 @@
     <div class="row">
         <div class="col-md-8">
             <!-- Tarjetas de información de las películas -->
-            <div class="card mb-4">
-                <img th:src="@{|/images/${firstMovie.posterPath}|}" class="card-img-top movie-poster" alt="Movie Poster">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${firstMovie.title}">Movie Title</h5>
-                    <p class="card-text">Description: <span th:text="${firstMovie.description}">Descripción</span></p>
-                    <p class="card-text">Director: <span th:text="${firstMovie.director}">Director</span></p>
-                    <p class="card-text">Duration: <span th:text="${firstMovie.duration}">Duration</span> minutes</p>
-                    <p class="card-text">Genre: <span th:text="${firstMovie.genre}">Genre</span></p>
-                </div>
-            </div>
-            <div class="card mb-4">
-                <img th:src="@{|/images/${secondMovie.posterPath}|}" class="card-img-top movie-poster" alt="Movie Poster">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${secondMovie.title}">Movie Title</h5>
-                    <p class="card-text">Description: <span th:text="${secondMovie.description}">Descripción</span></p>
-                    <p class="card-text">Director: <span th:text="${secondMovie.director}">Director</span></p>
-                    <p class="card-text">Duration: <span th:text="${secondMovie.duration}">Duration</span> minutes</p>
-                    <p class="card-text">Genre: <span th:text="${secondMovie.genre}">Genre</span></p>
-                </div>
-            </div>
-            <div class="card mb-4">
-                <img th:src="@{|/images/${thirdMovie.posterPath}|}" class="card-img-top movie-poster" alt="Movie Poster">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${thirdMovie.title}">Movie Title</h5>
-                    <p class="card-text">Description: <span th:text="${thirdMovie.description}">Descripción</span></p>
-                    <p class="card-text">Director: <span th:text="${thirdMovie.director}">Director</span></p>
-                    <p class="card-text">Duration: <span th:text="${thirdMovie.duration}">Duration</span> minutes</p>
-                    <p class="card-text">Genre: <span th:text="${thirdMovie.genre}">Genre</span></p>
+            <div th:each="movie : ${movies}" class="card mb-4">
+                <div class="movie-container">
+                    <img th:src="@{${movie.posterPath}}" class="movie-poster" alt="Movie Poster">
+                    <div class="movie-details">
+                        <h5 class="card-title" th:text="${movie.title}">Movie Title</h5>
+                        <p class="card-text">Description: <span th:text="${movie.description}">Descripción</span></p>
+                        <p class="card-text">Director: <span th:text="${movie.director}">Director</span></p>
+                        <p class="card-text">Duration: <span th:text="${movie.duration}">Duration</span> minutes</p>
+                        <p class="card-text">Genre: <span th:text="${movie.genre}">Genre</span></p>
+                    </div>
                 </div>
             </div>
         </div>
