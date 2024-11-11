@@ -27,8 +27,11 @@ public class FilmShowWebController {
 
     @Autowired
     private FilmShowService filmShowService;
+    @Autowired
     private MovieService movieService;
+    @Autowired
     private BranchService branchService;
+    @Autowired
     private RoomService roomService;
 
 
@@ -165,21 +168,34 @@ public class FilmShowWebController {
 
     @PostMapping("/add")
     public String addFunction(@DateTimeFormat(pattern = "yyyy-MM-dd") Date date, @RequestParam LocalTime time,
-                              @RequestParam String movie, @RequestParam String branch,
+                              @RequestParam Long movieId, @RequestParam String branch,
                               @RequestParam Long room, @RequestParam String specialEffects,
                               @RequestParam String language, Model model) {
 
-        Movie movie1 = movieService.findByTitle(movie);
-        Branch branch1 = branchService.findByName(branch);
-        Optional<Room> Room = roomService.findById(room);
-        Room room1 = Room.orElseThrow(EntityNotFoundException::new);
-
         try {
+            Optional<Movie> movieOptional = movieService.findById(movieId);
+            Movie movie1 = movieOptional.orElseThrow(() -> new EntityNotFoundException("Movie not found"));
+
+            Branch branch1 = branchService.findByName(branch);
+            if (branch1 == null) {
+                throw new EntityNotFoundException("Branch not found");
+            }
+
+            Optional<Room> roomOptional = roomService.findById(room);
+            Room room1 = roomOptional.orElseThrow(() -> new EntityNotFoundException("Room not found"));
+
             FilmShow funcion = filmShowService.addFunction(date, time, movie1, branch1, room1, specialEffects, language);
+        } catch (EntityNotFoundException e) {
+            System.out.println("EntityNotFoundException: " + e.getMessage());
+            model.addAttribute("errorMessage", e.getMessage());
+            return "mainAdmin";
         } catch (Exception e) {
-            model.addAttribute("errorMessage", "Error al agregar la funcion");
+            System.out.println("Exception: " + e.getMessage());
+            model.addAttribute("errorMessage", "Error al agregar la función");
+            return "mainAdmin";
         }
-        return "filmshowsAdmin";
+
+        return "filmshowAdmin";
     }
 
     @PostMapping("/delete")
@@ -189,6 +205,6 @@ public class FilmShowWebController {
         } catch (Exception e) {
             model.addAttribute("errorMessage", "Error al eliminar la funcion");
         }
-        return "filmshowsAdmin";
+        return "filmshowAdmin";
     }
 }

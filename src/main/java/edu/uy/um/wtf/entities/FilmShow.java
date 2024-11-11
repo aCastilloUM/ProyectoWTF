@@ -11,7 +11,7 @@ import java.util.Date;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
-@Table(name = "FilmShow")
+@Table(name = "filmshow")
 @Getter
 @Setter
 @Builder

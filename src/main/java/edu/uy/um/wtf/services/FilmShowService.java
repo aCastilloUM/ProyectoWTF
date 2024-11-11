@@ -39,7 +39,7 @@ public class FilmShowService {
                 .language(Language)
                 .duration(movie.getDuration())
                 .build();
-
+        System.out.println(filmShow.getMovie());
         return filmShowRepository.save(filmShow);
     }
 
