@@ -62,4 +62,16 @@ public class SnackService {
     public void deleteSnack(Snack snack) {
         snackRepository.delete(snack);
     }
+
+    public List<Snack> getCombos() {
+        return snackRepository.findByType("Combo");
+    }
+
+    public List<Snack> getSnacks() {
+        return snackRepository.findByType("Pop");
+    }
+
+    public List<Snack> getDrinks() {
+        return snackRepository.findByType("Bebida");
+    }
 }

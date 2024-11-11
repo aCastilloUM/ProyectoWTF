@@ -1,8 +1,11 @@
 package edu.uy.um.wtf.controllers.entitiesControllers;
 
 
+import edu.uy.um.wtf.entities.Movie;
 import edu.uy.um.wtf.entities.Snack;
+import edu.uy.um.wtf.entities.User;
 import edu.uy.um.wtf.exceptions.EntityNotFoundException;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +21,37 @@ public class SnackWebController {
 
     @Autowired
     private SnackService snackService;
+
+    @GetMapping("/snack")
+    public String showSnackPage(HttpSession session, Model model) {
+        // Verificamos si ya hay un user en la sesión
+        User user = (User) session.getAttribute("user");
+
+        if (user != null) {
+            // Obtenemos todos los snacks disponibles
+            List<Snack> Combos = snackService.getCombos();
+            List<Snack> Pops = snackService.getSnacks();
+            List<Snack> Bebidas = snackService.getDrinks();
+
+            model.addAttribute("Combos", Combos);
+            model.addAttribute("Pops", Pops);
+            model.addAttribute("Bebidas", Bebidas);
+
+            // Se asume que hay un usuario en la sesión, lo pasamos al modelo
+            model.addAttribute("user", user);
+
+            return "snacks";  // Nombre de la vista que se va a renderizar (asegúrate de que sea el correcto)
+        } else {
+            // Si no hay snack en la sesión, redirigimos al login
+            return "redirect:/logIn";
+        }
+    }
+
+    // Ejemplo en un controlador Spring Boot
+
+
+
+
 
     @GetMapping("/all")
     public String getAll(Model model) {
