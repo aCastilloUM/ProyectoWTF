@@ -26,7 +26,7 @@
         }
 
         .seat:hover {
-            transform: scale(1.1); /* Efecto al pasar el ratón por encima */
+            transform: scale(1.1);
         }
 
         .ocupado {
@@ -71,6 +71,23 @@
             width: 20px;
             height: 20px;
             border-radius: 4px;
+        }
+
+        .confirm-button {
+            background-color: white;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 0; /* Botón cuadrado */
+            margin-top: 20px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .confirm-button:hover {
+            background-color: #e0e0e0;
         }
     </style>
 
@@ -119,7 +136,7 @@
     </tbody>
 </table>
 
-<button style="margin-top: 20px;">Confirmar Reserva</button>
+<a href="/snacks/snack" class="confirm-button">Confirmar Reserva</a>
 
 </body>
 </html>
