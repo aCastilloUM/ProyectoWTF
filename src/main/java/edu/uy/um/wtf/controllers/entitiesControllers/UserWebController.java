@@ -1,6 +1,7 @@
 package edu.uy.um.wtf.controllers.entitiesControllers;
 
 
+import edu.uy.um.wtf.entities.Bill;
 import edu.uy.um.wtf.entities.FilmShow;
 import edu.uy.um.wtf.entities.Movie;
 import edu.uy.um.wtf.exceptions.EntityNotFoundException;
@@ -122,9 +123,26 @@ public class UserWebController {
     }
 
     @GetMapping("/paymentMethod")
-    public String showPaymentMethodPage() {
+    public String showPaymentMethodPageGet() {
         return "paymentMethod";
     }
+
+    @PostMapping("/PaymentMethodPost")
+    public String showPaymentMethodPagePost(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/logIn";
+        }
+
+        Bill bill = (Bill) session.getAttribute("bill");
+        if (bill == null) {
+            return "redirect:/snacks";
+        }
+
+        model.addAttribute("bill", bill);
+        return "redirect:/bills/paymentSuccess";
+    }
+
 
     @GetMapping("/byId/{id}")
     public String findById(@PathVariable("id") Long id, Model model){
