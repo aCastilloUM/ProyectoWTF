@@ -1,10 +1,12 @@
 package edu.uy.um.wtf.controllers.entitiesControllers;
 
 
+import edu.uy.um.wtf.entities.Bill;
 import edu.uy.um.wtf.entities.Movie;
 import edu.uy.um.wtf.entities.Snack;
 import edu.uy.um.wtf.entities.User;
 import edu.uy.um.wtf.exceptions.EntityNotFoundException;
+import edu.uy.um.wtf.services.BillService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,8 @@ public class SnackWebController {
     @Autowired
     private SnackService snackService;
 
+    @Autowired
+    private BillService billService;
     @GetMapping("/snack")
     public String showSnackPage(HttpSession session, Model model) {
         // Verificamos si ya hay un user en la sesión
@@ -60,7 +64,7 @@ public class SnackWebController {
         return "snacks/list";
     }
 
-    @GetMapping("/byName{Name}")
+    @GetMapping("/byName/{Name}")
     public String findByName(@PathVariable("Name") String name, Model model) {
         try {
             Snack snack = snackService.findByName(name).orElseThrow(EntityNotFoundException::new);
@@ -72,7 +76,7 @@ public class SnackWebController {
         }
     }
 
-    @GetMapping("/byId{Id}")
+    @GetMapping("/byId/{Id}")
     public String findById(@PathVariable("Id") Long id, Model model) {
         try {
             Snack snack = snackService.findById(id);
@@ -83,6 +87,51 @@ public class SnackWebController {
             return "error";
         }
     }
+
+    @PostMapping("/purchase")
+    public String purchaseSnacks(@RequestParam(required = false) Long comboId, @RequestParam(required = false) int comboQty,
+                                 @RequestParam(required = false) Long snackPopId, @RequestParam(required = false) int snackPopQty,
+                                 @RequestParam(required = false) Long drinkId, @RequestParam(required = false) int drinkQty,
+                                 HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/logIn";
+        }
+
+        Bill bill = billService.newBill(user);
+
+        try {
+            if (comboId != null && comboQty > 0) {
+                Snack combo = snackService.findById(comboId);
+                for (int i = 0; i < comboQty; i++) {
+                    billService.addSnack(bill, combo, 1);
+                }
+            }
+
+            if (snackPopId != null && snackPopQty > 0) {
+                Snack snackPop = snackService.findById(snackPopId);
+                for (int i = 0; i < snackPopQty; i++) {
+                    billService.addSnack(bill, snackPop, 1);
+                }
+            }
+
+            if (drinkId != null && drinkQty > 0) {
+                Snack drink = snackService.findById(drinkId);
+                for (int i = 0; i < drinkQty; i++) {
+                    billService.addSnack(bill, drink, 1);
+                }
+            }
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("error", "Error al encontrar algún item.");
+            return "error";
+        }
+
+        model.addAttribute("bill", bill);
+        return "redirect:/users/PaymentMethodPost";
+    }
+
+
+
 
     @PostMapping("/add")
     public String addSnack(@RequestParam String name, @RequestParam double price, @RequestParam String type, Model model) {
