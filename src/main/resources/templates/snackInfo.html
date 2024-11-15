@@ -5,21 +5,21 @@
     <title>Snack Details</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="bg-dark text-white">
+<body class="bg-dark text-black">
 <div class="container mt-5">
     <div class="card">
         <div class="card-body">
             <h2 class="card-title text-center">Snack Details</h2>
             <div th:if="${snack != null}">
-                <p><strong>ID:</strong> <span th:text="${snack.id != null ? snack.id : 'Null'}"></span></p>
-                <p><strong>Name:</strong> <span th:text="${snack.name != null ? snack.name : 'Null'}"></span></p>
-                <p><strong>Type:</strong> <span th:text="${snack.type != null ? snack.type : 'Null'}"></span></p>
-                <p><strong>Price:</strong> <span th:text="${snack.price != null ? snack.price : 'Null'}"></span></p>
+                <p><strong>ID:</strong> <span th:text="${snack.id}"></span></p>
+                <p><strong>Name:</strong> <span th:text="${snack.name}"></span></p>
+                <p><strong>Description:</strong> <span th:text="${snack.description}"></span></p>
+                <p><strong>Price:</strong> <span th:text="${snack.price}"></span></p>
             </div>
             <div th:if="${snack == null}">
                 <p class="text-danger">Snack not found.</p>
             </div>
-            <a th:href="@{/snacks/list}" class="btn btn-primary mt-3">Back to snack list</a>
+            <a th:href="@{/admin/snacksAdmin}" class="btn btn-primary mt-3">Back to Snack</a>
         </div>
     </div>
 </div>

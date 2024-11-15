@@ -4,10 +4,10 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
-
 
 @Entity
 @Table(name = "Movie")
@@ -16,9 +16,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-
-public class Movie implements Serializable
-{
+public class Movie implements Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -46,5 +44,9 @@ public class Movie implements Serializable
     private Integer ageRegistration = 0;
 
     @Column(name = "posterPath")
-    private String posterPath; // Añadido el campo posterPath
+    private String posterPath;
+
+    @Column(name = "releaseDate")
+    @Temporal(TemporalType.DATE)
+    private Date releaseDate;
 }

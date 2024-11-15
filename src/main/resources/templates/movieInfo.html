@@ -5,7 +5,7 @@
     <title>Movie Details</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="bg-dark text-white">
+<body class="bg-dark text-black">
 <div class="container mt-5">
     <div class="card">
         <div class="card-body">
@@ -23,7 +23,7 @@
             <div th:if="${movie == null}">
                 <p class="text-danger">Movie not found.</p>
             </div>
-            <a th:href="@{/movies/list}" class="btn btn-primary mt-3">Back to movie list</a>
+            <a th:href="@{/admin/movieAdmin}" class="btn btn-primary mt-3">Back to movie</a>
         </div>
     </div>
 </div>

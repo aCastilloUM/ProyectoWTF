@@ -96,11 +96,23 @@ public class AdminWebController {
             Admin admin = adminService. addAdmin(id, firstName, lastName, birthdate,mail, username, password);
             model.addAttribute("admin", admin);
             session.setAttribute("admin", admin);
-            return "mainAdmin";
+            return "adminAdmin";
         } catch (InvalidDataException e) {
             redirectAttributes.addFlashAttribute("error", "Invalid data");
             return "error";
         }
+    }
+
+    @PostMapping("/delete")
+    public String deleteAdmin(@RequestParam Long id, Model model) {
+        try {
+            Optional<Admin> admin = adminService.findById(id);
+            adminService.delete(admin.orElse(null));
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("error", "Id not found");
+            return "error";
+        }
+        return "adminAdmin";
     }
 
     @GetMapping("/movieAdmin")

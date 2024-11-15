@@ -49,12 +49,6 @@ public class SnackWebController {
         }
     }
 
-    // Ejemplo en un controlador Spring Boot
-
-
-
-
-
     @GetMapping("/all")
     public String getAll(Model model) {
         List<Snack> snacks = snackService.getAll();
@@ -169,15 +163,15 @@ public class SnackWebController {
     }
 
     @GetMapping("/info/{id}")
-    public String getSnackInfo(@PathVariable("id") Long id, Model model) {
-        Optional<Snack> snack = snackService.getById(id); // Ajusta el método según tu servicio
+    public String getSnackInfo(@PathVariable Long id, Model model) {
+        Optional<Snack> snack = Optional.ofNullable(snackService.findById(id));
         if (snack.isPresent()) {
-            model.addAttribute("admin", snack.get());
-            return "snackInfo"; // Envía a la vista de detalles del administrador
+            model.addAttribute("snack", snack.get());
         } else {
-            model.addAttribute("error", "Snack no encontrado");
-            return "error"; // En caso de que el administrador no sea encontrado
+            model.addAttribute("error", "Snack not found");
+            return "error";
         }
+        return "snackInfo";
     }
 
 

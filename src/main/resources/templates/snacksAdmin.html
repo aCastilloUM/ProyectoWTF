@@ -124,12 +124,11 @@
     function redirectToSnackInfo(selectElement) {
         var snackId = selectElement.value;
         if (snackId) {
-            // Redirige a la página de detalles del administrador usando el ID seleccionado
-            window.location.href = '/snack/info/' + snackId;
+            // Redirige a la página de detalles del snack usando el ID seleccionado
+            window.location.href = '/snacks/info/' + snackId;
         }
     }
 </script>
-
 
 <a th:href="@{/admin/mainAdmin}" class="back-link">&larr; Volver a Panel de Administrador</a>
 
