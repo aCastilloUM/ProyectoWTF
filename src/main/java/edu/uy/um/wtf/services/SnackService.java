@@ -74,4 +74,8 @@ public class SnackService {
     public List<Snack> getDrinks() {
         return snackRepository.findByType("Bebida");
     }
+
+    public Optional<Snack> getById(Long id) {
+        return snackRepository.findById(id);
+    }
 }

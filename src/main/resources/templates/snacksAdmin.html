@@ -82,18 +82,22 @@
                 </div>
             </div>
 
-            <!-- Search Snack Card -->
+            <!-- Select Snack Card -->
             <div class="card">
                 <div class="card-body">
-                    <h2 class="card-title text-center">Buscar Snack</h2>
-                    <!-- Form to search for a snack by name -->
-                    <form th:action="@{/snacks/byName}" method="get">
-                        <div class="form-group">
-                            <label for="searchName">Nombre:</label>
-                            <input type="text" class="form-control" id="searchName" name="name" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">Buscar</button>
-                    </form>
+                    <h2 class="card-title text-center">Seleccionar Snacks</h2>
+                    <!-- Menú desplegable para seleccionar un administrador -->
+                    <div class="form-group">
+                        <label for="snackSelect">Snacks:</label>
+                        <select id="snackSelect" class="form-control" onchange="redirectToSnackInfo(this)">
+                            <option value="">-- Selecciona un Snack --</option>
+                            <!-- Llenar opciones con los nombres de los administradores -->
+                            <option th:each="snack : ${snackList}"
+                                    th:value="${snack.id}"
+                                    th:text="${snack.name}">
+                            </option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
@@ -115,6 +119,18 @@
         </div>
     </div>
 </div>
+
+<script>
+    function redirectToSnackInfo(selectElement) {
+        var snackId = selectElement.value;
+        if (snackId) {
+            // Redirige a la página de detalles del administrador usando el ID seleccionado
+            window.location.href = '/snack/info/' + snackId;
+        }
+    }
+</script>
+
+
 <a th:href="@{/admin/mainAdmin}" class="back-link">&larr; Volver a Panel de Administrador</a>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

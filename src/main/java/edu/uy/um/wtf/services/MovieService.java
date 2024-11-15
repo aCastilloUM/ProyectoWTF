@@ -87,4 +87,8 @@ public class MovieService {
         Optional<Movie> movie = movieRepository.findById(movieId);
         return movie.map(value -> userAge >= value.getAgeRegistration()).orElse(false);
     }
+
+    public Optional<Movie> getById(Long id) {
+        return movieRepository.findById(id);
+    }
 }

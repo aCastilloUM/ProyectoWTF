@@ -33,6 +33,7 @@ public class MovieWebController {
         return "main";
     }
 
+
     @GetMapping("/byTitle/{title}")
     public String findByTitle(@PathVariable("title") String title, Model model) {
         try {
@@ -133,5 +134,22 @@ public class MovieWebController {
             model.addAttribute("error", "Id not found");
             return "error";
         }
+
+
+
     }
+
+    @GetMapping("/info/{id}")
+    public String getMovieInfo(@PathVariable("id") Long id, Model model) {
+        Optional<Movie> movie = movieService.getById(id);
+        if (movie.isPresent()) {
+            model.addAttribute("movie", movie.get());
+            return "movieInfo";
+        } else {
+            model.addAttribute("error", "Pelicula no encontrada");
+            return "error";
+        }
+    }
+
+
 }

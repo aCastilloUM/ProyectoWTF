@@ -1,6 +1,7 @@
 package edu.uy.um.wtf.controllers.entitiesControllers;
 
 
+import edu.uy.um.wtf.entities.Admin;
 import edu.uy.um.wtf.entities.Movie;
 import edu.uy.um.wtf.entities.Snack;
 import edu.uy.um.wtf.entities.User;
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/snacks")
@@ -22,6 +24,8 @@ public class SnackWebController {
     @Autowired
     private SnackService snackService;
 
+
+    /*
     @GetMapping("/snack")
     public String showSnackPage(HttpSession session, Model model) {
         // Verificamos si ya hay un user en la sesión
@@ -49,6 +53,20 @@ public class SnackWebController {
 
     // Ejemplo en un controlador Spring Boot
 
+     */
+
+
+    @GetMapping("/info/{id}")
+    public String getSnackInfo(@PathVariable("id") Long id, Model model) {
+        Optional<Snack> snack = snackService.getById(id); // Ajusta el método según tu servicio
+        if (snack.isPresent()) {
+            model.addAttribute("snack", snack.get());
+            return "snackInfo"; // Envía a la vista de detalles del administrador
+        } else {
+            model.addAttribute("error", "Snack no encontrado");
+            return "error"; // En caso de que el administrador no sea encontrado
+        }
+    }
 
 
 

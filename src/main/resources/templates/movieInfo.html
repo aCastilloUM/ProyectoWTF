@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Details</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-dark text-white">
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title text-center">Movie Details</h2>
+            <div th:if="${movie != null}">
+                <p><strong>ID:</strong> <span th:text="${movie.id != null ? movie.id : 'Null'}"></span></p>
+                <p><strong>Title:</strong> <span th:text="${movie.title != null ? movie.title : 'Null'}"></span></p>
+                <p><strong>Description:</strong> <span th:text="${movie.description != null ? movie.description : 'Null'}"></span></p>
+                <p><strong>Director:</strong> <span th:text="${movie.director != null ? movie.director : 'Null'}"></span></p>
+                <p><strong>Genre:</strong> <span th:text="${movie.genre != null ? movie.genre : 'Null'}"></span></p>
+                <p><strong>Duration:</strong> <span th:text="${movie.duration != null ? movie.duration : 'Null'}"></span></p>
+                <p><strong>Age Registration:</strong> <span th:text="${movie.ageRegistration != null ? movie.ageRegistration : 'Null'}"></span></p>
+                <p><strong>Release Date:</strong> <span th:text="${movie.releaseDate != null ? #dates.format(movie.releaseDate, 'yyyy-MM-dd') : 'Null'}"></span></p>
+            </div>
+            <div th:if="${movie == null}">
+                <p class="text-danger">Movie not found.</p>
+            </div>
+            <a th:href="@{/movies/list}" class="btn btn-primary mt-3">Back to movie list</a>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,9 +1,13 @@
 package edu.uy.um.wtf.controllers.entitiesControllers;
 
 import edu.uy.um.wtf.entities.Admin;
+import edu.uy.um.wtf.entities.Movie;
+import edu.uy.um.wtf.entities.Snack;
 import edu.uy.um.wtf.exceptions.EntityNotFoundException;
 import edu.uy.um.wtf.exceptions.InvalidDataException;
 import edu.uy.um.wtf.services.AdminService;
+import edu.uy.um.wtf.services.MovieService;
+import edu.uy.um.wtf.services.SnackService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -24,6 +28,12 @@ public class AdminWebController {
     @Autowired
     private AdminService adminService;
 
+    @Autowired
+    private MovieService movieService;
+
+    @Autowired
+    private SnackService snackService;
+
 
     @GetMapping("/adminAdmin")
     public String getAllAdmins(Model model) {
@@ -31,6 +41,9 @@ public class AdminWebController {
         model.addAttribute("adminList", adminList);
         return "adminAdmin"; // Nombre de la vista debe coincidir con el archivo HTML sin extensión
     }
+
+
+
 
     @GetMapping("/info/{id}")
     public String getAdminInfo(@PathVariable("id") Long id, Model model) {
@@ -90,15 +103,17 @@ public class AdminWebController {
         }
     }
 
-
     @GetMapping("/movieAdmin")
-    public String showMovieAdminPage(){
-        return "movieAdmin";
+    public String getAllMovie(Model model) {
+        List<Movie> movieList = movieService.getAll();
+        model.addAttribute("movieList", movieList);
+        return "movieAdmin"; // Nombre de la vista debe coincidir con el archivo HTML sin extensión
     }
 
-
     @GetMapping("/snacksAdmin")
-    public String showSanckAdminPage(){
+    public String showSanckAdminPage(Model model){
+        List<Snack> snackList = snackService.getAll();
+        model.addAttribute("snackList", snackList);
         return "snacksAdmin";
     }
 
