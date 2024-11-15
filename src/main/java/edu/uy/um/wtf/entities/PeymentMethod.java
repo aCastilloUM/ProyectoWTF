@@ -1,7 +1,9 @@
 package edu.uy.um.wtf.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import java.util.Date;
 
@@ -19,6 +21,10 @@ public class PeymentMethod {
     @Id
     @Column(name = "card number", unique = true)
     private Long cardNumber;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column(name = "holder name")
     private String holderName;

@@ -1,12 +1,11 @@
 package edu.uy.um.wtf.controllers.entitiesControllers;
 
 
-import edu.uy.um.wtf.entities.Bill;
-import edu.uy.um.wtf.entities.FilmShow;
-import edu.uy.um.wtf.entities.Movie;
+import edu.uy.um.wtf.entities.*;
 import edu.uy.um.wtf.exceptions.EntityNotFoundException;
 import edu.uy.um.wtf.services.FilmShowService;
 import edu.uy.um.wtf.services.MovieService;
+import edu.uy.um.wtf.services.PaymentMethodService;
 import edu.uy.um.wtf.services.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import edu.uy.um.wtf.entities.User;
 
 import java.util.Date;
 import java.util.List;
@@ -30,6 +28,9 @@ public class UserWebController {
 
     @Autowired
     private MovieService movieService;
+
+    @Autowired
+    private PaymentMethodService paymentMethodService;
 
     @Autowired
     private FilmShowService filmShowService;
@@ -92,12 +93,14 @@ public class UserWebController {
     }
 
     @GetMapping("/register")
-    public String showRegisterForm() {
+    public String showRegisterForm(Model model) {
+        model.addAttribute("user", new User());
+        model.addAttribute("paymentMethod", new PeymentMethod());
         return "register";
     }
 
     @PostMapping("/registerPost")
-    public String registerUser(@RequestParam Long id, @RequestParam String username, @RequestParam String password,
+    public String registerUser(@ModelAttribute User user, @ModelAttribute PeymentMethod paymentMethod, @RequestParam Long id, @RequestParam String username, @RequestParam String password,
                                @RequestParam String firstName, @RequestParam String lastName,
                                @RequestParam String email, @RequestParam("birthDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date birthDate, Model model, HttpSession session) {
         if (id == null || username == null || username.isEmpty() || password == null || password.isEmpty() ||
@@ -118,17 +121,27 @@ public class UserWebController {
                 .build();
 
         userService.saveUser(newUser);
+        paymentMethod.setUser(user);
+        paymentMethodService.savePaymentMethod(paymentMethod);
         session.setAttribute("user", newUser);
         return "redirect:/logIn";
     }
 
     @GetMapping("/paymentMethod")
-    public String showPaymentMethodPageGet() {
+    public String showPaymentMethodPageGet(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        if (user == null){
+            return "redirect:/logIn";
+        }
+
+        List<PeymentMethod> paymentMethod = paymentMethodService.findByUser(user);
+        model.addAttribute("paymentMethod", paymentMethod);
+        model.addAttribute("newPaymentMethod", new PeymentMethod());
         return "paymentMethod";
     }
 
     @PostMapping("/PaymentMethodPost")
-    public String showPaymentMethodPagePost(HttpSession session, Model model) {
+    public String showPaymentMethodPagePost(@ModelAttribute PeymentMethod newPaymentMethod, HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         if (user == null) {
             return "redirect:/logIn";
@@ -139,6 +152,10 @@ public class UserWebController {
             return "redirect:/snacks";
         }
 
+        if (newPaymentMethod.getCardNumber() != null && !newPaymentMethod.getCardNumber().describeConstable().isEmpty()){
+            newPaymentMethod.setUser(user);
+            paymentMethodService.savePaymentMethod(newPaymentMethod);
+        }
         model.addAttribute("bill", bill);
         return "redirect:/bills/paymentSuccess";
     }
