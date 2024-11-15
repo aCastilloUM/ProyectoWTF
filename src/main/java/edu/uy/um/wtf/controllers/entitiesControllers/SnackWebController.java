@@ -1,10 +1,7 @@
 package edu.uy.um.wtf.controllers.entitiesControllers;
 
 
-import edu.uy.um.wtf.entities.Bill;
-import edu.uy.um.wtf.entities.Movie;
-import edu.uy.um.wtf.entities.Snack;
-import edu.uy.um.wtf.entities.User;
+import edu.uy.um.wtf.entities.*;
 import edu.uy.um.wtf.exceptions.EntityNotFoundException;
 import edu.uy.um.wtf.services.BillService;
 import jakarta.servlet.http.HttpSession;
@@ -16,6 +13,7 @@ import org.springframework.ui.Model;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/snacks")
@@ -168,6 +166,18 @@ public class SnackWebController {
             model.addAttribute("errorMessage", "Error al eliminar el snack");
         }
         return "snacksAdmin";
+    }
+
+    @GetMapping("/info/{id}")
+    public String getSnackInfo(@PathVariable("id") Long id, Model model) {
+        Optional<Snack> snack = snackService.getById(id); // Ajusta el método según tu servicio
+        if (snack.isPresent()) {
+            model.addAttribute("admin", snack.get());
+            return "snackInfo"; // Envía a la vista de detalles del administrador
+        } else {
+            model.addAttribute("error", "Snack no encontrado");
+            return "error"; // En caso de que el administrador no sea encontrado
+        }
     }
 
 
