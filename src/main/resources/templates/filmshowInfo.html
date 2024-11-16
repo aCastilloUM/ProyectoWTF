@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FilmShow Details</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-dark text-black">
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title text-center">FilmShow Details</h2>
+            <div th:if="${filmShow != null}">
+                <p><strong>ID:</strong> <span th:text="${filmShow.id != null ? filmShow.id : 'Null'}"></span></p>
+                <p><strong>Date:</strong> <span th:text="${filmShow.date != null ? filmShow.date : 'Null'}"></span></p>
+                <p><strong>Time:</strong> <span th:text="${filmShow.time != null ? filmShow.time : 'Null'}"></span></p>
+                <p><strong>Branch:</strong> <span th:text="${filmShow.branch != null ? filmShow.branch : 'Null'}"></span></p>
+                <p><strong>Title:</strong> <span th:text="${filmShow.title != null ? filmShow.title : 'Null'}"></span></p>
+                <p><strong>Room:</strong> <span th:text="${filmShow.room != null ? filmShow.room : 'Null'}"></span></p>
+                <p><strong>Special Effects:</strong> <span th:text="${filmShow.specialEffects != null ? filmShow.specialEffects : 'Null'}"></span></p>
+                <p><strong>Language:</strong> <span th:text="${filmShow.language != null ? filmShow.language : 'Null'}"></span></p>
+                <p><strong>Duration:</strong> <span th:text="${filmShow.duration != null ? filmShow.duration : 'Null'}"></span></p>
+            </div>
+            <div th:if="${filmShow == null}">
+                <p class="text-danger">FilmShow not found.</p>
+            </div>
+            <a th:href="@{/admin/filmshowAdmin}" class="btn btn-primary mt-3">Back to FilmShow</a>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
