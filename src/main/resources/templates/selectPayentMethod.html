@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleccionar Método de Pago</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-dark text-white d-flex justify-content-center align-items-center full-height">
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="text-center mb-4">
+                <h1>Seleccionar Método de Pago</h1>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <form id="selectPaymentMethodForm" th:action="@{/users/PaymentMethodPost}" method="POST">
+                        <div th:if="${paymentMethods.size() > 0}">
+                            <h4>Seleccione un método de pago existente:</h4>
+                            <div th:each="method : ${paymentMethods}">
+                                <input type="radio" th:id="${method.id}" th:name="selectedPaymentMethod" th:value="${method.id}">
+                                <label th:for="${method.id}" th:text="${method.cardNumber}"></label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block mt-3">Continuar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html></title>
+</head>
+<body>
+
+</body>
+</html>
