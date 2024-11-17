@@ -198,6 +198,25 @@ public class FilmShowWebController {
         return "filmshowAdmin";
     }
 
+    @GetMapping
+    public String showFilmShowAdminPage(Model model) {
+        List<FilmShow> filmShowList = filmShowService.getAll();
+        model.addAttribute("filmShowList", filmShowList);
+        return "filmshowAdmin";
+    }
+
+    @GetMapping("/info/{id}")
+    public String getFilmShowInfo(@PathVariable Long id, Model model) {
+        Optional<FilmShow> filmShow = filmShowService.findById(id);
+        if (filmShow.isPresent()) {
+            model.addAttribute("filmShow", filmShow.get());
+        } else {
+            model.addAttribute("error", "FilmShow not found");
+            return "error";
+        }
+        return "filmshowInfo";
+    }
+
     @PostMapping("/delete")
     public String deleteFunction(@RequestParam Long id, Model model) {
         try {

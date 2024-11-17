@@ -1,6 +1,5 @@
 package edu.uy.um.wtf.entities;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,7 +16,6 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class FilmShow implements Serializable {
 
     @Id
@@ -51,5 +49,4 @@ public class FilmShow implements Serializable {
 
     @Column(name = "duration")
     private int duration;
-
 }

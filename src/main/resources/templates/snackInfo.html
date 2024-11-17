@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Snack Details</title>
+    <title>Detalles del Snack</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="bg-dark text-white">
+<body class="bg-dark text-black">
 <div class="container mt-5">
     <div class="card">
         <div class="card-body">
-            <h2 class="card-title text-center">Snack Details</h2>
+            <h2 class="card-title text-center">Detalles del Snack</h2>
             <div th:if="${snack != null}">
-                <p><strong>ID:</strong> <span th:text="${snack.id != null ? snack.id : 'Null'}"></span></p>
-                <p><strong>Name:</strong> <span th:text="${snack.name != null ? snack.name : 'Null'}"></span></p>
-                <p><strong>Type:</strong> <span th:text="${snack.type != null ? snack.type : 'Null'}"></span></p>
-                <p><strong>Price:</strong> <span th:text="${snack.price != null ? snack.price : 'Null'}"></span></p>
+                <p><strong>ID:</strong> <span th:text="${snack.id != null ? snack.id : 'Nulo'}"></span></p>
+                <p><strong>Nombre:</strong> <span th:text="${snack.name != null ? snack.name : 'Nulo'}"></span></p>
+                <p><strong>Descripción:</strong> <span th:text="${snack.description != null ? snack.description : 'Nulo'}"></span></p>
+                <p><strong>Precio:</strong> <span th:text="${snack.price != null ? snack.price : 'Nulo'}"></span></p>
             </div>
             <div th:if="${snack == null}">
-                <p class="text-danger">Snack not found.</p>
+                <p class="text-danger">Snack no encontrado.</p>
             </div>
-            <a th:href="@{/snacks/list}" class="btn btn-primary mt-3">Back to snack list</a>
+            <a th:href="@{/admin/snackAdmin}" class="btn btn-primary mt-3">Volver a Snacks</a>
         </div>
     </div>
 </div>

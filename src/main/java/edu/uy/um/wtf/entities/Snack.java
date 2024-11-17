@@ -30,4 +30,7 @@ public class Snack {
     @Column(name = "type")
     private String type;
 
+    @Column(name = "description")
+    private String description;
+
 }

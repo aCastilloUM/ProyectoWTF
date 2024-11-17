@@ -140,13 +140,13 @@ public class MovieWebController {
     }
 
     @GetMapping("/info/{id}")
-    public String getMovieInfo(@PathVariable("id") Long id, Model model) {
-        Optional<Movie> movie = movieService.getById(id);
+    public String showMovieInfo(@PathVariable Long id, Model model) {
+        Optional<Movie> movie = movieService.findById(id);
         if (movie.isPresent()) {
             model.addAttribute("movie", movie.get());
             return "movieInfo";
         } else {
-            model.addAttribute("error", "Pelicula no encontrada");
+            model.addAttribute("error", "Movie not found");
             return "error";
         }
     }

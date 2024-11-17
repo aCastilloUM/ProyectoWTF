@@ -61,8 +61,8 @@
                             <input type="text" class="form-control" id="branch" name="branch" required>
                         </div>
                         <div class="form-group">
-                            <label for="title">Titulo de Pelicula:</label>
-                            <input type="text" class="form-control" id="title" name="title" required>
+                            <label for="movieId">ID de Película:</label>
+                            <input type="number" class="form-control" id="movieId" name="movieId" required>
                         </div>
                         <div class="form-group">
                             <label for="room">Sala:</label>
@@ -77,7 +77,7 @@
                             <input type="text" class="form-control" id="language" name="language" required>
                         </div>
                         <div class="form-group">
-                            <label for="duration">Duracion:</label>
+                            <label for="duration">Duración:</label>
                             <input type="text" class="form-control" id="duration" name="duration" required>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Guardar</button>
@@ -88,15 +88,19 @@
             <!-- Search Film Show Card -->
             <div class="card">
                 <div class="card-body">
-                    <h2 class="card-title text-center">Buscar Film Show</h2>
-                    <!-- Form to search for a film show by ID -->
-                    <form th:action="@{/filmshows/byId}" method="get">
-                        <div class="form-group">
-                            <label for="searchId">ID:</label>
-                            <input type="number" class="form-control" id="searchId" name="id" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">Buscar</button>
-                    </form>
+                    <h2 class="card-title text-center">Seleccionar Film Show</h2>
+                    <!-- Menú desplegable para seleccionar un film show -->
+                    <div class="form-group">
+                        <label for="filmShowSelect">Film Shows:</label>
+                        <select id="filmShowSelect" class="form-control" onchange="redirectToFilmShowInfo(this)">
+                            <option value="">-- Selecciona un Film Show --</option>
+                            <!-- Llenar opciones con los detalles de los film shows -->
+                            <option th:each="filmShow : ${filmShowList}"
+                                    th:value="${filmShow.id}"
+                                    th:text="${filmShow.id}">
+                            </option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
@@ -119,6 +123,15 @@
     </div>
 </div>
 <a th:href="@{/admin/mainAdmin}" class="back-link">&larr; Volver a Panel de Administrador</a>
+
+<script>
+    function redirectToFilmShowInfo(select) {
+        const id = select.value;
+        if (id) {
+            window.location.href = `/filmshows/info/` + id;
+        }
+    }
+</script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
