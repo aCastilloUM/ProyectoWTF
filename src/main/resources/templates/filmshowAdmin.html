@@ -97,7 +97,7 @@
                             <!-- Llenar opciones con los detalles de los film shows -->
                             <option th:each="filmShow : ${filmShowList}"
                                     th:value="${filmShow.id}"
-                                    th:text="${filmShow.id} + ' - ' + ${filmShow.date}">
+                                    th:text="${filmShow.id}">
                             </option>
                         </select>
                     </div>
@@ -128,7 +128,7 @@
     function redirectToFilmShowInfo(select) {
         const id = select.value;
         if (id) {
-            window.location.href = `/filmshows/info/{id}`;
+            window.location.href = `/filmshows/info/` + id;
         }
     }
 </script>

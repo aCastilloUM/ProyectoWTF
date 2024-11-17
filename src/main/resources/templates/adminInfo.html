@@ -1,68 +1,27 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Información del Administrador</title>
+    <title>Detalles del Administrador</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .card-body {
-            color: black;
-        }
-        .text-primary:hover {
-            text-decoration: underline;
-        }
-        .full-height {
-            height: 100vh;
-        }
-        .card {
-            max-width: 500px;
-            margin: 20px auto;
-        }
-        .first-card {
-            margin-top: 50px;
-        }
-        .back-link {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            color: white;
-        }
-    </style>
 </head>
-<body class="bg-dark text-white d-flex justify-content-center align-items-center full-height">
-
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="text-center mb-4">
-                <h1>Información del Administrador</h1>
+<body class="bg-dark text-black">
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title text-center">Detalles del Administrador</h2>
+            <div th:if="${admin != null}">
+                <p><strong>ID:</strong> <span th:text="${admin.id != null ? admin.id : 'Nulo'}"></span></p>
+                <p><strong>Nombre:</strong> <span th:text="${admin.name != null ? admin.name : 'Nulo'}"></span></p>
+                <p><strong>Email:</strong> <span th:text="${admin.email != null ? admin.email : 'Nulo'}"></span></p>
             </div>
-
-            <!-- Admin Info Card -->
-            <div class="card first-card">
-                <div class="card-body">
-                    <h2 class="card-title text-center">Detalles del Administrador</h2>
-                    <div th:if="${admin != null}">
-                        <p><strong>Documento:</strong> <span th:text="${admin.id}"></span></p>
-                        <p><strong>Nombre:</strong> <span th:text="${admin.firstName}"></span></p>
-                        <p><strong>Apellido:</strong> <span th:text="${admin.lastName}"></span></p>
-                        <p><strong>Correo Electrónico:</strong> <span th:text="${admin.mail}"></span></p>
-                        <p><strong>Nombre de Usuario:</strong> <span th:text="${admin.username}"></span></p>
-                        <p><strong>Fecha de Nacimiento:</strong> <span th:text="${admin.birthDate}"></span></p>
-                    </div>
-                    <div th:if="${admin == null}">
-                        <p class="text-center">No se encontró ningún administrador con ese nombre de usuario.</p>
-                    </div>
-                </div>
+            <div th:if="${admin == null}">
+                <p class="text-danger">Administrador no encontrado.</p>
             </div>
-
+            <a th:href="@{/admin/adminAdmin}" class="btn btn-primary mt-3">Volver a Administradores</a>
         </div>
     </div>
 </div>
-
-<a th:href="@{/admin/mainAdmin}" class="back-link">&larr; Volver a Panel de Administrador</a>
-
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

@@ -1,29 +1,29 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Movie Details</title>
+    <title>Detalles de la Película</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-dark text-black">
 <div class="container mt-5">
     <div class="card">
         <div class="card-body">
-            <h2 class="card-title text-center">Movie Details</h2>
+            <h2 class="card-title text-center">Detalles de la Película</h2>
             <div th:if="${movie != null}">
-                <p><strong>ID:</strong> <span th:text="${movie.id != null ? movie.id : 'Null'}"></span></p>
-                <p><strong>Title:</strong> <span th:text="${movie.title != null ? movie.title : 'Null'}"></span></p>
-                <p><strong>Description:</strong> <span th:text="${movie.description != null ? movie.description : 'Null'}"></span></p>
-                <p><strong>Director:</strong> <span th:text="${movie.director != null ? movie.director : 'Null'}"></span></p>
-                <p><strong>Genre:</strong> <span th:text="${movie.genre != null ? movie.genre : 'Null'}"></span></p>
-                <p><strong>Duration:</strong> <span th:text="${movie.duration != null ? movie.duration : 'Null'}"></span></p>
-                <p><strong>Age Registration:</strong> <span th:text="${movie.ageRegistration != null ? movie.ageRegistration : 'Null'}"></span></p>
-                <p><strong>Release Date:</strong> <span th:text="${movie.releaseDate != null ? #dates.format(movie.releaseDate, 'yyyy-MM-dd') : 'Null'}"></span></p>
+                <p><strong>ID:</strong> <span th:text="${movie.id != null ? movie.id : 'Nulo'}"></span></p>
+                <p><strong>Título:</strong> <span th:text="${movie.title != null ? movie.title : 'Nulo'}"></span></p>
+                <p><strong>Descripción:</strong> <span th:text="${movie.description != null ? movie.description : 'Nulo'}"></span></p>
+                <p><strong>Director:</strong> <span th:text="${movie.director != null ? movie.director : 'Nulo'}"></span></p>
+                <p><strong>Género:</strong> <span th:text="${movie.genre != null ? movie.genre : 'Nulo'}"></span></p>
+                <p><strong>Duración:</strong> <span th:text="${movie.duration != null ? movie.duration : 'Nulo'}"></span></p>
+                <p><strong>Clasificación por Edad:</strong> <span th:text="${movie.ageRegistration != null ? movie.ageRegistration : 'Nulo'}"></span></p>
+                <p><strong>Fecha de Estreno:</strong> <span th:text="${movie.releaseDate != null ? #dates.format(movie.releaseDate, 'yyyy-MM-dd') : 'Nulo'}"></span></p>
             </div>
             <div th:if="${movie == null}">
-                <p class="text-danger">Movie not found.</p>
+                <p class="text-danger">Película no encontrada.</p>
             </div>
-            <a th:href="@{/admin/movieAdmin}" class="btn btn-primary mt-3">Back to movie</a>
+            <a th:href="@{/admin/movieAdmin}" class="btn btn-primary mt-3">Volver a Películas</a>
         </div>
     </div>
 </div>

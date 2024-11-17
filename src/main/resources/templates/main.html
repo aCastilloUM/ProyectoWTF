@@ -6,6 +6,20 @@
     <title>WTF Cinema</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        body {
+            background-color: #343a40; /* Fondo oscuro */
+            color: white; /* Texto blanco para que se vea en el fondo oscuro */
+        }
+        .card {
+            background-color: white; /* Tarjetas en blanco */
+            color: black; /* Texto de las tarjetas en negro */
+        }
+        .navbar, .movie-details h4, .movie-details a {
+            color: white; /* Texto de la barra de navegación y secciones en blanco */
+        }
+        .navbar-brand, .nav-link {
+            color: white !important;
+        }
         .movie-container {
             display: flex;
             align-items: center;
@@ -27,9 +41,9 @@
         }
     </style>
 </head>
-<body class="bg-light">
+<body class="bg-dark text-white">
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" th:href="@{/users/main}">WTF Cinema</a>
     <div class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
@@ -49,10 +63,10 @@
                     <img th:src="@{${movie.posterPath}}" class="movie-poster" alt="Movie Poster">
                     <div class="movie-details">
                         <h5 class="card-title" th:text="${movie.title}">Movie Title</h5>
-                        <p class="card-text">Description: <span th:text="${movie.description}">Descripción</span></p>
+                        <p class="card-text">Descripción: <span th:text="${movie.description}">Descripción</span></p>
                         <p class="card-text">Director: <span th:text="${movie.director}">Director</span></p>
-                        <p class="card-text">Duration: <span th:text="${movie.duration}">Duration</span> minutes</p>
-                        <p class="card-text">Genre: <span th:text="${movie.genre}">Genre</span></p>
+                        <p class="card-text">Duración: <span th:text="${movie.duration}">Duration</span> minutes</p>
+                        <p class="card-text">Género: <span th:text="${movie.genre}">Genre</span></p>
                     </div>
                 </div>
             </div>

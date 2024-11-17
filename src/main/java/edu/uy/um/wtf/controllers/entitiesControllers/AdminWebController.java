@@ -1,11 +1,13 @@
 package edu.uy.um.wtf.controllers.entitiesControllers;
 
 import edu.uy.um.wtf.entities.Admin;
+import edu.uy.um.wtf.entities.FilmShow;
 import edu.uy.um.wtf.entities.Movie;
 import edu.uy.um.wtf.entities.Snack;
 import edu.uy.um.wtf.exceptions.EntityNotFoundException;
 import edu.uy.um.wtf.exceptions.InvalidDataException;
 import edu.uy.um.wtf.services.AdminService;
+import edu.uy.um.wtf.services.FilmShowService;
 import edu.uy.um.wtf.services.MovieService;
 import edu.uy.um.wtf.services.SnackService;
 import jakarta.servlet.http.HttpSession;
@@ -34,6 +36,8 @@ public class AdminWebController {
     @Autowired
     private SnackService snackService;
 
+    @Autowired
+    private FilmShowService filmShowService;
 
     @GetMapping("/adminAdmin")
     public String getAllAdmins(Model model) {
@@ -130,7 +134,9 @@ public class AdminWebController {
     }
 
     @GetMapping("/filmshowAdmin")
-    public String showFilmshowAdminPage(){
+    public String showFilmshowAdminPage(Model model) {
+        List<FilmShow> filmShowList = filmShowService.getAll();
+        model.addAttribute("filmShowList", filmShowList);
         return "filmshowAdmin";
     }
 

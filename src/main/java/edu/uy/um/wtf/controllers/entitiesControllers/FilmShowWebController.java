@@ -214,7 +214,7 @@ public class FilmShowWebController {
             model.addAttribute("error", "FilmShow not found");
             return "error";
         }
-        return "filmShowInfo";
+        return "filmshowInfo";
     }
 
     @PostMapping("/delete")
