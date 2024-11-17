@@ -22,28 +22,28 @@ import java.util.Date;
 public class RegisterController {
     @Autowired
     private UserService userService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+
 
     @GetMapping("/register")
     public String showRegisterForm() {
         return "register";
     }
 
-    @PostMapping("/register")
-    public String registerUser(@RequestParam String username, @RequestParam String password,
+    @PostMapping("/registerPost")
+    public String registerUser(@RequestParam Long id, @RequestParam String username, @RequestParam String password,
                                @RequestParam String firstName, @RequestParam String lastName,
                                @RequestParam String email, @RequestParam("birthDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date birthDate, Model model) {
-        if (username == null || username.isEmpty() || password == null || password.isEmpty() ||
+        if (id == null || username == null || username.isEmpty() || password == null || password.isEmpty() ||
                 firstName == null || firstName.isEmpty() || lastName == null || lastName.isEmpty() ||
                 email == null || email.isEmpty() || birthDate == null) {
             model.addAttribute("error", "Todos los campos son requeridos");
-            return "redirect:/register";
+            return "/register";
         }
 
         User newUser = User.builder()
+                .id(id)
                 .username(username)
-                .password(passwordEncoder.encode(password))
+                .password(password)
                 .firstName(firstName)
                 .lastName(lastName)
                 .mail(email)

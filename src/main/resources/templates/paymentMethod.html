@@ -31,7 +31,7 @@
             </div>
             <div class="card">
                 <div class="card-body">
-                    <a th:href="@{/users/register}" class="text-primary">&#8592; Volver</a>
+                    <a th:href="@{/register}" class="text-primary">&#8592; Volver</a>
                     <form id="paymentMethodForm" th:action="@{/PaymentMethodPost}" method="POST">
                         <div th:if="${paymentMethods.size() > 0}">
                             <h4>Seleccione un método de pago existente:</h4>

@@ -36,7 +36,7 @@
                 <div class="card-body">
                     <a th:href="@{/logIn}" class="text-primary">&#8592; Volver</a>
                     <h2 class="card-title text-center">Nuevo Usuario</h2>
-                    <form th:action="@{/users/registerPost}" method="POST">
+                    <form th:action="@{/registerPost}" method="POST">
                         <div class="form-group">
                             <label for="id">Cédula:</label>
                             <input type="text" class="form-control" name="id" id="id" required oninput="formatCedula(this)">

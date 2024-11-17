@@ -19,9 +19,6 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     public void saveUser(User user) {
         userRepository.save(user);
     }
@@ -31,7 +28,7 @@ public class UserService {
             return Optional.empty();
         }
         Optional<User> user = userRepository.findByUsername(username);
-        if (user.isPresent() && passwordEncoder.matches(password, user.get().getPassword())) {
+        if (user.isPresent() && password.equals(user.get().getPassword())) {
             return user;
         }
         return Optional.empty();

@@ -24,9 +24,6 @@ public class LogInController {
     @Autowired
     private AdminService adminService;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     @GetMapping("/logIn")
     public String showLoginForm() {
         return "logIn";

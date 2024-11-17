@@ -35,8 +35,7 @@ public class UserWebController {
     @Autowired
     private FilmShowService filmShowService;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+
 
     @GetMapping("/main")
     public String showUserPage(HttpSession session, Model model) {
@@ -92,40 +91,7 @@ public class UserWebController {
         return "userList";
     }
 
-    @GetMapping("/register")
-    public String showRegisterForm(Model model) {
-        model.addAttribute("user", new User());
-        model.addAttribute("paymentMethod", new PeymentMethod());
-        return "register";
-    }
 
-    @PostMapping("/registerPost")
-    public String registerUser(@ModelAttribute User user, @ModelAttribute PeymentMethod paymentMethod, @RequestParam Long id, @RequestParam String username, @RequestParam String password,
-                               @RequestParam String firstName, @RequestParam String lastName,
-                               @RequestParam String email, @RequestParam("birthDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date birthDate, Model model, HttpSession session) {
-        if (id == null || username == null || username.isEmpty() || password == null || password.isEmpty() ||
-                firstName == null || firstName.isEmpty() || lastName == null || lastName.isEmpty() ||
-                email == null || email.isEmpty() || birthDate == null) {
-            model.addAttribute("error", "Todos los campos son requeridos");
-            return "redirect:/register";
-        }
-
-        User newUser = User.builder()
-                .id(id)
-                .username(username)
-                .password(password)
-                .firstName(firstName)
-                .lastName(lastName)
-                .mail(email)
-                .birthDate(birthDate)
-                .build();
-
-        userService.saveUser(newUser);
-        paymentMethod.setUser(user);
-        paymentMethodService.savePaymentMethod(paymentMethod);
-        session.setAttribute("user", newUser);
-        return "redirect:/logIn";
-    }
 
     @GetMapping("/paymentMethod")
     public String showPaymentMethodPageGet(HttpSession session, Model model) {
