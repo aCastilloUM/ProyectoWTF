@@ -26,6 +26,7 @@ public class SnackWebController {
     private PaymentMethodService paymentMethodService;
     @Autowired
     private BillService billService;
+
     @GetMapping("/snack")
     public String showSnackPage(HttpSession session, Model model) {
         // Verificamos si ya hay un user en la sesión

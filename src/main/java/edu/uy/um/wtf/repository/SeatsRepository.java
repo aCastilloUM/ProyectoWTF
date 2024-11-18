@@ -11,4 +11,6 @@ import java.util.List;
 public interface SeatsRepository extends JpaRepository<Seats, Long> {
 
     List<Seats> findByFilmShowId(Long filmShowId);
+    List<Seats> findAllById(Iterable<Long> ids);
+
 }

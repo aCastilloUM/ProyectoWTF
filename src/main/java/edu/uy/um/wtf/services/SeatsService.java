@@ -23,7 +23,10 @@ public class SeatsService {
     @Transactional
     public void reserveSeats(Long filmShowId, List<Long> selectedSeats) {
         List<Seats> seatsToReserve = seatsRepository.findAllById(selectedSeats);
-        seatsToReserve.forEach(seat -> seat.setOccupied(true));
+        for (Seats seat : seatsToReserve) {
+            seat.setOccupied(true);
+        }
         seatsRepository.saveAll(seatsToReserve);
     }
+
 }

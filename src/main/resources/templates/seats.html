@@ -85,8 +85,6 @@
                 seat.classList.add('disponible');
                 selectedSeats.delete(seatId);
             }
-
-            // Actualizar el valor del input oculto con los asientos seleccionados
             document.getElementById('selectedSeats').value = Array.from(selectedSeats).join(',');
         }
     </script>
@@ -97,27 +95,28 @@
 <div class="pantalla"></div>
 <p>Pantalla / Escenario</p>
 
-<p th:if="${asientos.size() == 0}">No hay asientos disponibles para esta función.</p>
+<p th:if="${#lists.isEmpty(asientos)}">No hay asientos disponibles para esta función.</p>
 
 <form th:action="@{/seats/confirmReservation}" method="post">
     <input type="hidden" name="filmShowId" th:value="${filmShowId}" />
     <input type="hidden" name="selectedSeats" id="selectedSeats" />
 
-    <!-- Matriz de 15x10 asientos -->
+    <!-- Matriz de 10x15 asientos -->
     <table>
         <tbody>
-        <tr th:each="fila, filaStat : ${asientos}">
-            <td th:each="asiento, asientoStat : ${fila}">
-                <div class="seat disponible" th:id="${'seat-' + filaStat.index + '-' + asientoStat.index}"
-                     th:onclick="'toggleSeat(this, \'' + filaStat.index + '-' + asientoStat.index + '\')'">
-                </div>
+        <tr th:each="row : ${asientos}">
+            <td th:each="seat : ${row}">
+                <button type="button" class="seat"
+                        th:data-id="${seat.id}"
+                        th:classappend="${seat.occupied ? 'ocupado' : 'disponible'}"
+                        th:onclick="|toggleSeat(this, ${seat.id})|">
+                </button>
             </td>
         </tr>
         </tbody>
     </table>
 
     <button type="submit" class="confirm-button">Confirmar Reserva</button>
-
 </form>
 
 </body>
