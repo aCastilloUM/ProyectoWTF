@@ -35,8 +35,6 @@ public class UserWebController {
     @Autowired
     private FilmShowService filmShowService;
 
-
-
     @GetMapping("/main")
     public String showUserPage(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
@@ -91,40 +89,6 @@ public class UserWebController {
         return "userList";
     }
 
-
-
-    @GetMapping("/paymentMethod")
-    public String showPaymentMethodPageGet(HttpSession session, Model model) {
-        User user = (User) session.getAttribute("user");
-        if (user == null){
-            return "redirect:/logIn";
-        }
-
-        List<PeymentMethod> paymentMethod = paymentMethodService.findByUser(user);
-        model.addAttribute("paymentMethod", paymentMethod);
-        model.addAttribute("newPaymentMethod", new PeymentMethod());
-        return "paymentMethod";
-    }
-
-    @PostMapping("/PaymentMethodPost")
-    public String showPaymentMethodPagePost(@ModelAttribute PeymentMethod newPaymentMethod, HttpSession session, Model model) {
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            return "redirect:/logIn";
-        }
-
-        Bill bill = (Bill) session.getAttribute("bill");
-        if (bill == null) {
-            return "redirect:/snacks";
-        }
-
-        if (newPaymentMethod.getCardNumber() != null && !newPaymentMethod.getCardNumber().describeConstable().isEmpty()){
-            newPaymentMethod.setUser(user);
-            paymentMethodService.savePaymentMethod(newPaymentMethod);
-        }
-        model.addAttribute("bill", bill);
-        return "redirect:/bills/paymentSuccess";
-    }
 
 
     @GetMapping("/byId/{id}")

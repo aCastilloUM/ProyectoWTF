@@ -23,7 +23,7 @@ public class PeymentMethod {
     private Long cardNumber;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @Column(name = "holder name")
@@ -35,5 +35,6 @@ public class PeymentMethod {
 
     @Column(name = "cvv")
     private String cvv;
+
 
 }

@@ -4,6 +4,7 @@ package edu.uy.um.wtf.controllers.entitiesControllers;
 import edu.uy.um.wtf.entities.*;
 import edu.uy.um.wtf.exceptions.EntityNotFoundException;
 import edu.uy.um.wtf.services.BillService;
+import edu.uy.um.wtf.services.PaymentMethodService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,8 @@ public class SnackWebController {
 
     @Autowired
     private SnackService snackService;
-
+    @Autowired
+    private PaymentMethodService paymentMethodService;
     @Autowired
     private BillService billService;
     @GetMapping("/snack")
@@ -119,7 +121,12 @@ public class SnackWebController {
         }
 
         model.addAttribute("bill", bill);
-        return "redirect:/users/PaymentMethodPost";
+        List<PeymentMethod> paymentMethods = paymentMethodService.findByUser(user);
+        if (paymentMethods.isEmpty()) {
+            return "redirect:/paymentMethod/paymentMethod";
+        }
+
+        return "redirect:/bills/checkout";
     }
 
 

@@ -22,6 +22,8 @@ import java.util.Date;
 public class RegisterController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private PaymentMethodService paymentMethodService;
 
 
     @GetMapping("/register")
@@ -32,7 +34,10 @@ public class RegisterController {
     @PostMapping("/registerPost")
     public String registerUser(@RequestParam Long id, @RequestParam String username, @RequestParam String password,
                                @RequestParam String firstName, @RequestParam String lastName,
-                               @RequestParam String email, @RequestParam("birthDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date birthDate, Model model) {
+                               @RequestParam String email, @RequestParam("birthDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date birthDate,
+                               @RequestParam(required = false) String cardNumber, @RequestParam(required = false) String cardHolderName,
+                               @RequestParam(required = false) String expiryDate, @RequestParam(required = false) String cvv, Model model, RedirectAttributes redirectAttributes) {
+
         if (id == null || username == null || username.isEmpty() || password == null || password.isEmpty() ||
                 firstName == null || firstName.isEmpty() || lastName == null || lastName.isEmpty() ||
                 email == null || email.isEmpty() || birthDate == null) {
@@ -51,42 +56,31 @@ public class RegisterController {
                 .build();
 
         userService.saveUser(newUser);
+
+        if (cardNumber != null && !cardNumber.isEmpty() && cardHolderName != null && !cardHolderName.isEmpty() &&
+                expiryDate != null && !expiryDate.isEmpty() && cvv != null && !cvv.isEmpty()) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MM/yy");
+            Date expirationDate;
+            try {
+                expirationDate = dateFormat.parse(expiryDate);
+            } catch (ParseException e) {
+                redirectAttributes.addFlashAttribute("error", "Fecha de expiración inválida");
+                return "redirect:/register";
+            }
+
+            PeymentMethod newPaymentMethod = PeymentMethod.builder()
+                    .cardNumber(Long.parseLong(cardNumber.replaceAll("\\s", ""))) // Remove spaces and parse as Long
+                    .holderName(cardHolderName)
+                    .expirationDate(expirationDate)
+                    .cvv(cvv)
+                    .user(newUser)
+                    .build();
+
+            paymentMethodService.savePaymentMethod(newPaymentMethod);
+        }
         return "redirect:/logIn";
     }
 
-    @Autowired
-    private PaymentMethodService paymentMethodService;
 
-    @GetMapping("/paymentMethod")
-    public String showPaymentMethodPage() {
-        return "paymentMethod";
-    }
 
-    @PostMapping("/paymentMethodPost")
-    public String registerPaymentMethod(@RequestParam String cardNumber, @RequestParam String cardHolderName,
-                                        @RequestParam String expiryDate, @RequestParam String cvv, RedirectAttributes redirectAttributes) {
-        if (cardNumber == null || cardHolderName == null || cardHolderName.isEmpty() || expiryDate == null || expiryDate.isEmpty() || cvv == null) {
-            redirectAttributes.addFlashAttribute("error", "Todos los campos son requeridos");
-            return "redirect:/paymentMethod";
-        }
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/yy");
-        Date expirationDate;
-        try {
-            expirationDate = dateFormat.parse(expiryDate);
-        } catch (ParseException e) {
-            redirectAttributes.addFlashAttribute("error", "Fecha de expiración inválida");
-            return "redirect:/paymentMethod";
-        }
-
-        PeymentMethod newPaymentMethod = PeymentMethod.builder()
-                .cardNumber(Long.parseLong(cardNumber.replaceAll("\\s", ""))) // Remove spaces and parse as Long
-                .holderName(cardHolderName)
-                .expirationDate(expirationDate)
-                .cvv(cvv)
-                .build();
-
-        paymentMethodService.savePaymentMethod(newPaymentMethod);
-        return "redirect:/logIn";
-    }
 }

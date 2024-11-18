@@ -111,6 +111,17 @@
         input.value = input.value.replace(/\W/gi, '').replace(/(.{2})/, '$1/').trim();
     }
 
+    function formatBirthDate(input) {
+        let value = input.value.replace(/\D/g, ''); // Remove any non-numeric characters
+        if (value.length > 2) {
+            value = value.substring(0, 2) + '/' + value.substring(2);
+        }
+        if (value.length > 5) {
+            value = value.substring(0, 5) + '/' + value.substring(5);
+        }
+        input.value = value;
+    }
+
     function togglePaymentMethodForm() {
         const form = document.getElementById('paymentMethodForm');
         form.classList.toggle('hidden');
