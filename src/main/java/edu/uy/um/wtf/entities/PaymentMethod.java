@@ -1,9 +1,7 @@
 package edu.uy.um.wtf.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.hibernate.validator.constraints.UniqueElements;
 
 import java.util.Date;
 
@@ -16,7 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class PeymentMethod {
+public class PaymentMethod {
 
     @Id
     @Column(name = "card number", unique = true)
@@ -30,8 +28,7 @@ public class PeymentMethod {
     private String holderName;
 
     @Column(name = "expiration date")
-    @Temporal(TemporalType.DATE)
-    private Date expirationDate;
+    private String expiryDate;
 
     @Column(name = "cvv")
     private String cvv;

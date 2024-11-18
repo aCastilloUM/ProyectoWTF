@@ -1,6 +1,6 @@
 package edu.uy.um.wtf.services;
 
-import edu.uy.um.wtf.entities.PeymentMethod;
+import edu.uy.um.wtf.entities.PaymentMethod;
 import edu.uy.um.wtf.entities.User;
 import edu.uy.um.wtf.repository.PaymentMethodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,18 +14,18 @@ public class PaymentMethodService {
     @Autowired
     private PaymentMethodRepository paymentRepository;
 
-    public void savePaymentMethod(PeymentMethod paymentMethod) {
+    public void savePaymentMethod(PaymentMethod paymentMethod) {
         paymentRepository.save(paymentMethod);
     }
 
-    public List<PeymentMethod> findByUser(User user){
+    public List<PaymentMethod> findByUser(User user){
         return paymentRepository.findByUser(user);
     }
-    public Optional<PeymentMethod> findByCardNumber(Long cardNumber){
+    public Optional<PaymentMethod> findByCardNumber(Long cardNumber){
         return paymentRepository.findByCardNumber(cardNumber);
     }
 
-    public List<PeymentMethod> getAll(){
+    public List<PaymentMethod> getAll(){
         return paymentRepository.findAll();
     }
 }

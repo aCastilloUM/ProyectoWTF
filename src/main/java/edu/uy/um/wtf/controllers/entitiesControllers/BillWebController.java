@@ -29,6 +29,30 @@ public class BillWebController {
         return "bills/list";
     }
 
+    @GetMapping("/byClient{Client}")
+    public String findByClient(@PathVariable("Client") User client, Model model) {
+        try {
+            List<Bill> bills = billService.findByClient(client);
+            model.addAttribute("bills", bills);
+            return "bills/list";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("error", "Client not found");
+            return "error";
+        }
+    }
+
+    @GetMapping("/byTotal{Total}")
+    public String findByTotal(@PathVariable("Total") int total, Model model) {
+        try {
+            List<Bill> bills = billService.findByTotal(total);
+            model.addAttribute("bills", bills);
+            return "bills/list";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("error", "Total not found");
+            return "error";
+        }
+    }
+
     @PostMapping("/paymentSuccess")
     public String paymentSuccess(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
@@ -43,10 +67,13 @@ public class BillWebController {
 
         Movie movie = (Movie) session.getAttribute("movie");
         List<String> seats = (List<String>) session.getAttribute("seats");
+        String snackPop = (String) session.getAttribute("snackPop");
+        String drink = (String) session.getAttribute("drink");
 
-        model.addAttribute("bill", bill);
         model.addAttribute("movie", movie);
         model.addAttribute("seats", seats);
+        model.addAttribute("snackPop", snackPop);
+        model.addAttribute("drink", drink);
         return "paymentSuccess";
     }
 
@@ -64,24 +91,24 @@ public class BillWebController {
             return "error";    }}
 
     @PostMapping("/processPayment")
-    public String processPayment(@RequestParam String paymentMethod, HttpSession session, Model model) {
+    public String processPayment(@RequestParam(required = false) String paymentMethod, HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         if (user == null) {
             return "redirect:/logIn";
         }
 
-        Bill bill = (Bill) session.getAttribute("bill");
-        if (bill == null) {
-            return "redirect:/snacks";
-        }
-
-
         Movie movie = (Movie) session.getAttribute("movie");
         List<String> seats = (List<String>) session.getAttribute("seats");
 
-        model.addAttribute("bill", bill);
         model.addAttribute("movie", movie);
         model.addAttribute("seats", seats);
         return "/paymentSuccess";
     }
+
+    @GetMapping("/processPayment")
+    public String showProcessPayment(HttpSession session, Model model){
+        return processPayment(null, session, model);
+    }
+
+
 }

@@ -74,23 +74,22 @@ public class SnackWebController {
         try {
             if (comboId != null && comboQty > 0) {
                 Snack combo = snackService.findById(comboId);
-                for (int i = 0; i < comboQty; i++) {
-                    billService.addSnack(bill, combo, 1);
-                }
+                billService.addSnack(bill, combo, comboQty);
+                session.setAttribute("ComboId", combo);
             }
 
             if (snackPopId != null && snackPopQty > 0) {
                 Snack snackPop = snackService.findById(snackPopId);
-                for (int i = 0; i < snackPopQty; i++) {
-                    billService.addSnack(bill, snackPop, 1);
-                }
+                billService.addSnack(bill, snackPop, snackPopQty);
+                session.setAttribute("SnackPop", snackPop);
+
             }
 
             if (drinkId != null && drinkQty > 0) {
                 Snack drink = snackService.findById(drinkId);
-                for (int i = 0; i < drinkQty; i++) {
-                    billService.addSnack(bill, drink, 1);
-                }
+                billService.addSnack(bill, drink, drinkQty);
+                session.setAttribute("Drink", drink);
+
             }
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", "Error al encontrar algún item.");
@@ -98,12 +97,12 @@ public class SnackWebController {
         }
 
         model.addAttribute("bill", bill);
-        List<PeymentMethod> paymentMethods = paymentMethodService.findByUser(user);
+        List<PaymentMethod> paymentMethods = paymentMethodService.findByUser(user);
         if (paymentMethods.isEmpty()) {
             return "redirect:/paymentMethod/paymentMethod";
         }
 
-        return "redirect:/bills/checkout";
+        return "redirect:/bills/processPayment";
     }
 
     @PostMapping("/add")

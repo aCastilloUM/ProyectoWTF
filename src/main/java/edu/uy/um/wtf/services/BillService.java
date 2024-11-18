@@ -35,6 +35,7 @@ public class BillService {
     public List<Bill> getAll(){
         return billRepository.findAll();
     }
+
     public Bill addSnack(Bill bill, Snack snack, int cuantity){
         if (bill == null || snack == null) {
             return null;

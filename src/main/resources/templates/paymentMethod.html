@@ -40,9 +40,6 @@
                                 <label th:for="${method.id}" th:text="${method.cardNumber}"></label>
                             </div>
                         </div>
-                        <div th:if="${paymentMethods.size() == 0}">
-                            <p>No payment methods available.</p>
-                        </div>
                         <div>
                             <h4>O ingrese un nuevo método de pago:</h4>
                             <div class="form-group">
@@ -50,11 +47,11 @@
                                 <input type="text" class="form-control" name="cardNumber" id="cardNumber" pattern="\d{4} \d{4} \d{4} \d{4}" maxlength="19" oninput="formatCardNumber(this)">
                             </div>
                             <div class="form-group">
-                                <label for="cardHolderName">Nombre del Titular:</label>
-                                <input type="text" class="form-control" name="cardHolderName" id="cardHolderName">
+                                <label for="holderName">Nombre del Titular:</label>
+                                <input type="text" class="form-control" name="holderName" id="holderName">
                             </div>
                             <div class="form-group">
-                                <label for="expiryDate">Fecha de Expiración (MM/YY):</label>
+                                <label for="expiryDate">Fecha de Expiración (MM/yy):</label>
                                 <input type="text" class="form-control" name="expiryDate" id="expiryDate" pattern="\d{2}/\d{2}" maxlength="5" oninput="formatExpiryDate(this)">
                             </div>
                             <div class="form-group">

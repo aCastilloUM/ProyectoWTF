@@ -42,4 +42,5 @@ public class Bill implements Serializable {
 
     @Column(name = "total")
     private double total;
+
 }

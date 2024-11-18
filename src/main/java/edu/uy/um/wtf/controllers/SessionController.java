@@ -1,11 +1,10 @@
 package edu.uy.um.wtf.controllers;
 
 import edu.uy.um.wtf.entities.Movie;
-import edu.uy.um.wtf.entities.PeymentMethod;
+import edu.uy.um.wtf.entities.PaymentMethod;
 import edu.uy.um.wtf.entities.Snack;
 import edu.uy.um.wtf.entities.Ticket;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,11 +17,11 @@ import java.util.List;
 public class SessionController {
 
     @PostMapping("/addPeymentMethod")
-    public String addPeymentMethod(String key, PeymentMethod peymentMethod, HttpSession session) {
-        if (peymentMethod == null) {
+    public String addPeymentMethod(String key, PaymentMethod paymentMethod, HttpSession session) {
+        if (paymentMethod == null) {
             return "redirect:/peymentMethods";
         }
-        session.setAttribute(key, peymentMethod);
+        session.setAttribute(key, paymentMethod);
         return "redirect:/peymentMethods";
     }
 

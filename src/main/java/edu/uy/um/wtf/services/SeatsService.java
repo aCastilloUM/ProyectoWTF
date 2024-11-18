@@ -29,4 +29,7 @@ public class SeatsService {
         seatsRepository.saveAll(seatsToReserve);
     }
 
+    public Seats getSeatById(Long seatId) {
+        return seatsRepository.findById(seatId).orElse(null);
+    }
 }

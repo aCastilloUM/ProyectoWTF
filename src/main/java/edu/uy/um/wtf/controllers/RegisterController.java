@@ -1,12 +1,11 @@
 package edu.uy.um.wtf.controllers;
 
-import edu.uy.um.wtf.entities.PeymentMethod;
+import edu.uy.um.wtf.entities.PaymentMethod;
 import edu.uy.um.wtf.entities.User;
 import edu.uy.um.wtf.services.PaymentMethodService;
 import edu.uy.um.wtf.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,19 +58,19 @@ public class RegisterController {
 
         if (cardNumber != null && !cardNumber.isEmpty() && cardHolderName != null && !cardHolderName.isEmpty() &&
                 expiryDate != null && !expiryDate.isEmpty() && cvv != null && !cvv.isEmpty()) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("MM/yy");
-            Date expirationDate;
-            try {
-                expirationDate = dateFormat.parse(expiryDate);
-            } catch (ParseException e) {
-                redirectAttributes.addFlashAttribute("error", "Fecha de expiración inválida");
-                return "redirect:/register";
-            }
+//            SimpleDateFormat dateFormat = new SimpleDateFormat("MM/yy");
+//            Date expirationDate;
+//            try {
+//                expirationDate = dateFormat.parse(expiryDate);
+//            } catch (ParseException e) {
+//                redirectAttributes.addFlashAttribute("error", "Fecha de expiración inválida");
+//                return "redirect:/register";
+//            }
 
-            PeymentMethod newPaymentMethod = PeymentMethod.builder()
+            PaymentMethod newPaymentMethod = PaymentMethod.builder()
                     .cardNumber(Long.parseLong(cardNumber.replaceAll("\\s", ""))) // Remove spaces and parse as Long
                     .holderName(cardHolderName)
-                    .expirationDate(expirationDate)
+                    .expiryDate(expiryDate)
                     .cvv(cvv)
                     .user(newUser)
                     .build();
