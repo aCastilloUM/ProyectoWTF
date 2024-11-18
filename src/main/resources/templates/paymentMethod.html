@@ -31,14 +31,17 @@
             </div>
             <div class="card">
                 <div class="card-body">
-                    <a th:href="@{/register}" class="text-primary">&#8592; Volver</a>
-                    <form id="paymentMethodForm" th:action="@{/PaymentMethodPost}" method="POST">
+                    <a th:href="@{/snacks/snack}" class="text-primary">&#8592; Volver</a>
+                    <form id="paymentMethodForm" th:action="@{/paymentMethod/paymentMethodPost}" method="POST">
                         <div th:if="${paymentMethods.size() > 0}">
                             <h4>Seleccione un método de pago existente:</h4>
                             <div th:each="method : ${paymentMethods}">
                                 <input type="radio" th:id="${method.id}" th:name="selectedPaymentMethod" th:value="${method.id}">
                                 <label th:for="${method.id}" th:text="${method.cardNumber}"></label>
                             </div>
+                        </div>
+                        <div th:if="${paymentMethods.size() == 0}">
+                            <p>No payment methods available.</p>
                         </div>
                         <div>
                             <h4>O ingrese un nuevo método de pago:</h4>
