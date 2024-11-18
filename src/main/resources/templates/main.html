@@ -93,14 +93,14 @@
             <!-- Selector de horarios -->
             <div class="movie-details mt-3">
                 <h4>Horarios disponibles:</h4>
-                <select class="form-control" id="showtimeDropdown">
+                <select class="form-control" id="showtimeDropdown" onchange="updateSeatsButton(this.value)">
                     <option selected disabled>Seleccione un horario</option>
                 </select>
             </div>
 
             <!-- Botón para seleccionar asientos -->
             <div class="movie-details mt-4">
-                <a href="/seats/showSeats" class="btn btn-primary btn-block">Seleccionar asientos</a>
+                <a id="seatsButton" href="#" class="btn btn-primary btn-block">Seleccionar asientos</a>
             </div>
 
             <!-- Botón para Compra de snacks independiente -->
@@ -116,6 +116,8 @@
         fetch(`/filmshows/movie/${movieId}/filmshows`)
             .then(response => response.json())
             .then(filmShows => {
+                console.log(filmShows);
+
                 const branchSet = new Set();
                 const branchDropdown = document.getElementById("branchDropdown");
                 const showtimeDropdown = document.getElementById("showtimeDropdown");
@@ -124,8 +126,12 @@
                 branchDropdown.innerHTML = '<option selected disabled>Seleccione una sucursal</option>';
                 showtimeDropdown.innerHTML = '<option selected disabled>Seleccione un horario</option>';
 
+                // Añadir opciones de horarios y sucursales
                 filmShows.forEach(filmShow => {
-                    branchSet.add(filmShow.branch.name);
+                    // Asegurarse de que branch.name esté disponible
+                    if (filmShow.branch && filmShow.branch.name) {
+                        branchSet.add(filmShow.branch.name);
+                    }
 
                     // Añadir horarios al select de horarios
                     const showtimeOption = document.createElement("option");
@@ -142,6 +148,12 @@
                 });
             })
             .catch(error => console.error("Error loading film shows:", error));
+    }
+
+
+    function updateSeatsButton(filmShowId) {
+        const seatsButton = document.getElementById("seatsButton");
+        seatsButton.href = `/seats/showSeats/${filmShowId}`;
     }
 </script>
 

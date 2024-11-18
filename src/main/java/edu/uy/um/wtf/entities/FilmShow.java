@@ -5,7 +5,9 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -49,4 +51,8 @@ public class FilmShow implements Serializable {
 
     @Column(name = "duration")
     private int duration;
+
+    @OneToMany(mappedBy = "filmShow", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Seats> seats;
+
 }

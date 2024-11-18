@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/seats")
-public class seatsController {
+public class SeatsController {
 
     @GetMapping("/showSeats")
     public String mostrarAsientos(Model model) {

@@ -11,14 +11,14 @@
         <div class="card-body">
             <h2 class="card-title text-center">Detalles de la Función</h2>
             <div th:if="${filmShow != null}">
-                <p><strong>ID:</strong> <span th:text="${filmShow.id != null ? filmShow.id : 'Nulo'}"></span></p>
-                <p><strong>Fecha:</strong> <span th:text="${filmShow.date != null ? filmShow.date : 'Nulo'}"></span></p>
-                <p><strong>Hora:</strong> <span th:text="${filmShow.time != null ? filmShow.time : 'Nulo'}"></span></p>
-                <p><strong>Sucursal:</strong> <span th:text="${filmShow.branch != null ? filmShow.branch : 'Nulo'}"></span></p>
-                <p><strong>Sala:</strong> <span th:text="${filmShow.room != null ? filmShow.room : 'Nulo'}"></span></p>
-                <p><strong>Efectos Especiales:</strong> <span th:text="${filmShow.specialEffects != null ? filmShow.specialEffects : 'Nulo'}"></span></p>
-                <p><strong>Idioma:</strong> <span th:text="${filmShow.language != null ? filmShow.language : 'Nulo'}"></span></p>
-                <p><strong>Duración:</strong> <span th:text="${filmShow.duration != null ? filmShow.duration : 'Nulo'}"></span></p>
+                <p><strong>ID:</strong> <span th:text="${filmShow.id}"></span></p>
+                <p><strong>Fecha:</strong> <span th:text="${filmShow.date}"></span></p>
+                <p><strong>Hora:</strong> <span th:text="${filmShow.time}"></span></p>
+                <p><strong>Sucursal:</strong> <span th:text="${filmShow.branch.getName()}"></span></p>
+                <p><strong>Sala:</strong> <span th:text="${filmShow.room.getNumber()}"></span></p>
+                <p><strong>Efectos Especiales:</strong> <span th:text="${filmShow.specialEffects}"></span></p>
+                <p><strong>Idioma:</strong> <span th:text="${filmShow.language}"></span></p>
+                <p><strong>Duración:</strong> <span th:text="${filmShow.duration}"></span></p>
             </div>
             <div th:if="${filmShow == null}">
                 <p class="text-danger">Función no encontrada.</p>

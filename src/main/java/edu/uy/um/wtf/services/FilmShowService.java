@@ -1,16 +1,15 @@
 package edu.uy.um.wtf.services;
 
 
-import edu.uy.um.wtf.entities.Branch;
-import edu.uy.um.wtf.entities.FilmShow;
-import edu.uy.um.wtf.entities.Movie;
-import edu.uy.um.wtf.entities.Room;
+import edu.uy.um.wtf.entities.*;
 import edu.uy.um.wtf.exceptions.EntityNotFoundException;
 import edu.uy.um.wtf.repository.FilmShowRepository;
+import edu.uy.um.wtf.repository.SeatsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +19,9 @@ public class FilmShowService {
 
     @Autowired
     private FilmShowRepository filmShowRepository;
+
+    @Autowired
+    private SeatsRepository seatsRepository;
 
     public FilmShow addFunction(Date Date, LocalTime time, Movie movie, Branch branch, Room room, String Special_Effects, String Language) {
         if (Date == null || time == null || movie == null || room == null || Special_Effects == null || Language == null || branch == null) {
@@ -39,9 +41,33 @@ public class FilmShowService {
                 .language(Language)
                 .duration(movie.getDuration())
                 .build();
-        System.out.println(filmShow.getMovie());
-        return filmShowRepository.save(filmShow);
+
+        filmShowRepository.save(filmShow);
+        createSeatsForFilmShow(filmShow);
+
+
+        return filmShow;
     }
+
+    private void createSeatsForFilmShow(FilmShow filmShow) {
+        // Crear los asientos (15 filas por 10 columnas)
+        List<Seats> seats = new ArrayList<>();
+        for (int row = 1; row <= 15; row++) {
+            for (int col = 1; col <= 10; col++) {
+                Seats seat = new Seats();
+                seat.setRow(row);
+                seat.setColumn(col);
+                seat.setOccupied(false);  // Inicializa como disponible
+                seat.setFilmShow(filmShow);  // Relaciona con la FilmShow
+                seats.add(seat);
+            }
+        }
+
+        // Guardar los asientos en la base de datos
+        seatsRepository.saveAll(seats);
+    }
+
+
 
     public Optional<FilmShow> findById(Long id) {
         if (id == null) {

@@ -208,7 +208,7 @@ public class FilmShowWebController {
     @GetMapping("/info/{id}")
     public String getFilmShowInfo(@PathVariable Long id, Model model) {
         Optional<FilmShow> filmShow = filmShowService.findById(id);
-        if (filmShow.isPresent()) {
+        if (filmShow.isPresent() && filmShow.get().getBranch()!= null && filmShow.get().getRoom()!= null && filmShow.get().getMovie()!= null && filmShow.get().getLanguage() != null && filmShow.get().getSpecialEffects() != null) {
             model.addAttribute("filmShow", filmShow.get());
         } else {
             model.addAttribute("error", "FilmShow not found");
