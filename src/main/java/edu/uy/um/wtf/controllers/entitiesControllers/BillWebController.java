@@ -29,30 +29,6 @@ public class BillWebController {
         return "bills/list";
     }
 
-    @GetMapping("/byClient{Client}")
-    public String findByClient(@PathVariable("Client") User client, Model model) {
-        try {
-            List<Bill> bills = billService.findByClient(client);
-            model.addAttribute("bills", bills);
-            return "bills/list";
-        } catch (EntityNotFoundException e) {
-            model.addAttribute("error", "Client not found");
-            return "error";
-        }
-    }
-
-    @GetMapping("/byTotal{Total}")
-    public String findByTotal(@PathVariable("Total") int total, Model model) {
-        try {
-            List<Bill> bills = billService.findByTotal(total);
-            model.addAttribute("bills", bills);
-            return "bills/list";
-        } catch (EntityNotFoundException e) {
-            model.addAttribute("error", "Total not found");
-            return "error";
-        }
-    }
-
     @PostMapping("/paymentSuccess")
     public String paymentSuccess(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
@@ -108,5 +84,4 @@ public class BillWebController {
         model.addAttribute("seats", seats);
         return "/paymentSuccess";
     }
-
 }

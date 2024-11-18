@@ -46,9 +46,6 @@ public class AdminWebController {
         return "adminAdmin"; // Nombre de la vista debe coincidir con el archivo HTML sin extensión
     }
 
-
-
-
     @GetMapping("/info/{id}")
     public String getAdminInfo(@PathVariable("id") Long id, Model model) {
         Optional<Admin> admin = adminService.getById(id); // Ajusta el método según tu servicio
@@ -61,36 +58,6 @@ public class AdminWebController {
         }
     }
 
-    //crear una findByUsername
-    @GetMapping("/byUsername/{username}")
-    public String findByUsername(@PathVariable("username") String username, Model model) {
-        try {
-            Optional<Admin> admin = adminService.findByUsername(username);
-            if (admin.isPresent()) {
-                model.addAttribute("admin", admin.get());
-                return "adminInfo";
-            } else {
-                model.addAttribute("error", "Username not found");
-                return "error";
-            }
-        } catch (EntityNotFoundException e) {
-            model.addAttribute("error", "Username not found");
-            return "adminAdmin";
-        }
-    }
-
-    @GetMapping("/byFirstName&LastName{firstName}{lastName}")
-    public String findByFirstNameAndLastName(@PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName, Model model){
-        try {
-            Admin admin = (Admin) adminService.findByFirstNameAndLastName(firstName, lastName);
-            model.addAttribute("admin", admin);
-            return "adminDetail";
-        } catch (EntityNotFoundException e) {
-            model.addAttribute("error", "First name and last name not found");
-            return "error";
-        }
-    }
-
     @PostMapping("/add")
     public String addAdmin(@RequestParam Long id, @RequestParam String firstName,
                            @RequestParam String lastName, @RequestParam("birthDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date birthdate,
@@ -100,7 +67,7 @@ public class AdminWebController {
             Admin admin = adminService. addAdmin(id, firstName, lastName, birthdate,mail, username, password);
             model.addAttribute("admin", admin);
             session.setAttribute("admin", admin);
-            return "adminAdmin";
+            return "mainAdmin";
         } catch (InvalidDataException e) {
             redirectAttributes.addFlashAttribute("error", "Invalid data");
             return "error";
@@ -116,7 +83,7 @@ public class AdminWebController {
             model.addAttribute("error", "Id not found");
             return "error";
         }
-        return "adminAdmin";
+        return "mainAdmin";
     }
 
     @GetMapping("/movieAdmin")
@@ -144,7 +111,4 @@ public class AdminWebController {
     public String shoMainAdminPage() {
         return "mainAdmin";
     }
-
-
-
 }

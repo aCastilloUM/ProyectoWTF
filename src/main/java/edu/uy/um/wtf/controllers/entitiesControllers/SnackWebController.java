@@ -59,30 +59,6 @@ public class SnackWebController {
         return "snacks/list";
     }
 
-    @GetMapping("/byName/{Name}")
-    public String findByName(@PathVariable("Name") String name, Model model) {
-        try {
-            Snack snack = snackService.findByName(name).orElseThrow(EntityNotFoundException::new);
-            model.addAttribute("snack", snack);
-            return "snacks/detail";
-        } catch (EntityNotFoundException e) {
-            model.addAttribute("error", "Name not found");
-            return "error";
-        }
-    }
-
-    @GetMapping("/byId/{Id}")
-    public String findById(@PathVariable("Id") Long id, Model model) {
-        try {
-            Snack snack = snackService.findById(id);
-            model.addAttribute("snack", snack);
-            return "snacks/detail";
-        } catch (EntityNotFoundException e) {
-            model.addAttribute("error", "Id not found");
-            return "error";
-        }
-    }
-
     @PostMapping("/purchase")
     public String purchaseSnacks(@RequestParam(required = false) Long comboId, @RequestParam(required = false) int comboQty,
                                  @RequestParam(required = false) Long snackPopId, @RequestParam(required = false) int snackPopQty,
@@ -130,9 +106,6 @@ public class SnackWebController {
         return "redirect:/bills/checkout";
     }
 
-
-
-
     @PostMapping("/add")
     public String addSnack(@RequestParam String name, @RequestParam double price, @RequestParam String type, Model model) {
         try {
@@ -140,7 +113,7 @@ public class SnackWebController {
         } catch (Exception e) {
             model.addAttribute("errorMessage", "Error al agregar el snack");
         }
-        return "snacksAdmin";
+        return "mainAdmin";
     }
 
     @GetMapping("/update{Id}{Name}{Price}{Stock}")
@@ -167,7 +140,7 @@ public class SnackWebController {
         } catch (Exception e) {
             model.addAttribute("errorMessage", "Error al eliminar el snack");
         }
-        return "snacksAdmin";
+        return "mainAdmin";
     }
 
     @GetMapping("/info/{id}")

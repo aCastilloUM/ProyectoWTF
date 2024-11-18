@@ -24,46 +24,6 @@ public class MovieRestController {
         return ResponseEntity.ok(peliculas);
     }
 
-    @GetMapping("/byTitle/{title}")
-    public ResponseEntity<?> findByTitle(@PathVariable("title") String title) {
-        try {
-            Movie laPelicula = movieService.findByTitle(title);
-            return ResponseEntity.ok(laPelicula);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(404).body(new ErrorResponse("Title not found"));
-        }
-    }
-
-    @GetMapping("/byDirector/{director}")
-    public ResponseEntity<?> findByDirector(@PathVariable("director") String director) {
-        try {
-            List<Movie> peliculas = movieService.findByDirector(director);
-            return ResponseEntity.ok(peliculas);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(404).body(new ErrorResponse("Director not found"));
-        }
-    }
-
-    @GetMapping("/byGenre/{genre}")
-    public ResponseEntity<?> findByGenre(@PathVariable("genre") String genre) {
-        try {
-            List<Movie> peliculas = movieService.findByGenre(genre);
-            return ResponseEntity.ok(peliculas);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(404).body(new ErrorResponse("Genre not found"));
-        }
-    }
-
-    @GetMapping("/byId/{id}")
-    public ResponseEntity<?> findById(@PathVariable("id") Long id) {
-        try {
-            Movie laPelicula = movieService.findById(id).get();
-            return ResponseEntity.ok(laPelicula);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(404).body(new ErrorResponse("Id not found"));
-        }
-    }
-
     @PostMapping("/update")
     public ResponseEntity<?> updateMovie(@RequestBody Movie movie) {
         Movie updatedMovie = movieService.updateMovie(movie);

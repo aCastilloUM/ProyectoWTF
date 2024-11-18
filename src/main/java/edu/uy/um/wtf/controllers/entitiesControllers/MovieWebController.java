@@ -33,43 +33,6 @@ public class MovieWebController {
         return "main";
     }
 
-
-    @GetMapping("/byTitle/{title}")
-    public String findByTitle(@PathVariable("title") String title, Model model) {
-        try {
-            Movie laPelicula = movieService.findByTitle(title);
-            model.addAttribute("pelicula", laPelicula);
-            return "movies/detail";
-        } catch (EntityNotFoundException e) {
-            model.addAttribute("error", "Title not found");
-            return "error";
-        }
-    }
-
-    @GetMapping("/byDirector/{director}")
-    public String findByDirector(@PathVariable("director") String director, Model model) {
-        try {
-            List<Movie> peliculas = movieService.findByDirector(director);
-            model.addAttribute("peliculas", peliculas);
-            return "movies/list";
-        } catch (EntityNotFoundException e) {
-            model.addAttribute("error", "Director not found");
-            return "error";
-        }
-    }
-
-    @GetMapping("/byGenre/{genre}")
-    public String findByGenre(@PathVariable("genre") String genre, Model model) {
-        try {
-            List<Movie> peliculas = movieService.findByGenre(genre);
-            model.addAttribute("peliculas", peliculas);
-            return "movies/list";
-        } catch (EntityNotFoundException e) {
-            model.addAttribute("error", "Genre not found");
-            return "error";
-        }
-    }
-
     @GetMapping("/movies/{movieId}")
     public String getFilmShowsByMovie(@PathVariable Long movieId, Model model) {
         Optional<Movie> movieOpt = movieService.findById(movieId);
@@ -104,10 +67,10 @@ public class MovieWebController {
             if (newMovie == null) {
                 throw new InvalidDataException("Invalid Data");
             }
-            return "movieAdmin";
+            return "mainAdmin";
         } catch (InvalidDataException e) {
             model.addAttribute("error", "Invalid data");
-            return "movieAdmin";
+            return "mainAdmin";
         }
     }
 
@@ -115,7 +78,7 @@ public class MovieWebController {
     public String deleteMovie(@RequestParam Long id, Model model) {
         try {
             movieService.deleteMovie(id);
-            return "movieAdmin";
+            return "mainAdmin";
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", "Id not found");
             return "error";
@@ -134,9 +97,6 @@ public class MovieWebController {
             model.addAttribute("error", "Id not found");
             return "error";
         }
-
-
-
     }
 
     @GetMapping("/info/{id}")
@@ -150,6 +110,4 @@ public class MovieWebController {
             return "error";
         }
     }
-
-
 }

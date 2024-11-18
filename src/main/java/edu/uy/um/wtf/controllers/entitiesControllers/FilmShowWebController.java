@@ -34,7 +34,6 @@ public class FilmShowWebController {
     @Autowired
     private RoomService roomService;
 
-
     @GetMapping("/movie/{movieId}/filmshows")
     @ResponseBody
     public List<FilmShow> getFilmShowsForMovie(@PathVariable Long movieId, Model model) {
@@ -47,7 +46,6 @@ public class FilmShowWebController {
         // Devuelve un fragmento Thymeleaf que renderiza las funciones
         return filmShows;
     }
-
 
     @GetMapping("/all")
     public String getAll(Model model) {
@@ -64,86 +62,6 @@ public class FilmShowWebController {
             return "main";
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", "Id not found");
-            return "error";
-        }
-    }
-
-    @GetMapping("/byDate{Date}")
-    public String findByDate(@PathVariable("Date") Date date, Model model) {
-        if (date == null) {
-            model.addAttribute("error", "Date not found");
-            return "error";
-        }
-        try {
-            List<FilmShow> funciones = filmShowService.findByDate(date);
-            model.addAttribute("funciones", funciones);
-            return "filmshows/list";
-        } catch (EntityNotFoundException e) {
-            model.addAttribute("error", "Date not found");
-            return "error";
-        }
-    }
-
-    @GetMapping("/byMovie{Movie}")
-    public String findByMovie(@PathVariable("Movie") Movie movie, Model model) {
-        if (movie == null) {
-            model.addAttribute("error", "Movie not found");
-            return "error";
-        }
-        try {
-            List<FilmShow> funciones = filmShowService.findByMovie(movie);
-            model.addAttribute("funciones", funciones);
-            return "filmshows/list";
-        } catch (EntityNotFoundException e) {
-            model.addAttribute("error", "Movie not found");
-            return "error";
-        }
-    }
-
-    @GetMapping("/byRoom{Room}")
-    public String findByRoom(@PathVariable("Room") Room room, Model model) {
-        if (room == null) {
-            model.addAttribute("error", "Room not found");
-            return "error";
-        }
-        try {
-            List<FilmShow> funciones = filmShowService.findByRoom(room);
-            model.addAttribute("funciones", funciones);
-            return "filmshows/list";
-        } catch (EntityNotFoundException e) {
-            model.addAttribute("error", "Room not found");
-            return "error";
-        }
-    }
-
-    @GetMapping("/bySpecialEffects{SpecialEffects}")
-    public String findBySpecialEffects(@PathVariable("SpecialEffects") String specialEffects, Model model) {
-        if (specialEffects == null || specialEffects.isEmpty()) {
-            model.addAttribute("error", "SpecialEffects not found");
-            return "error";
-        }
-        try {
-            List<FilmShow> funciones = filmShowService.findBySpecialEffects(specialEffects);
-            model.addAttribute("funciones", funciones);
-            return "filmshows/list";
-        } catch (EntityNotFoundException e) {
-            model.addAttribute("error", "SpecialEffects not found");
-            return "error";
-        }
-    }
-
-    @GetMapping("/byLanguage{Language}")
-    public String findByLanguage(@PathVariable("Language") String language, Model model) {
-        if (language == null || language.isEmpty()) {
-            model.addAttribute("error", "Language not found");
-            return "error";
-        }
-        try {
-            List<FilmShow> funciones = filmShowService.findByLanguage(language);
-            model.addAttribute("funciones", funciones);
-            return "filmshows/list";
-        } catch (EntityNotFoundException e) {
-            model.addAttribute("error", "Language not found");
             return "error";
         }
     }
@@ -194,8 +112,7 @@ public class FilmShowWebController {
             model.addAttribute("errorMessage", "Error al agregar la función");
             return "mainAdmin";
         }
-
-        return "filmshowAdmin";
+        return "mainAdmin";
     }
 
     @GetMapping
@@ -224,6 +141,6 @@ public class FilmShowWebController {
         } catch (Exception e) {
             model.addAttribute("errorMessage", "Error al eliminar la funcion");
         }
-        return "filmshowAdmin";
+        return "mainAdmin";
     }
 }

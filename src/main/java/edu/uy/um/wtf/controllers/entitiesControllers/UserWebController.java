@@ -89,32 +89,6 @@ public class UserWebController {
         return "userList";
     }
 
-
-
-    @GetMapping("/byId/{id}")
-    public String findById(@PathVariable("id") Long id, Model model){
-        try {
-            User user = userService.findById(id).get();
-            model.addAttribute("user", user);
-            return "register";
-        } catch (EntityNotFoundException e) {
-            model.addAttribute("error", "Id not found");
-            return "error";
-        }
-    }
-
-    @GetMapping("/byEmail{email}")
-    public String findByEmail(@PathVariable("email") String email, Model model){
-        try {
-            User user = userService.findByEmail(email).get();
-            model.addAttribute("user", user);
-            return "users/detail";
-        } catch (EntityNotFoundException e) {
-            model.addAttribute("error", "Email not found");
-            return "error";
-        }
-    }
-
     @GetMapping("/add")
     public String addUser(@RequestParam Long id, @RequestParam String firstName,
                           @RequestParam String lastName, @RequestParam("birthDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date birthDate,
